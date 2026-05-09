@@ -49,7 +49,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full overflow-hidden bg-brand-dark"
+      className="relative min-h-screen w-full overflow-hidden bg-brand-dark wave-divider-bottom"
     >
       {/* ─── Main Layout: 60/40 Split on Desktop ─── */}
       <div className="relative flex min-h-screen flex-col lg:flex-row">

@@ -67,7 +67,7 @@ export function NewsletterSection() {
 
   return (
     <section
-      className="relative py-20 sm:py-28 overflow-hidden"
+      className="relative py-20 sm:py-28 overflow-hidden noise-overlay bg-radial-glow"
       style={{ backgroundColor: "#EEE8DC" }}
       aria-labelledby="newsletter-heading"
     >

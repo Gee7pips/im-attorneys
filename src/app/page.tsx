@@ -25,6 +25,8 @@ import { BackToTop } from "@/components/im/BackToTop";
 import { NewsletterSection } from "@/components/im/NewsletterSection";
 import { CookieConsent } from "@/components/im/CookieConsent";
 import { TrustBadges } from "@/components/im/TrustBadges";
+import { TrackRecord } from "@/components/im/TrackRecord";
+import { QuickConsultation } from "@/components/im/QuickConsultation";
 
 export default function Home() {
   return (
@@ -78,6 +80,9 @@ export default function Home() {
           <Testimonials />
         </section>
 
+        {/* Track Record */}
+        <TrackRecord />
+
         {/* Legal Insights */}
         <LegalInsights />
 
@@ -100,6 +105,7 @@ export default function Home() {
       <Footer />
 
       {/* Floating Elements */}
+      <QuickConsultation />
       <WhatsAppButton />
       <BackToTop />
       <CookieConsent />

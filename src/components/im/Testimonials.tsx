@@ -103,7 +103,7 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative py-20 md:py-28 bg-brand-cream overflow-hidden"
+      className="relative py-20 md:py-28 bg-brand-cream overflow-hidden noise-overlay corner-gold-tl corner-gold-br"
     >
       {/* Subtle decorative elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
