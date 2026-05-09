@@ -1,11 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Scale, Shield, Gavel, Building2, ArrowRight } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { Scale, Shield, Gavel, Building2, ArrowRight, Sparkles } from "lucide-react";
 import {
   ScrollReveal,
   StaggerContainer,
   staggerChildVariants,
+  CountUp,
   GoldLine,
 } from "@/components/im/ScrollReveal";
 
@@ -17,6 +19,9 @@ interface CaseResult {
   title: string;
   outcome: string;
   result: string;
+  numericValue: number;
+  suffix: string;
+  prefix: string;
   isMonetary: boolean;
   badgeColor: "green" | "gold";
 }
@@ -26,9 +31,11 @@ const caseResults: CaseResult[] = [
     practice: "Family Law",
     icon: Scale,
     title: "High-Net-Worth Divorce Settlement",
-    outcome:
-      "Successfully negotiated a comprehensive divorce settlement involving properties across three provinces, business interests, and international custody arrangements.",
+    outcome: "Comprehensive settlement across three provinces with international custody arrangements.",
     result: "R12.5M",
+    numericValue: 12.5,
+    suffix: "M",
+    prefix: "R",
     isMonetary: true,
     badgeColor: "green",
   },
@@ -36,9 +43,11 @@ const caseResults: CaseResult[] = [
     practice: "RAF Claims",
     icon: Shield,
     title: "Road Accident Fund Claim",
-    outcome:
-      "Secured maximum compensation for a client who suffered catastrophic injuries in a head-on collision, including future medical expenses and loss of earnings.",
+    outcome: "Maximum compensation for catastrophic injuries including future medical expenses.",
     result: "R8.2M",
+    numericValue: 8.2,
+    suffix: "M",
+    prefix: "R",
     isMonetary: true,
     badgeColor: "green",
   },
@@ -46,9 +55,11 @@ const caseResults: CaseResult[] = [
     practice: "Criminal Law",
     icon: Gavel,
     title: "Acquittal in Fraud Trial",
-    outcome:
-      "Successfully defended a corporate executive against 47 counts of fraud, securing a full acquittal after a protracted 8-month trial.",
+    outcome: "Full acquittal after defending against 47 counts over an 8-month trial.",
     result: "Acquitted",
+    numericValue: 0,
+    suffix: "",
+    prefix: "",
     isMonetary: false,
     badgeColor: "gold",
   },
@@ -56,9 +67,11 @@ const caseResults: CaseResult[] = [
     practice: "Commercial Law",
     icon: Building2,
     title: "Commercial Lease Dispute",
-    outcome:
-      "Negotiated favorable settlement in a R15M commercial lease dispute between a property developer and national retail chain.",
-    result: "R15M Settled",
+    outcome: "Favorable settlement in a R15M commercial lease dispute.",
+    result: "R15M",
+    numericValue: 15,
+    suffix: "M",
+    prefix: "R",
     isMonetary: true,
     badgeColor: "gold",
   },
@@ -66,9 +79,11 @@ const caseResults: CaseResult[] = [
     practice: "Claims Against State",
     icon: Shield,
     title: "Wrongful Arrest Claim",
-    outcome:
-      "Obtained substantial damages for a client wrongfully arrested and detained for 72 hours without cause, including trauma compensation.",
+    outcome: "Substantial damages for wrongful arrest including trauma compensation.",
     result: "R2.8M",
+    numericValue: 2.8,
+    suffix: "M",
+    prefix: "R",
     isMonetary: true,
     badgeColor: "green",
   },
@@ -76,78 +91,208 @@ const caseResults: CaseResult[] = [
     practice: "General Litigation",
     icon: Scale,
     title: "Complex Debt Recovery",
-    outcome:
-      "Recovered outstanding debts totalling R4.5M across multiple jurisdictions through strategic litigation and negotiation.",
-    result: "R4.5M Recovered",
+    outcome: "Recovered outstanding debts across multiple jurisdictions.",
+    result: "R4.5M",
+    numericValue: 4.5,
+    suffix: "M",
+    prefix: "R",
     isMonetary: true,
     badgeColor: "gold",
   },
 ];
 
-/* ─── Case Card ─────────────────────────────────────────────────── */
+/* ─── Diamond Card ──────────────────────────────────────────────── */
 
-function CaseCard({ caseData }: { caseData: CaseResult }) {
+function DiamondCard({
+  caseData,
+  index,
+}: {
+  caseData: CaseResult;
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
   const Icon = caseData.icon;
+  const isOdd = index % 2 === 1;
 
   return (
     <motion.div
-      className="card-gradient-border card-hover-lift corner-gold-tl corner-gold-br"
-      variants={staggerChildVariants}
+      ref={ref}
+      className="relative flex items-center justify-center"
+      style={{
+        width: "clamp(180px, 28vw, 240px)",
+        height: "clamp(180px, 28vw, 240px)",
+        marginTop: isOdd ? "clamp(-40px, -5vw, -60px)" : "0",
+      }}
+      initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
+      animate={
+        isInView
+          ? { opacity: 1, scale: 1, rotate: 45 }
+          : { opacity: 0, scale: 0.5, rotate: 45 }
+      }
+      transition={{
+        duration: 0.7,
+        delay: index * 0.12,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+      whileHover={{
+        y: -12,
+        transition: { duration: 0.35, ease: "easeOut" },
+      }}
+      aria-label={`${caseData.practice}: ${caseData.title} — ${caseData.result}`}
     >
-      <div className="relative bg-white p-6">
-        {/* Top gold accent line */}
-        <div className="absolute top-0 left-6 right-6 h-0.5 bg-gradient-to-r from-brand-gold/0 via-brand-gold to-brand-gold/0" />
+      {/* Golden glow beneath on hover */}
+      <motion.div
+        className="absolute inset-0 rounded-sm"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(198,168,75,0.35) 0%, rgba(198,168,75,0.1) 50%, transparent 80%)",
+          filter: "blur(18px)",
+          transform: "rotate(45deg)",
+        }}
+        initial={{ opacity: 0 }}
+        whileHover={{ opacity: 1 }}
+        transition={{ duration: 0.35 }}
+      />
 
-        {/* Practice area badge */}
-        <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-brand-gold/30 bg-brand-gold/5 px-3 py-1">
-          <Icon className="h-3.5 w-3.5 text-brand-gold" strokeWidth={1.8} />
-          <span className="font-body text-xs font-medium text-brand-gold">
-            {caseData.practice}
-          </span>
-        </div>
+      {/* Diamond container (rotated 45deg) */}
+      <motion.div
+        className="relative w-full h-full cursor-pointer"
+        style={{ transform: "rotate(45deg)" }}
+        whileHover={{
+          boxShadow:
+            "0 0 40px rgba(198,168,75,0.3), 0 0 80px rgba(198,168,75,0.1), inset 0 0 30px rgba(198,168,75,0.05)",
+        }}
+        transition={{ duration: 0.35 }}
+      >
+        {/* Gold shimmer border on hover */}
+        <motion.div
+          className="absolute inset-0 rounded-sm overflow-hidden"
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.35 }}
+        >
+          <motion.div
+            className="absolute rounded-sm"
+            style={{
+              inset: "-2px",
+              background:
+                "conic-gradient(from 0deg, #C6A84B, #E4D49A, #C6A84B, #E4D49A, #C6A84B)",
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          />
+        </motion.div>
 
-        {/* Case title */}
-        <h3 className="font-body text-lg font-semibold text-brand-dark mb-3">
-          {caseData.title}
-        </h3>
-
-        {/* Outcome text */}
-        <p className="font-body text-sm leading-relaxed text-brand-body mb-5">
-          {caseData.outcome}
-        </p>
-
-        {/* Gold separator */}
-        <div className="h-px bg-gradient-to-r from-brand-gold/0 via-brand-gold/40 to-brand-gold/0 mb-5" />
-
-        {/* Result highlight */}
-        <div className="flex items-center justify-between">
-          {caseData.isMonetary ? (
-            <span className="font-display font-bold text-xl text-gold-gradient hover-glow-text-gold">
-              {caseData.result}
-            </span>
-          ) : (
-            <span className="font-body font-semibold text-green-600">
-              {caseData.result}
-            </span>
-          )}
-
-          {/* Status dot indicator */}
-          <div
-            className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
-              caseData.badgeColor === "green"
-                ? "bg-green-50 text-green-700 border border-green-200"
-                : "bg-brand-gold/10 text-brand-gold border border-brand-gold/30"
-            }`}
+        {/* Diamond face */}
+        <div
+          className="relative w-full h-full rounded-sm overflow-hidden flex items-center justify-center"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(26,50,80,0.85) 0%, rgba(13,27,42,0.95) 50%, rgba(26,50,80,0.85) 100%)",
+            border: "1px solid rgba(198,168,75,0.3)",
+          }}
+        >
+          {/* Counter-rotated content */}
+          <motion.div
+            className="flex flex-col items-center justify-center text-center px-3"
+            style={{ transform: "rotate(-45deg)" }}
+            whileHover={{ scale: 1.06 }}
+            transition={{ duration: 0.3 }}
           >
+            {/* Practice area icon */}
+            <div
+              className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-full"
+              style={{
+                background: "rgba(198,168,75,0.15)",
+                border: "1px solid rgba(198,168,75,0.4)",
+              }}
+            >
+              <Icon
+                className="h-3.5 w-3.5"
+                style={{ color: "#C6A84B" }}
+                strokeWidth={1.8}
+              />
+            </div>
+
+            {/* Practice area name */}
             <span
-              className={`h-1.5 w-1.5 rounded-full ${
-                caseData.badgeColor === "green" ? "bg-green-500" : "bg-brand-gold"
-              }`}
+              className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-widest mb-1"
+              style={{ color: "#E4D49A" }}
+            >
+              {caseData.practice}
+            </span>
+
+            {/* Divider line */}
+            <div
+              className="w-8 h-px mb-1.5"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, rgba(198,168,75,0.6), transparent)",
+              }}
             />
-            {caseData.badgeColor === "green" ? "Awarded" : "Resolved"}
-          </div>
+
+            {/* Case title */}
+            <span
+              className="font-body text-[11px] sm:text-xs font-medium leading-tight mb-1.5"
+              style={{ color: "rgba(239,232,220,0.9)" }}
+            >
+              {caseData.title}
+            </span>
+
+            {/* Result amount — large gold text */}
+            {caseData.isMonetary ? (
+              <span
+                className="font-display font-bold text-base sm:text-lg"
+                style={{
+                  background: "linear-gradient(135deg, #C6A84B, #E4D49A, #C6A84B)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {caseData.prefix}
+                <CountUp
+                  end={caseData.numericValue}
+                  suffix={caseData.suffix}
+                  prefix=""
+                  duration={2.2}
+                  className="font-display font-bold text-base sm:text-lg"
+                  // Override color with inline style via wrapper
+                />
+                {!isInView && `${caseData.prefix}0${caseData.suffix}`}
+              </span>
+            ) : (
+              <span
+                className="font-body text-sm font-bold"
+                style={{ color: "#C6A84B" }}
+              >
+                {caseData.result}
+              </span>
+            )}
+
+            {/* Badge pill */}
+            <div
+              className="mt-1.5 flex items-center gap-1 rounded-full px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider"
+              style={{
+                background:
+                  caseData.badgeColor === "green"
+                    ? "rgba(34,197,94,0.15)"
+                    : "rgba(198,168,75,0.15)",
+                border: `1px solid ${
+                  caseData.badgeColor === "green"
+                    ? "rgba(34,197,94,0.4)"
+                    : "rgba(198,168,75,0.4)"
+                }`,
+                color:
+                  caseData.badgeColor === "green" ? "#4ade80" : "#E4D49A",
+              }}
+            >
+              <Sparkles className="h-2 w-2" />
+              {caseData.badgeColor === "green" ? "Awarded" : "Resolved"}
+            </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -164,56 +309,125 @@ export function CaseResults() {
   return (
     <section
       id="case-results"
-      className="relative w-full overflow-hidden bg-white bg-dot-pattern py-20 sm:py-28"
+      className="relative w-full overflow-hidden py-24 sm:py-32"
+      style={{ backgroundColor: "#0D1B2A" }}
       aria-label="Notable Case Results"
     >
-      {/* Top gold accent line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
+      {/* ── Noise texture overlay ── */}
+      <div className="noise-overlay absolute inset-0 pointer-events-none z-[1]" />
 
-      {/* Ornament divider at top */}
-      <div className="ornament-divider">
-        <div className="ornament-diamond" />
+      {/* ── Subtle diagonal gold lines ── */}
+      <div className="absolute inset-0 pointer-events-none z-[1] opacity-[0.03]">
+        <svg
+          className="w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern
+              id="diagonal-gold"
+              patternUnits="userSpaceOnUse"
+              width="80"
+              height="80"
+              patternTransform="rotate(45)"
+            >
+              <line
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="80"
+                stroke="#C6A84B"
+                strokeWidth="1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#diagonal-gold)" />
+        </svg>
       </div>
 
-      {/* Subtle radial glow */}
+      {/* ── Top gold accent line ── */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        className="absolute top-0 left-0 right-0 h-px z-10"
         style={{
+          background:
+            "linear-gradient(90deg, transparent, rgba(198,168,75,0.4), transparent)",
+        }}
+      />
+
+      {/* ── Radial glow accents ── */}
+      <div
+        className="absolute pointer-events-none z-[1]"
+        style={{
+          top: "10%",
+          right: "-10%",
+          width: "500px",
+          height: "500px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(198,168,75,0.06) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none z-[1]"
+        style={{
+          bottom: "10%",
+          left: "-10%",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50%",
           background:
             "radial-gradient(circle, rgba(198,168,75,0.04) 0%, transparent 70%)",
         }}
       />
 
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <ScrollReveal className="text-center mb-14 sm:mb-20">
+      {/* ── Content ── */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ── Section Header ── */}
+        <ScrollReveal className="text-center mb-16 sm:mb-24">
           <div className="flex flex-col items-center">
             <GoldLine width={60} className="mb-6" />
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark mb-4">
-              Notable Case Results
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+              <span className="text-gold-gradient">Notable Case Results</span>
             </h2>
-            <p className="font-body text-base sm:text-lg text-brand-body max-w-2xl leading-relaxed">
+            <p className="font-body text-base sm:text-lg max-w-2xl leading-relaxed" style={{ color: "rgba(239,232,220,0.5)" }}>
               Real outcomes. Real justice. These represent a selection of matters we
-              have successfully resolved.
+              have successfully resolved for our clients.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Case Cards Grid */}
-        <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          staggerDelay={0.1}
-        >
-          {caseResults.map((caseData) => (
-            <CaseCard key={caseData.title} caseData={caseData} />
-          ))}
-        </StaggerContainer>
+        {/* ── Diamond Mosaic Grid ── */}
+        {/* Desktop: 3 per row, Tablet: 2 per row, Mobile: 1 per row */}
+        <div className="flex flex-col items-center gap-2 sm:gap-4">
+          {/* Row 1: 3 diamonds (desktop), 2 (tablet), 1 (mobile) */}
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10">
+            {caseResults.slice(0, 3).map((caseData, i) => (
+              <DiamondCard key={caseData.title} caseData={caseData} index={i} />
+            ))}
+          </div>
 
-        {/* Bottom CTA */}
-        <ScrollReveal className="mt-14 sm:mt-20">
+          {/* Row 2: 3 diamonds (desktop), 2 (tablet), 1 (mobile) — offset */}
+          <div
+            className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10"
+            style={{ marginTop: "clamp(-60px, -8vw, -80px)" }}
+          >
+            {caseResults.slice(3, 6).map((caseData, i) => (
+              <DiamondCard
+                key={caseData.title}
+                caseData={caseData}
+                index={i + 3}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ── Bottom CTA ── */}
+        <ScrollReveal className="mt-16 sm:mt-24">
           <div className="flex flex-col items-center text-center gap-5">
-            <p className="font-body text-brand-body text-base sm:text-lg">
+            <p
+              className="font-body text-base sm:text-lg"
+              style={{ color: "rgba(239,232,220,0.6)" }}
+            >
               Every case is unique. Let us discuss yours.
             </p>
             <a
@@ -226,6 +440,31 @@ export function CaseResults() {
             </a>
           </div>
         </ScrollReveal>
+
+        {/* ── Gold ornament line ── */}
+        <div className="mt-16 sm:mt-20">
+          <div
+            className="h-px mx-auto max-w-xs"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, rgba(198,168,75,0.5), transparent)",
+            }}
+          />
+          <div className="flex justify-center mt-2">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 0L12 6L6 12L0 6L6 0Z"
+                fill="rgba(198,168,75,0.3)"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
     </section>
   );

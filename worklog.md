@@ -890,3 +890,160 @@ Priority Recommendations for Next Phase:
 5. LOW: Add client-side cookie consent management API
 6. LOW: Add more micro-interactions (parallax depth layers, 3D tilt on cards)
 7. LOW: Add real-time consultation booking calendar integration
+
+---
+Task ID: 3-a
+Agent: Component Builder
+Task: Upgrade LegalResources and FeesAndBilling — eliminate rectangular cards, create non-rectangular premium interactive components
+
+Work Log:
+- Completely rewrote LegalResources.tsx ("Interactive Legal Library"):
+  - Dark navy (#0D1B2A) background with subtle gold grid pattern (CSS linear-gradient grid lines)
+  - Radial gold glow from center for depth
+  - 18 floating gold particle animations (radial-gradient circles with particleFloat keyframe)
+  - 6 resources displayed in staggered organic layout (alternating 0px/28px Y-offsets)
+  - Each resource rendered as a hexagonal card via CSS clip-path: polygon() hexagon shape
+  - Hex cards sized 200×230px (mobile) → 280×322px (desktop)
+  - Mouse-tracking 3D perspective tilt on each hex (framer-motion useMotionValue + useTransform, ±12deg rotateX/Y)
+  - Hover: card lifts -12px translateY, gold glow blur appears underneath, conic-gradient border illuminates, icon scales 125%
+  - Glassmorphism background (rgba navy gradient + 16px blur)
+  - Animated SVG dashed gold connecting lines between hexagons (7 lines with staggered 0.6-1.6s delays)
+  - Section header with text-shimmer gold animation, ornamental diamond divider, "Knowledge Centre" badge with Sparkles icons
+  - Responsive: 1-col mobile, 2-col sm, 3-col md+
+  - Connecting lines hidden on mobile (hidden md:block)
+- Completely rewrote FeesAndBilling.tsx ("Pricing Constellation"):
+  - Dark navy background with dual radial gold glows
+  - Center hub: "Complimentary Consultation" in 220px circle with MessageSquare icon
+  - Center hub: 2 pulsing gold rings (ping animation 3s + goldPulseRing 3s infinite)
+  - Center hub: rotating dashed gold border via framer-motion useMotionValue animate 360° (20s loop)
+  - Left orbit: "Contingency Fees / No Win No Fee" in 260px circle (green-gold treatment: green-600 accent)
+  - Right orbit: "Hourly Billing / Competitive Rates" in 260px circle (standard gold treatment)
+  - Each orbit circle: rotating conic-gradient border (8s spin), glassmorphism bg, glow shadow
+  - SVG dashed gold connecting lines from center to each orbit (2 lines with animateMotion traveling dots)
+  - 4 trust items as satellite dots orbiting constellation at 310px radius (positioned via trigonometry)
+  - Famous Ingrid Mtsweni quote in italic gold text
+  - "Request a Fee Quote" CTA with btn-premium style
+  - Mobile: vertical stack of 3 circles with diamond connector lines between them
+  - Desktop: horizontal orbital layout (hidden lg:flex vs visible on mobile)
+  - Trust items displayed as pill badges on mobile, satellite dots on desktop
+- Fixed lint error: replaced useState + useEffect pattern with useMemo for particle array generation
+- Preserved all original data/content, export names, and aria labels
+
+Stage Summary:
+- 2 components completely redesigned with non-rectangular premium layouts
+- LegalResources: hexagonal clip-path cards with 3D tilt, gold particles, connecting SVG lines
+- FeesAndBilling: circular orbital constellation with rotating conic borders, pulsing hub, satellite dots
+- Zero rectangular card designs remain in either component
+- Lint passes clean (0 errors)
+- Dev server: 200 OK, compiles successfully
+
+---
+Task ID: 3-b (Upgrade)
+Agent: Component Builder
+Task: Upgrade CaseResults and TrackRecord with non-rectangular premium designs
+
+Work Log:
+- Completely redesigned CaseResults.tsx ("Victory Mosaic"):
+  - Deep navy background (#0D1B2A) with noise-overlay texture and subtle SVG diagonal gold line pattern
+  - 6 case results displayed as diamond-shaped cards using transform: rotate(45deg) on container, rotate(-45deg) on content
+  - 2-row staggered mosaic layout: 3 diamonds per row on desktop, responsive flex-wrap on tablet/mobile
+  - Alternating Y-offsets for visual rhythm (odd-indexed diamonds shifted up via clamp())
+  - Each diamond: glassmorphism dark navy face with gold border (1px solid rgba(198,168,75,0.3))
+  - Content inside diamond: practice area icon (gold circle), practice name (uppercase tracking-widest), divider line, case title, animated result amount (CountUp with numericValue), "Awarded"/"Resolved" pill badge
+  - On hover: diamond lifts up 12px (whileHover y:-12), golden glow radial gradient fades in beneath, content scales 1.06x, conic-gradient border spins continuously (framer-motion rotate 360, 4s infinite)
+  - Section header: "Notable Case Results" with text-gold-gradient, GoldLine ornament
+  - Bottom CTA: btn-premium "Request a Case Evaluation" scrolling to #contact
+  - Gold diamond SVG ornament at bottom separator
+  - All diamonds animate in with scale 0.5→1 + rotate 45deg, staggered 0.12s delay
+- Completely redesigned TrackRecord.tsx ("Metrics Dashboard"):
+  - Deep navy background (#0D1B2A) with noise-overlay, subtle grid pattern, corner accents, radial glows
+  - 4 large circular SVG gauges (140px diameter) replacing rectangular stat cards
+  - Each gauge: SVG circle with animated stroke-dasharray/stroke-dashoffset (gold gradient stroke on dark track)
+  - Gauge interior: Lucide icon + large CountUp animated number (text-2xl→3xl, brand-gold)
+  - Label below each gauge (uppercase tracking-wider)
+  - Gauges arranged in 2x2 grid (grid-cols-2 lg:grid-cols-4)
+  - Scroll-triggered animation: circles fill from 0 to target percentage (2s duration, staggered 0.15s)
+  - Hover: gauge scales 1.08x, golden glow intensifies behind, tooltip with value appears above
+  - ConstellationLines SVG: subtle dashed gold lines connecting gauge positions (6 lines: horizontal, vertical, diagonal) with animated pathLength
+  - Practice area success bars replaced with small radial progress rings (48px SVG circles)
+  - Each ring: animated stroke fill, percentage number centered inside, area name to the right
+  - "Success Across Practice Areas" sub-heading with gold separator
+  - Section header: "Our Track Record" with text-gold-gradient, GoldLine ornament
+
+Stage Summary:
+- 2 existing components completely redesigned with non-rectangular layouts
+- CaseResults: diamond-shaped cards in staggered mosaic (no rectangles)
+- TrackRecord: circular SVG gauges + radial progress rings (no rectangles)
+- All data/content preserved from originals
+- Export names unchanged (CaseResults, TrackRecord)
+- Lint passes clean (0 errors)
+- Dev server: 200 OK, compiles successfully
+---
+Task ID: 3-c (Round 2)
+Agent: Visual Component Upgrade Specialist
+Task: Upgrade OurProcess and AwardsRecognition — eliminate rectangular cards, add sophisticated non-rectangular interactive designs
+
+Work Log:
+- Redesigned OurProcess.tsx from rectangular step cards to Process Constellation:
+  - Replaced 4 rectangular cards with large interconnected circular nodes
+  - Each node: 80px mobile, 100px tablet, 130px desktop circles
+  - Animated rotating gold ring border (conic-gradient with mask-based ring)
+  - Step number centered in circle with gold color
+  - Icon below number, title + description positioned alternating above/below
+  - SVG curved bezier connectors between nodes (desktop horizontal, mobile vertical)
+  - Animated dash patterns (stroke-dasharray) on connecting lines
+  - Animated gold particles flowing along SVG paths (motion.animateMotion)
+  - Expanding pulse ring on hover (goldPulseRing keyframe)
+  - bg-hexagonal pattern background on brand-cream
+  - Staggered reveal via StaggerContainer + staggerChildVariants
+- Redesigned AwardsRecognition.tsx from rectangular carousel to Hall of Excellence Floating Crystal Gallery:
+  - Replaced rectangular award cards with hexagonal glassmorphism badges
+  - Hex clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)
+  - Glass background with backdrop-blur(16px) and gold border shimmer (conic-gradient)
+  - Mouse-tracking 3D tilt effect via onMouseMove + CSS transform perspective(600px)
+  - Floating Y-oscillation animation (hexFloat keyframe, different timing per badge)
+  - Hover: scale 15%, gold glow intensifies, extra detail text fades in
+  - Honeycomb layout: row 1 (3 hex), row 2 (2 hex offset), row 3 (1 hex centered) on desktop
+  - Mobile: horizontal scroll carousel with hex-shaped snap points
+  - Constellation SVG lines between hex badges (visible on section hover)
+  - Hex-shaped dot navigation (clip-path hexagons instead of circles)
+  - Hex-shaped arrow buttons with gold border
+  - Kept As Featured In marquee subsection with ornament-divider
+  - Preserved all 6 award data entries and 5 media outlets
+- Both components use use client, framer-motion, shared ScrollReveal utilities
+- All Lucide icons from lucide-react
+- Responsive: mobile-first with sm/md/lg breakpoints
+- Accessibility: aria-labels, role attributes, keyboard navigation
+
+Stage Summary:
+- 2 components completely redesigned with non-rectangular visual presentations
+- OurProcess: Process Constellation with circular nodes + SVG connectors + particle animations
+- AwardsRecognition: Hall of Excellence with hexagonal glassmorphism badges + 3D tilt + honeycomb layout
+- Export names preserved: OurProcess, AwardsRecognition
+- Lint passes clean (0 errors)
+- Dev server compiles successfully (200 OK)
+---
+Task ID: Phase 12 — Homepage Component Upgrade (Non-Rectangular Revolution)
+Agent: Main Orchestrator + 3 Parallel Agents
+Task: Eliminate all square/rectangular card components from homepage and replace with creative, sophisticated, non-rectangular interactive components with a "million dollar look"
+
+Work Log:
+- Audited all 27+ homepage components, identified 6 with rectangular card patterns
+- Launched 3 parallel agents to upgrade 6 components simultaneously:
+  - Agent 1: LegalResources → Interactive Legal Library (hexagonal cards, 3D tilt, gold particles)
+  - Agent 1: FeesAndBilling → Pricing Constellation (orbital circles, conic borders, satellite dots)
+  - Agent 2: CaseResults → Victory Mosaic (diamond-shaped cards, staggered mosaic, CountUp)
+  - Agent 2: TrackRecord → Metrics Dashboard (circular SVG gauges, radial progress rings)
+  - Agent 3: OurProcess → Process Constellation (circular nodes, curved SVG connectors, particle flow)
+  - Agent 3: AwardsRecognition → Floating Crystal Gallery (hexagonal badges, honeycomb, 3D tilt)
+- Created new InteractiveOnboarding component (3-step wizard with orbital progress, 3D tilt options, session-based)
+- Added InteractiveOnboarding to page.tsx
+- Verified: lint clean (0 errors), dev server 200 OK
+
+Stage Summary:
+- 6 components redesigned from rectangular cards to non-rectangular interactive shapes
+- New InteractiveOnboarding component added
+- All components maintain brand design system consistency
+- Zero pink/rose colors found
+- All hover effects, animations, and transitions functional
+- Components fully responsive with mobile-first approach
