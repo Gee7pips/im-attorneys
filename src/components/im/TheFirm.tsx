@@ -11,7 +11,7 @@ export function TheFirm() {
   return (
     <section
       id="about"
-      className="relative py-20 sm:py-28 lg:py-36 overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-36 overflow-hidden bg-dot-pattern"
       style={{ backgroundColor: "#F9F8F5" }}
       aria-labelledby="the-firm-heading"
     >

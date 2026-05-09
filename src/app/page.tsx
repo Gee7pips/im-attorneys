@@ -16,6 +16,7 @@ import { VacationProgramme } from "@/components/im/VacationProgramme";
 import { ParallaxQuote } from "@/components/im/ParallaxQuote";
 import { Testimonials } from "@/components/im/Testimonials";
 import { FAQSection } from "@/components/im/FAQSection";
+import { LegalInsights } from "@/components/im/LegalInsights";
 import { ContactForm } from "@/components/im/ContactForm";
 import { LocationMap } from "@/components/im/LocationMap";
 import { Footer } from "@/components/im/Footer";
@@ -76,6 +77,9 @@ export default function Home() {
         <section id="testimonials">
           <Testimonials />
         </section>
+
+        {/* Legal Insights */}
+        <LegalInsights />
 
         {/* FAQ Section */}
         <section id="faq">

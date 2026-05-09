@@ -159,7 +159,7 @@ export function ServicesGrid() {
   return (
     <section
       id="services"
-      className="relative py-20 sm:py-28 lg:py-36 bg-brand-cream"
+      className="relative py-20 sm:py-28 lg:py-36 bg-brand-cream bg-stripe-pattern"
       aria-labelledby="services-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -51,7 +51,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="bg-brand-dark text-brand-inverse">
+    <footer className="bg-brand-dark text-brand-inverse text-premium-body">
       {/* Decorative top gold line */}
       <div className="h-px bg-gradient-to-r from-transparent via-brand-gold/60 to-transparent" />
 
