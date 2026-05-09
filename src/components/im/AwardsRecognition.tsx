@@ -76,7 +76,7 @@ function AwardCard({ award }: AwardCardProps) {
 
   return (
     <motion.div
-      className="group relative card-glass card-hover-lift gold-border-reveal hover-scale-up rounded-xl p-6 sm:p-8"
+      className="group relative card-glass card-hover-lift-glass gold-border-reveal hover-scale-up rounded-xl p-6 sm:p-8"
       variants={staggerChildVariants}
     >
       {/* Gold accent line at top */}

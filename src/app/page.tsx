@@ -40,6 +40,9 @@ import { FeesAndBilling } from "@/components/im/FeesAndBilling";
 import { PracticeAreaExplorer } from "@/components/im/PracticeAreaExplorer";
 import { OfficeHours } from "@/components/im/OfficeHours";
 import { SocialProof } from "@/components/im/SocialProof";
+import { BeforeAfterSlider } from "@/components/im/BeforeAfterSlider";
+import { TestimonialDetail } from "@/components/im/TestimonialDetail";
+import { CTABanner } from "@/components/im/CTABanner";
 
 export default function Home() {
   return (
@@ -102,7 +105,11 @@ export default function Home() {
         {/* Testimonials Section */}
         <section id="testimonials">
           <Testimonials />
+          <TestimonialDetail />
         </section>
+
+        {/* Before/After Results Slider */}
+        <BeforeAfterSlider />
 
         {/* Track Record */}
         <TrackRecord />
@@ -154,6 +161,9 @@ export default function Home() {
       <WhatsAppButton />
       <BackToTop />
       <CookieConsent />
+
+      {/* Sticky CTA Banner */}
+      <CTABanner />
     </BannerProvider>
   );
 }

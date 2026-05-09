@@ -91,13 +91,7 @@ export function ParallaxQuote() {
           </motion.blockquote>
 
           {/* Gold divider */}
-          <motion.div
-            className="mx-auto mt-6 sm:mt-8 mb-5 sm:mb-6 h-px bg-brand-gold/50"
-            initial={{ width: 0, opacity: 0 }}
-            whileInView={{ width: "60px", opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.35 }}
-          />
+          <div className="mx-auto mt-6 sm:mt-8 mb-5 sm:mb-6 w-16 gold-line-animated" />
 
           {/* Attribution */}
           <motion.cite

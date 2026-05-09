@@ -125,7 +125,7 @@ export function Founder() {
 
             {/* Name */}
             <ScrollReveal delay={0.25}>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark leading-[1.15]">
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark leading-[1.15] text-noise">
                 Ingrid Mtsweni
               </h2>
             </ScrollReveal>

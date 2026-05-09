@@ -122,7 +122,7 @@ function CaseCard({ caseData }: { caseData: CaseResult }) {
         {/* Result highlight */}
         <div className="flex items-center justify-between">
           {caseData.isMonetary ? (
-            <span className="font-display font-bold text-xl text-gold-gradient">
+            <span className="font-display font-bold text-xl text-gold-gradient hover-glow-text-gold">
               {caseData.result}
             </span>
           ) : (
