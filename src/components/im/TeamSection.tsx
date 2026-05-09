@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Mail, Phone, ArrowRight, User } from "lucide-react";
+import { Mail, Phone, ArrowRight } from "lucide-react";
 import {
   ScrollReveal,
   GoldLine,
@@ -15,6 +15,8 @@ import {
   teamMemberDetails,
   type TeamMemberDetail,
 } from "./TeamMemberModal";
+
+/* ─── Team Data ─── */
 
 interface TeamMember {
   name: string;
@@ -57,102 +59,198 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
-function TeamCard({ member, index, onViewProfile }: { member: TeamMember; index: number; onViewProfile: (name: string) => void }) {
+/* ─── Founder Spotlight Component ─── */
+
+function FounderSpotlight({
+  member,
+  onViewProfile,
+}: {
+  member: TeamMember;
+  onViewProfile: (name: string) => void;
+}) {
+  const handleSpotlightCardMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const el = e.currentTarget;
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+      el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+    },
+    []
+  );
+
   return (
     <motion.article
       variants={staggerChildVariants}
-      className="group relative bg-white rounded-xl shadow-sm border border-brand-border/60 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-shadow/20 hover:border-brand-gold/30 card-3d-tilt card-glass-elevated"
+      className="spotlight-card card-glass-organic relative p-6 sm:p-8 lg:p-10 overflow-hidden"
+      onMouseMove={handleSpotlightCardMouseMove}
     >
-      {/* Subtle top gold accent line */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-brand-gold/0 to-transparent group-hover:via-brand-gold/60 transition-all duration-500" />
+      {/* Floating decorative blobs */}
+      <div className="absolute top-4 right-4 w-20 h-20 sm:w-28 sm:h-28 bg-brand-gold/[0.04] blob-1 pointer-events-none" />
+      <div className="absolute bottom-6 left-6 w-16 h-16 sm:w-24 sm:h-24 bg-brand-gold/[0.03] blob-3 pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-brand-gold-light/[0.03] blob-4 pointer-events-none float-organic" />
 
-      <div className="p-6 sm:p-8 flex flex-col items-center text-center">
-        {/* Portrait */}
-        <div className="relative mb-6">
-          {/* Outer glow ring on hover */}
-          <div className="absolute -inset-1 rounded-full bg-brand-gold/0 group-hover:bg-brand-gold/10 transition-all duration-500" />
-
-          <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full border-2 border-brand-gold p-[3px]">
-            <div className="w-full h-full rounded-full overflow-hidden bg-brand-parchment">
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center lg:items-start gap-6 lg:gap-8">
+        {/* Portrait with orbit ring */}
+        <div className="relative flex-shrink-0">
+          <div className="orbit-ring relative w-48 h-48">
+            <div className="img-container-organic w-full h-full">
               <Image
                 src={member.image}
                 alt={`${member.name} \u2014 ${member.title}`}
-                width={144}
-                height={144}
-                className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
+                width={192}
+                height={192}
+                className="w-full h-full object-cover object-top"
                 unoptimized
                 loading="lazy"
               />
             </div>
           </div>
 
-          {/* Optional badge */}
+          {/* Founder badge */}
           {member.badge && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 + index * 0.1, duration: 0.4 }}
-              className="absolute -bottom-1 left-1/2 -translate-x-1/2"
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.4 }}
+              className="absolute -bottom-2 left-1/2 -translate-x-1/2 inline-flex items-center px-4 py-1.5 rounded-full bg-brand-gold text-white font-body text-[10px] sm:text-xs font-semibold tracking-[0.15em] uppercase shadow-lg shadow-brand-gold/20 z-10"
             >
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand-gold text-white font-body text-[10px] sm:text-xs font-semibold tracking-wider uppercase shadow-sm">
-                {member.badge}
-              </span>
-            </motion.div>
+              {member.badge}
+            </motion.span>
           )}
         </div>
 
-        {/* Name */}
-        <h3 className="font-display text-xl sm:text-2xl font-bold text-brand-dark leading-tight">
-          {member.name}
-        </h3>
+        {/* Text content */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-3 flex-1">
+          <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-dark leading-tight">
+            {member.name}
+          </h3>
 
-        {/* Title */}
-        <p className="mt-2 font-body text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase text-brand-gold">
-          {member.title}
-        </p>
+          <p className="text-gold-gradient font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase">
+            {member.title}
+          </p>
 
-        {/* Divider */}
-        <div className="my-5 w-10 h-px bg-brand-gold/40 group-hover:w-16 transition-all duration-500" />
+          {/* Gold divider */}
+          <div className="w-12 h-px bg-gradient-to-r from-brand-gold to-brand-gold-light lg:mx-0 mx-auto" />
 
-        {/* Bio */}
-        <p className="font-body text-sm text-brand-body leading-relaxed font-light">
-          {member.bio}
-        </p>
+          {/* Bio */}
+          <p className="font-body text-sm sm:text-[15px] leading-relaxed text-brand-body font-light max-w-lg">
+            {member.bio}
+          </p>
 
-        {/* Contact row */}
-        <div className="mt-6 flex items-center gap-3">
-          <a
-            href={`mailto:${member.email}`}
-            aria-label={`Email ${member.name}`}
-            className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-brand-cream border border-brand-border/60 text-brand-muted hover:text-brand-gold hover:border-brand-gold/40 hover:bg-brand-gold/5 transition-all duration-300"
+          {/* Contact pill buttons */}
+          <div className="flex flex-wrap items-center gap-3 mt-2">
+            <a
+              href={`mailto:${member.email}`}
+              aria-label={`Email ${member.name}`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-gold/10 border border-brand-gold/25 font-body text-sm font-medium text-brand-dark hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300 hover:shadow-lg hover:shadow-brand-gold/20"
+            >
+              <Mail className="w-4 h-4 text-brand-gold group-hover:text-white" strokeWidth={1.8} />
+              <span>Email</span>
+            </a>
+            <a
+              href={`tel:${member.phone.replace(/\s/g, "")}`}
+              aria-label={`Call ${member.name}`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-gold/10 border border-brand-gold/25 font-body text-sm font-medium text-brand-dark hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300 hover:shadow-lg hover:shadow-brand-gold/20"
+            >
+              <Phone className="w-4 h-4 text-brand-gold group-hover:text-white" strokeWidth={1.8} />
+              <span>{member.phone}</span>
+            </a>
+          </div>
+
+          {/* View Full Profile link */}
+          <button
+            onClick={() => onViewProfile(member.name)}
+            className="mt-1 font-body text-sm font-medium text-brand-gold link-underline-anim cursor-pointer"
+            aria-label={`View full profile of ${member.name}`}
           >
-            <Mail className="w-4 h-4" />
-          </a>
-          <a
-            href={`tel:${member.phone.replace(/\s/g, "")}`}
-            aria-label={`Call ${member.name}`}
-            className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-brand-cream border border-brand-border/60 text-brand-muted hover:text-brand-gold hover:border-brand-gold/40 hover:bg-brand-gold/5 transition-all duration-300"
-          >
-            <Phone className="w-4 h-4" />
-          </a>
+            View Full Profile
+          </button>
         </div>
-
-        {/* View Full Profile button */}
-        <button
-          onClick={() => onViewProfile(member.name)}
-          className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-sm border border-brand-gold/30 text-brand-gold text-xs font-semibold tracking-wider uppercase hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"
-          aria-label={`View full profile of ${member.name}`}
-        >
-          <User className="w-3.5 h-3.5" />
-          View Full Profile
-        </button>
       </div>
     </motion.article>
   );
 }
 
+/* ─── Team Member Mini Card ─── */
+
+function TeamMemberCard({
+  member,
+  onViewProfile,
+}: {
+  member: TeamMember;
+  onViewProfile: (name: string) => void;
+}) {
+  const handleSpotlightCardMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const el = e.currentTarget;
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+      el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+    },
+    []
+  );
+
+  return (
+    <motion.article
+      variants={staggerChildVariants}
+      className="spotlight-card card-ultra-rounded p-5 sm:p-6"
+      onMouseMove={handleSpotlightCardMouseMove}
+    >
+      <div className="relative z-10 flex items-start gap-4">
+        {/* Portrait */}
+        <div className="flex-shrink-0 relative">
+          <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full border-2 border-brand-gold/30 p-[2px]">
+            <div className="w-full h-full rounded-full overflow-hidden bg-brand-parchment">
+              <Image
+                src={member.image}
+                alt={`${member.name} \u2014 ${member.title}`}
+                width={112}
+                height={112}
+                className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-110"
+                unoptimized
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Text content */}
+        <div className="flex flex-col gap-1.5 flex-1 min-w-0 pt-1">
+          <h4 className="font-display text-lg sm:text-xl font-bold text-brand-dark leading-tight">
+            {member.name}
+          </h4>
+          <p className="font-body text-[11px] sm:text-xs font-semibold tracking-[0.18em] uppercase text-brand-gold">
+            {member.title}
+          </p>
+
+          {/* Mini divider */}
+          <div className="w-8 h-px bg-brand-gold/30 my-1" />
+
+          {/* Short bio */}
+          <p className="font-body text-xs sm:text-sm leading-relaxed text-brand-body font-light line-clamp-3 sm:line-clamp-4">
+            {member.bio}
+          </p>
+
+          {/* View Profile underline link */}
+          <button
+            onClick={() => onViewProfile(member.name)}
+            className="mt-2 self-start font-body text-xs sm:text-sm font-medium text-brand-gold link-underline-anim cursor-pointer"
+            aria-label={`View full profile of ${member.name}`}
+          >
+            View Full Profile
+          </button>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+/* ─── Main TeamSection Component ─── */
+
 export function TeamSection() {
-  const [selectedMember, setSelectedMember] = useState<TeamMemberDetail | null>(null);
+  const [selectedMember, setSelectedMember] =
+    useState<TeamMemberDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleViewProfile = (name: string) => {
@@ -167,24 +265,54 @@ export function TeamSection() {
     setIsModalOpen(false);
     setTimeout(() => setSelectedMember(null), 350);
   };
+
+  const founder = teamMembers[0];
+  const otherMembers = teamMembers.slice(1);
+
   return (
     <section
       id="team"
       className="relative w-full bg-brand-cream overflow-hidden"
       aria-label="Our team"
     >
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-72 h-72 opacity-[0.03] pointer-events-none">
-        <svg viewBox="0 0 300 300" fill="none" className="w-full h-full">
-          <circle cx="0" cy="0" r="300" fill="#C6A84B" />
+      {/* ─── Background Decorations ─── */}
+
+      {/* Subtle radial gold glow behind founder */}
+      <div
+        className="absolute top-0 left-0 w-full h-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 25% 40%, rgba(198, 168, 75, 0.05) 0%, transparent 55%)",
+        }}
+      />
+
+      {/* Floating organic blobs */}
+      <div className="absolute top-12 left-8 w-32 h-32 bg-brand-gold/[0.03] blob-2 pointer-events-none" />
+      <div className="absolute top-1/3 right-12 w-24 h-24 bg-brand-gold-light/[0.03] blob-1 pointer-events-none float-organic" />
+      <div className="absolute bottom-16 left-1/4 w-28 h-28 bg-brand-gold/[0.025] blob-4 pointer-events-none" />
+      <div className="absolute bottom-8 right-1/3 w-20 h-20 bg-brand-gold-light/[0.025] blob-3 pointer-events-none float-organic" />
+
+      {/* Decorative SVG circles in corners */}
+      <div className="absolute -top-10 -left-10 w-48 h-48 opacity-[0.03] pointer-events-none">
+        <svg viewBox="0 0 200 200" fill="none" className="w-full h-full">
+          <circle cx="200" cy="200" r="180" stroke="#C6A84B" strokeWidth="1" />
+          <circle cx="200" cy="200" r="120" stroke="#C6A84B" strokeWidth="0.5" />
         </svg>
       </div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 opacity-[0.03] pointer-events-none">
-        <svg viewBox="0 0 400 400" fill="none" className="w-full h-full">
-          <circle cx="400" cy="400" r="400" fill="#0D1B2A" />
+      <div className="absolute -bottom-10 -right-10 w-64 h-64 opacity-[0.03] pointer-events-none">
+        <svg viewBox="0 0 300 300" fill="none" className="w-full h-full">
+          <circle cx="0" cy="0" r="250" stroke="#C6A84B" strokeWidth="1" />
+          <circle cx="0" cy="0" r="180" stroke="#C6A84B" strokeWidth="0.5" />
+          <circle cx="0" cy="0" r="110" stroke="#C6A84B" strokeWidth="0.5" />
+        </svg>
+      </div>
+      <div className="absolute top-1/4 right-0 w-36 h-36 opacity-[0.02] pointer-events-none hidden lg:block">
+        <svg viewBox="0 0 150 150" fill="none" className="w-full h-full">
+          <circle cx="0" cy="75" r="60" stroke="#E4D49A" strokeWidth="0.5" fill="none" />
         </svg>
       </div>
 
+      {/* ─── Content ─── */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-32">
         {/* Section header */}
         <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
@@ -213,14 +341,35 @@ export function TeamSection() {
           </ScrollReveal>
         </div>
 
-        {/* Team grid */}
+        {/* ─── Asymmetric Editorial Layout ─── */}
         <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
-          staggerDelay={0.15}
+          className="flex flex-col lg:flex-row gap-8 lg:gap-10"
+          staggerDelay={0.2}
         >
-          {teamMembers.map((member, index) => (
-            <TeamCard key={member.name} member={member} index={index} onViewProfile={handleViewProfile} />
-          ))}
+          {/* LEFT: Founder spotlight — 60% on desktop */}
+          <div className="w-full lg:w-[60%]">
+            <FounderSpotlight
+              member={founder}
+              onViewProfile={handleViewProfile}
+            />
+          </div>
+
+          {/* RIGHT: Stacked team member cards — 40% on desktop */}
+          <div className="w-full lg:w-[40%] flex flex-col gap-6 lg:gap-8 relative">
+            {/* Vertical gold connecting line between cards (desktop only) */}
+            <div className="hidden lg:block absolute left-8 top-[calc(50%-1rem)] bottom-[calc(50%+1rem)] w-px bg-gradient-to-b from-brand-gold/20 via-brand-gold/40 to-brand-gold/20 pointer-events-none" />
+
+            {otherMembers.map((member) => (
+              <div key={member.name} className="relative">
+                {/* Gold dot on the connecting line (desktop) */}
+                <div className="hidden lg:block absolute -left-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-brand-gold border-2 border-brand-cream z-10" />
+                <TeamMemberCard
+                  member={member}
+                  onViewProfile={handleViewProfile}
+                />
+              </div>
+            ))}
+          </div>
         </StaggerContainer>
 
         {/* Bottom CTA */}

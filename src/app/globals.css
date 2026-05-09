@@ -3363,3 +3363,432 @@ input:focus, textarea:focus, select:focus {
     transform: rotate(360deg);
   }
 }
+/* ========================================
+   PHASE 11 — ORGANIC & CREATIVE SHAPES
+   Million-Dollar Non-Rectangular Utilities
+   ======================================== */
+
+/* ─────────────────────────────────────────
+   1. BLOB SHAPE CONTAINERS
+   ───────────────────────────────────────── */
+
+.blob-1 {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: blob1 10s ease-in-out infinite;
+}
+
+@keyframes blob1 {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg) scale(1); }
+  33%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(120deg) scale(1.05); }
+  66%      { border-radius: 50% 60% 30% 60% / 40% 50% 60% 50%; transform: rotate(240deg) scale(0.95); }
+}
+
+.blob-2 {
+  border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%;
+  animation: blob2 12s ease-in-out infinite;
+}
+
+@keyframes blob2 {
+  0%, 100% { border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%; transform: translate(0, 0); }
+  33%      { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: translate(10px, -15px); }
+  66%      { border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%; transform: translate(-10px, 10px); }
+}
+
+.blob-3 {
+  border-radius: 30% 70% 50% 50% / 70% 30% 60% 40%;
+  animation: blob3 14s ease-in-out infinite;
+}
+
+@keyframes blob3 {
+  0%, 100% { border-radius: 30% 70% 50% 50% / 70% 30% 60% 40%; transform: rotate(0deg); }
+  50%      { border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%; transform: rotate(180deg); }
+}
+
+.blob-4 {
+  border-radius: 50% 50% 40% 60% / 50% 60% 40% 50%;
+  animation: blob4 9s ease-in-out infinite;
+}
+
+@keyframes blob4 {
+  0%, 100% { border-radius: 50% 50% 40% 60% / 50% 60% 40% 50%; transform: scale(1) translate(0, 0); }
+  50%      { border-radius: 40% 60% 50% 50% / 60% 40% 50% 50%; transform: scale(1.08) translate(5px, -5px); }
+}
+
+/* Animated morphing blob */
+.blob-morph {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: blobMorph 8s ease-in-out infinite;
+}
+
+@keyframes blobMorph {
+  0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50%  { border-radius: 50% 60% 30% 60% / 30% 40% 70% 60%; }
+  75%  { border-radius: 40% 60% 50% 40% / 60% 30% 60% 40%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+/* ─────────────────────────────────────────
+   2. CLIP-PATH ORGANIC SHAPES
+   ───────────────────────────────────────── */
+
+.clip-wave-top {
+  clip-path: polygon(0 4%, 15% 0%, 30% 3%, 45% 0%, 60% 2%, 75% 0%, 90% 3%, 100% 1%, 100% 100%, 0% 100%);
+}
+
+.clip-wave-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 96%, 85% 100%, 70% 97%, 55% 100%, 40% 98%, 25% 100%, 10% 97%, 0% 99%);
+}
+
+.clip-diagonal-br {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0% 100%);
+}
+
+.clip-diagonal-bl {
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%, 0% 15%);
+}
+
+.clip-diamond-lg {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* ─────────────────────────────────────────
+   3. ORGANIC CARD VARIANTS
+   ───────────────────────────────────────── */
+
+.card-organic {
+  border-radius: 1.5rem 1.5rem 2rem 0.5rem;
+  transition: border-radius 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-organic:hover {
+  border-radius: 0.5rem 2rem 1.5rem 2rem;
+}
+
+.card-organic-reverse {
+  border-radius: 0.5rem 2rem 1.5rem 2rem;
+  transition: border-radius 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-organic-reverse:hover {
+  border-radius: 1.5rem 1.5rem 2rem 0.5rem;
+}
+
+.card-pill {
+  border-radius: 9999px;
+  transition: border-radius 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-pill:hover {
+  border-radius: 1.5rem;
+}
+
+/* ─────────────────────────────────────────
+   4. PREMIUM ROUNDED CARD
+   ───────────────────────────────────────── */
+
+.card-ultra-rounded {
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(198, 168, 75, 0.12);
+  transition: all 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-ultra-rounded:hover {
+  transform: translateY(-4px) scale(1.01);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(198, 168, 75, 0.28);
+  box-shadow: 0 20px 40px rgba(13, 27, 42, 0.08), 0 8px 16px rgba(198, 168, 75, 0.05);
+}
+
+/* ─────────────────────────────────────────
+   5. GLASS CARD VARIANTS
+   ───────────────────────────────────────── */
+
+.card-glass-organic {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(198, 168, 75, 0.18);
+  border-radius: 2rem;
+  transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-glass-organic:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(198, 168, 75, 0.35);
+  box-shadow: 0 32px 64px rgba(13, 27, 42, 0.08), 0 12px 24px rgba(198, 168, 75, 0.06);
+}
+
+.card-glass-pill {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(198, 168, 75, 0.1);
+  border-radius: 9999px;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-glass-pill:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(198, 168, 75, 0.25);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(198, 168, 75, 0.12);
+}
+
+/* ─────────────────────────────────────────
+   6. MAGNETIC FLOATING ELEMENT
+   ───────────────────────────────────────── */
+
+.float-organic {
+  animation: floatOrganic 6s ease-in-out infinite;
+}
+
+@keyframes floatOrganic {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25%      { transform: translateY(-8px) translateX(4px) rotate(1deg); }
+  50%      { transform: translateY(-14px) translateX(-2px) rotate(-0.5deg); }
+  75%      { transform: translateY(-6px) translateX(-6px) rotate(0.5deg); }
+}
+
+.float-organic-delayed {
+  animation: floatOrganic 7s ease-in-out 1s infinite;
+}
+
+.float-organic-slow {
+  animation: floatOrganic 10s ease-in-out 0.5s infinite;
+}
+
+/* ─────────────────────────────────────────
+   7. SPOTLIGHT HOVER EFFECT
+   ───────────────────────────────────────── */
+
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(198, 168, 75, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  left: var(--mouse-x, 50%);
+  top: var(--mouse-y, 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────
+   8. ORBIT RING ANIMATION
+   ───────────────────────────────────────── */
+
+.orbit-ring {
+  position: relative;
+}
+
+.orbit-ring::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #C6A84B;
+  border-right-color: rgba(198, 168, 75, 0.3);
+  animation: orbitSpin 4s linear infinite;
+  pointer-events: none;
+}
+
+.orbit-ring::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  border-bottom-color: rgba(228, 212, 154, 0.4);
+  border-left-color: rgba(198, 168, 75, 0.15);
+  animation: orbitSpin 6s linear infinite reverse;
+  pointer-events: none;
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.orbit-ring-reverse::before {
+  border-top-color: rgba(228, 212, 154, 0.4);
+  border-right-color: rgba(198, 168, 75, 0.15);
+  animation-direction: reverse;
+}
+
+.orbit-ring-reverse::after {
+  border-bottom-color: #C6A84B;
+  border-left-color: rgba(198, 168, 75, 0.3);
+  animation-direction: normal;
+}
+
+/* ─────────────────────────────────────────
+   9. PREMIUM IMAGE CONTAINERS
+   ───────────────────────────────────────── */
+
+.img-container-rounded {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.img-container-organic {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  overflow: hidden;
+  transition: border-radius 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.img-container-organic:hover {
+  border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+}
+
+.img-container-hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* ─────────────────────────────────────────
+   10. SECTION CURVE DIVIDERS
+   ───────────────────────────────────────── */
+
+.section-curve-top {
+  position: relative;
+  margin-top: -1px;
+}
+
+.section-curve-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: var(--curve-bg, #F9F8F5);
+  clip-path: ellipse(55% 100% at 50% 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-curve-bottom {
+  position: relative;
+  margin-bottom: -1px;
+}
+
+.section-curve-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: var(--curve-bg, #F9F8F5);
+  clip-path: ellipse(55% 100% at 50% 0%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   11. STACKED OVERLAP LAYOUT
+   ───────────────────────────────────────── */
+
+.stack-overlap > *:nth-child(2) {
+  margin-top: -2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.stack-overlap > *:nth-child(3) {
+  margin-top: -2rem;
+  position: relative;
+  z-index: 3;
+}
+
+/* ─────────────────────────────────────────
+   12. HORIZONTAL SCROLL CAROUSEL
+   ───────────────────────────────────────── */
+
+.scroll-carousel {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 1rem 0;
+}
+
+.scroll-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-carousel > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────
+   13. TEXT MASK GRADIENTS
+   ───────────────────────────────────────── */
+
+.text-mask-fade-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 100%);
+}
+
+.text-mask-fade-top {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 40%);
+}
+
+/* ─────────────────────────────────────────
+   14. DARK MODE ORGANIC VARIANTS
+   ───────────────────────────────────────── */
+
+.dark .card-glass-organic {
+  background: rgba(26, 50, 80, 0.6);
+  border-color: rgba(198, 168, 75, 0.15);
+}
+
+.dark .card-glass-organic:hover {
+  background: rgba(26, 50, 80, 0.85);
+  border-color: rgba(198, 168, 75, 0.3);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.2);
+}
+
+.dark .card-glass-pill {
+  background: rgba(26, 50, 80, 0.55);
+  border-color: rgba(198, 168, 75, 0.08);
+}
+
+.dark .card-glass-pill:hover {
+  background: rgba(26, 50, 80, 0.8);
+  border-color: rgba(198, 168, 75, 0.2);
+}
+
+.dark .card-ultra-rounded {
+  background: rgba(26, 50, 80, 0.55);
+  border-color: rgba(198, 168, 75, 0.1);
+}
+
+.dark .card-ultra-rounded:hover {
+  background: rgba(26, 50, 80, 0.8);
+  border-color: rgba(198, 168, 75, 0.25);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dark .spotlight-card::before {
+  background: radial-gradient(circle, rgba(198, 168, 75, 0.1) 0%, transparent 70%);
+}

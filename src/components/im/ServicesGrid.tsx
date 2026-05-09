@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   Scale,
@@ -21,11 +21,12 @@ import {
   type ServiceDetail,
 } from "@/components/im/ServiceDetailModal";
 
+/* ─── Service data (exact spec) ─── */
 interface Service {
   title: string;
   description: string;
   icon: React.ElementType;
-  colSpan?: number;
+  variant: "featured" | "wide" | "normal" | "pill";
 }
 
 const services: Service[] = [
@@ -34,59 +35,83 @@ const services: Service[] = [
     description:
       "Divorce, custody, ANCs, protection orders — handled with care and expertise.",
     icon: Scale,
-    colSpan: 2,
+    variant: "featured",
   },
   {
     title: "Wills & Estates",
     description:
       "Protect your legacy. We ensure your assets are preserved and intentionally transferred.",
     icon: FileText,
+    variant: "normal",
   },
   {
     title: "Claims Against the State",
     description:
       "RAF claims, wrongful arrests, medical malpractice — we hold the state accountable.",
     icon: Shield,
+    variant: "normal",
   },
   {
     title: "Criminal Law",
     description:
       "Bail available 24/7. Expert defence across all criminal matters.",
     icon: Gavel,
+    variant: "normal",
   },
   {
     title: "Commercial Law",
     description:
       "Contracts, M&A, corporate governance — legal solutions that make business sense.",
     icon: Building2,
-    colSpan: 2,
+    variant: "wide",
   },
   {
     title: "General Litigation",
     description:
       "Evictions, debt collection, debt review removal — we litigate what others avoid.",
     icon: Scale,
+    variant: "pill",
   },
 ];
 
-function ServiceCard({
+/* ─── Spotlight + morphing bento card ─── */
+function BentoServiceCard({
   service,
   onOpen,
 }: {
   service: Service;
   onOpen: () => void;
 }) {
+  const cardRef = useRef<HTMLDivElement>(null);
   const Icon = service.icon;
+
+  const isFeatured = service.variant === "featured";
+  const isWide = service.variant === "wide";
+  const isPill = service.variant === "pill";
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      cardRef.current.style.setProperty(
+        "--mouse-x",
+        `${e.clientX - rect.left}px`
+      );
+      cardRef.current.style.setProperty(
+        "--mouse-y",
+        `${e.clientY - rect.top}px`
+      );
+    },
+    []
+  );
 
   return (
     <motion.div
-      className={`group relative bg-white rounded-sm overflow-hidden cursor-pointer card-3d-tilt ${
-        service.colSpan === 2 ? "md:col-span-2" : "md:col-span-1"
-      }`}
-      variants={staggerChildVariants}
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
       onClick={onOpen}
+      variants={staggerChildVariants}
+      whileHover={{ y: -5, transition: { duration: 0.35, ease: "easeOut" } }}
       role="button"
       tabIndex={0}
       aria-label={`Learn more about ${service.title}`}
@@ -96,48 +121,151 @@ function ServiceCard({
           onOpen();
         }
       }}
+      className={`
+        spotlight-card card-glass-organic group relative cursor-pointer overflow-hidden
+        ${isFeatured ? "md:col-span-2 md:row-span-2" : ""}
+        ${isWide ? "md:col-span-2" : ""}
+        ${isPill ? "md:col-span-3" : "md:col-span-1"}
+      `}
+      style={
+        {
+          "--mouse-x": "50%",
+          "--mouse-y": "50%",
+          background: isPill
+            ? "rgba(13, 27, 42, 0.88)"
+            : isFeatured
+              ? "linear-gradient(145deg, #F9F8F5 0%, #FFFFFF 60%, #EEE8DC 100%)"
+              : isWide
+                ? "linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,255,255,0.85))"
+                : "rgba(255, 255, 255, 0.88)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
+        } as React.CSSProperties
+      }
     >
-      {/* Hover gold left border */}
-      <motion.div
-        className="absolute top-0 left-0 w-0 h-full bg-brand-gold z-10"
-        whileHover={{ width: "3px" }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
+      {/* ── Mouse-following spotlight overlay ── */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[2] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(198, 168, 75, 0.10), transparent 60%)",
+        }}
       />
 
-      {/* Subtle shadow on hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg shadow-brand-shadow" />
+      {/* ── Featured card decorative blob ── */}
+      {isFeatured && (
+        <div className="absolute -bottom-12 -right-12 h-56 w-56 rounded-full bg-brand-gold/[0.06] blur-3xl pointer-events-none" />
+      )}
+      {isFeatured && (
+        <div className="absolute -top-8 -left-8 h-40 w-40 rounded-full bg-brand-gold/[0.04] blur-2xl pointer-events-none" />
+      )}
 
-      <div className="relative p-6 sm:p-8">
-        {/* Icon */}
-        <div className="mb-4 flex items-center justify-center w-11 h-11 rounded-sm bg-brand-cream">
+      {/* ── Card content ── */}
+      <div
+        className={`relative z-10 ${
+          isPill
+            ? "flex flex-col sm:flex-row items-center gap-5 sm:gap-8 px-6 sm:px-10 py-7 sm:py-8"
+            : isFeatured
+              ? "flex flex-col justify-between h-full p-7 sm:p-10 lg:p-12"
+              : "p-6 sm:p-7 lg:p-8"
+        }`}
+      >
+        {/* ── Icon in circular gold container ── */}
+        <div
+          className={`
+            relative flex items-center justify-center rounded-full border-2 border-brand-gold/25
+            flex-shrink-0
+            ${
+              isFeatured
+                ? "w-[4.5rem] h-[4.5rem] sm:w-[5.5rem] sm:h-[5.5rem]"
+                : isPill
+                  ? "w-14 h-14"
+                  : "w-12 h-12"
+            }
+          `}
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(198,168,75,0.10), rgba(198,168,75,0.04))",
+          }}
+        >
+          {/* Animated gold ring for featured */}
+          {isFeatured && (
+            <span className="absolute inset-[-6px] rounded-full border border-brand-gold/20 animate-pulse-gold pointer-events-none" />
+          )}
           <Icon
-            className="w-5 h-5 text-brand-gold transition-transform duration-300 group-hover:scale-110"
+            className={`text-brand-gold transition-transform duration-500 group-hover:scale-110 ${
+              isFeatured
+                ? "w-6 h-6 sm:w-7 sm:h-7"
+                : isPill
+                  ? "w-6 h-6"
+                  : "w-5 h-5"
+            }`}
             strokeWidth={1.8}
           />
         </div>
 
-        {/* Title */}
-        <h3 className="font-body text-lg font-semibold mb-2" style={{ color: "#0D1B2A" }}>
-          {service.title}
-        </h3>
+        {/* ── Text block ── */}
+        <div className={isPill ? "flex-1 min-w-0 text-center sm:text-left" : ""}>
+          <h3
+            className={`font-display font-bold leading-tight ${
+              isPill
+                ? "text-lg sm:text-xl text-brand-inverse"
+                : isFeatured
+                  ? "text-xl sm:text-2xl lg:text-[1.75rem] text-brand-dark mb-3"
+                  : "text-lg text-brand-dark mb-2"
+            }`}
+          >
+            {service.title}
+          </h3>
 
-        {/* Description */}
-        <p className="font-body text-sm leading-relaxed" style={{ color: "#3A4A5C" }}>
-          {service.description}
-        </p>
+          <p
+            className={`font-body leading-relaxed ${
+              isPill
+                ? "text-sm text-brand-inverse/70 max-w-2xl"
+                : isFeatured
+                  ? "text-sm sm:text-[0.94rem] text-brand-body max-w-md"
+                  : "text-sm text-brand-body"
+            }`}
+          >
+            {service.description}
+          </p>
 
-        {/* Gold Arrow CTA */}
-        <div className="mt-5 flex items-center gap-1.5">
-          <span className="font-body text-xs font-semibold tracking-wider uppercase text-brand-gold">
-            Learn More
-          </span>
-          <ArrowRight className="w-3.5 h-3.5 text-brand-gold transition-transform duration-300 group-hover:translate-x-1" />
+          {/* CTA */}
+          {!isPill && (
+            <div className="mt-5 flex items-center gap-2">
+              <span className="font-body text-[0.6875rem] font-semibold tracking-[0.14em] uppercase text-brand-gold">
+                Explore
+              </span>
+              <ArrowRight className="w-3.5 h-3.5 text-brand-gold transition-transform duration-300 group-hover:translate-x-1.5" />
+            </div>
+          )}
         </div>
+
+        {/* Pill card: inline CTA */}
+        {isPill && (
+          <div className="flex-shrink-0 hidden sm:flex">
+            <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-gold/25 text-brand-gold-light font-body text-xs font-semibold tracking-wider uppercase transition-all duration-300 group-hover:border-brand-gold/50 group-hover:bg-brand-gold/10">
+              <span>Learn More</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
+          </div>
+        )}
+
+        {/* Featured card: large ornamental number */}
+        {isFeatured && (
+          <span className="absolute bottom-5 right-7 font-display text-7xl sm:text-8xl font-extrabold leading-none text-brand-gold/[0.05] pointer-events-none select-none">
+            01
+          </span>
+        )}
       </div>
+
+      {/* ── Subtle gold left accent on hover ── */}
+      <div className="absolute top-0 left-0 w-0 h-full bg-gradient-to-b from-brand-gold via-brand-gold-light to-brand-gold opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:w-[3px] z-[3] pointer-events-none" />
     </motion.div>
   );
 }
 
+/* ─── Main Services Grid export ─── */
 export function ServicesGrid() {
   const [modalService, setModalService] = useState<ServiceDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -152,18 +280,21 @@ export function ServicesGrid() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    // Delay clearing service for exit animation
     setTimeout(() => setModalService(null), 350);
   };
 
   return (
     <section
       id="services"
-      className="relative py-20 sm:py-28 lg:py-36 bg-brand-cream bg-stripe-pattern corner-gold-tr corner-gold-bl"
+      className="relative py-20 sm:py-28 lg:py-36 bg-brand-cream bg-stripe-pattern overflow-hidden corner-gold-tl corner-gold-br"
       aria-labelledby="services-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+      {/* ── Decorative background blobs ── */}
+      <div className="blob-morph blob-1 pointer-events-none" />
+      <div className="blob-morph blob-2 pointer-events-none" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ── Section header ── */}
         <div className="text-center mb-14 sm:mb-20">
           <ScrollReveal direction="up" delay={0}>
             <span
@@ -180,24 +311,27 @@ export function ServicesGrid() {
               className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-3xl mx-auto"
               style={{ color: "#0D1B2A" }}
             >
-              Every Legal Matter, Handled with Precision.
+              Every Legal Matter,{" "}
+              <span className="text-gold-gradient">Handled with Precision.</span>
             </h2>
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.2}>
-            <div className="mt-6 flex justify-center">
-              <div className="h-0.5 w-12 bg-brand-gold" />
+            <div className="mt-7 flex justify-center">
+              <div className="ornament-divider">
+                <span className="ornament-diamond" />
+              </div>
             </div>
           </ScrollReveal>
         </div>
 
-        {/* Services Grid */}
+        {/* ── Bento grid ── */}
         <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6"
-          staggerDelay={0.08}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6"
+          staggerDelay={0.09}
         >
           {services.map((service) => (
-            <ServiceCard
+            <BentoServiceCard
               key={service.title}
               service={service}
               onOpen={() => handleOpenService(service.title)}
@@ -205,12 +339,12 @@ export function ServicesGrid() {
           ))}
         </StaggerContainer>
 
-        {/* Bottom CTA */}
-        <ScrollReveal direction="up" delay={0.3}>
+        {/* ── Bottom CTA ── */}
+        <ScrollReveal direction="up" delay={0.35}>
           <div className="mt-14 sm:mt-16 text-center">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-brand-dark text-brand-inverse font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:bg-brand-navy hover:shadow-lg hover:shadow-brand-shadow"
+              className="btn-premium"
               onClick={(e) => {
                 e.preventDefault();
                 const el = document.querySelector("#contact");
@@ -224,7 +358,7 @@ export function ServicesGrid() {
         </ScrollReveal>
       </div>
 
-      {/* Service Detail Modal */}
+      {/* ── Service Detail Modal ── */}
       <ServiceDetailModal
         service={modalService}
         isOpen={isModalOpen}
