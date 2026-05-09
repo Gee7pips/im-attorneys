@@ -65,7 +65,7 @@ export function Founder() {
                 />
 
                 {/* Portrait image */}
-                <div className="relative aspect-[3/4] rounded-sm overflow-hidden bg-brand-parchment parallax-depth image-hover-zoom">
+                <div className="relative aspect-[3/4] rounded-sm overflow-hidden bg-brand-parchment parallax-depth image-hover-zoom panel-3d-float">
                   <motion.img
                     src="/images/founder-portrait.png"
                     alt="Ingrid Mtsweni — Founder & Director of IM Attorneys Inc"
@@ -113,7 +113,7 @@ export function Founder() {
           <div className="w-full lg:w-[55%] flex flex-col justify-center">
             {/* Gold caps label */}
             <ScrollReveal delay={0.15}>
-              <span className="font-body text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-brand-gold">
+              <span className="font-body text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-brand-gold label-uppercase">
                 Founder &amp; Director
               </span>
             </ScrollReveal>
@@ -125,14 +125,14 @@ export function Founder() {
 
             {/* Name */}
             <ScrollReveal delay={0.25}>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark leading-[1.15] text-noise">
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark leading-[1.15] text-noise heading-3 text-shadow-elegant">
                 Ingrid Mtsweni
               </h2>
             </ScrollReveal>
 
             {/* Bio paragraph */}
             <ScrollReveal delay={0.35}>
-              <p className="font-body text-sm sm:text-base text-brand-body leading-relaxed mt-6">
+              <p className="font-body text-sm sm:text-base text-brand-body leading-relaxed mt-6 body-lg">
                 Ingrid holds an <strong className="text-brand-dark font-semibold">LLB degree from the University of Johannesburg</strong>,
                 awarded in 2018. Before founding IM Attorneys Inc, she built a strong
                 foundation in the financial services sector, gaining invaluable

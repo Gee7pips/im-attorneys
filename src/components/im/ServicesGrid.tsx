@@ -122,7 +122,7 @@ function BentoServiceCard({
         }
       }}
       className={`
-        spotlight-card card-glass-organic group relative cursor-pointer overflow-hidden
+        spotlight-card card-glass-organic card-3d-premium glass-3d-card group relative cursor-pointer overflow-hidden hover:shadow-gold-lg
         ${isFeatured ? "md:col-span-2 md:row-span-2" : ""}
         ${isWide ? "md:col-span-2" : ""}
         ${isPill ? "md:col-span-3" : "md:col-span-1"}
@@ -308,7 +308,7 @@ export function ServicesGrid() {
           <ScrollReveal direction="up" delay={0.1}>
             <h2
               id="services-heading"
-              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-3xl mx-auto"
+              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-3xl mx-auto heading-2"
               style={{ color: "#0D1B2A" }}
             >
               Every Legal Matter,{" "}

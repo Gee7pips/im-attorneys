@@ -95,7 +95,7 @@ export function Navigation() {
           isScrolled
             ? "glass-dark shadow-lg shadow-black/10"
             : "bg-transparent"
-        }`}
+        } shadow-directional`}
         style={{ top: "var(--banner-height, 0px)" }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -122,7 +122,7 @@ export function Navigation() {
                 </span>
               </div>
               <div className="hidden sm:block">
-                <span className="font-body font-medium text-brand-inverse text-sm tracking-wide">
+                <span className="font-body font-medium text-brand-inverse text-sm tracking-wide letter-spacing-hover">
                   IM ATTORNEYS
                 </span>
               </div>

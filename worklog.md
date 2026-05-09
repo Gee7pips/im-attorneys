@@ -1223,3 +1223,106 @@ Priority Recommendations for Next Phase:
 2. MEDIUM: Add actual LPC and CIPC registration numbers when available
 3. MEDIUM: Create /api/data-rights endpoint for the Data Subject Rights form
 4. LOW: Add structured data (JSON-LD) for legal service schema enhancements
+
+## Phase 14 — Advanced Typography, 3D, & Shadow System
+
+**Date**: 2025-01-XX
+**Scope**: Appended premium CSS utility classes to `src/app/globals.css` (lines 3795–4454, +660 lines)
+
+### Sections Added
+
+1. **Advanced Typography System** (Section 1)
+   - Heading hierarchy: `.heading-display`, `.heading-1` through `.heading-4` with optical sizing via `clamp()`, refined `letter-spacing`, and `text-wrap: balance`
+   - Body typography: `.body-lg`, `.body-base`, `.body-sm`, `.body-xs` with optimized line-height and brand color defaults
+   - Labels/captions: `.label-uppercase`, `.label-tracking-wide`
+   - OpenType features: `.nums-oldstyle`, `.nums-tabular`
+   - Editorial: `.serif-italic-premium`, `.drop-cap` (gold first-letter)
+   - Effects: `.text-metallic-gold` (gradient emboss), `.text-engraved`, `.letter-spacing-hover`, `.text-shadow-elegant`, `.text-shadow-lifted`, `.underline-decorative` (SVG wavy)
+   - Dark mode variants for all body colors (#F0EDE8 / #D0D0D0) and text-shadow adjustments
+
+2. **Advanced 3D Rendered Elements** (Section 2)
+   - Scene containers: `.scene-3d` (1200px), `.scene-3d-tight` (600px)
+   - Cards: `.card-3d-premium` (tilt + realistic lighting), `.card-3d-reflective` (sweep shine)
+   - Panels: `.panel-3d-float` (hover lift with gold glow)
+   - Depth layers: `.depth-layer-back`, `.depth-layer-mid`, `.depth-layer-front`
+   - Decorative: `.ribbon-3d` (perspective badge), `.inset-3d`, `.raised-3d`
+   - Full dark mode 3D shadow variants
+
+3. **Premium Shadow Elevation System** (Section 3)
+   - 6-tier elevation: `.shadow-flat` through `.shadow-2xl`
+   - Gold shadows: `.shadow-gold`, `.shadow-gold-lg`
+   - Glow: `.shadow-glow-gold`, `.shadow-glow-gold-intense`
+   - Specialty: `.shadow-inner`, `.shadow-neu`, `.shadow-neu-inset`, `.shadow-pulse` (animated), `.shadow-long`, `.shadow-spread`, `.shadow-spread-gold`, `.shadow-bottom`, `.shadow-directional`
+   - Full dark mode shadow variants
+
+4. **Combined Effects** (Section 4)
+   - `.heading-premium-3d` (perspective heading with depth)
+   - `.glass-3d-card` (glassmorphism + 3D hover)
+   - Dark mode variants for combined effects
+
+### Verification
+- Lint passed cleanly (`bun run lint` — no errors)
+- No existing CSS was modified — all additions are appended
+- All brand color values (#0D1B2A, #C6A84B, #E4D49A, etc.) match design system
+
+---
+Task ID: 14
+Agent: Main Orchestrator (Typography + 3D + Shadow Enhancement)
+Task: Upgrade typography system, 3D rendered elements, and shadow effects across the website
+
+Current Project Status Assessment:
+- Website is PRODUCTION-READY: lint, runtime, and QA all pass clean
+- globals.css grew from 3794 → 4454 lines (+660 lines of premium utilities)
+- 7 key components updated with new CSS classes applied
+
+Work Log:
+- Read existing globals.css (3794 lines) to understand current typography, 3D, and shadow system
+- Delegated to 2 parallel subagents:
+  - Task 14-a (Frontend Styling Expert): Created 65+ new CSS utility classes appended to globals.css
+  - Task 14-b (Full-Stack Developer): Applied new classes to 7 key components
+- Typography enhancements added:
+  - .heading-display through .heading-4: optical sizing with clamp(), refined tracking, text-wrap balance
+  - .body-lg/base/sm/xs: optimized body text hierarchy with letter-spacing and line-height
+  - .label-uppercase, .label-tracking-wide: refined label/micro text styles
+  - .nums-tabular, .nums-oldstyle: OpenType feature support for numerals
+  - .serif-italic-premium, .drop-cap: editorial typography effects
+  - .text-metallic-gold: multi-stop gradient with drop-shadow filter for embossed look
+  - .text-engraved: dual text-shadow for chiselled effect
+  - .text-shadow-elegant/lifted: multi-layer text shadow systems
+  - .letter-spacing-hover: animated letter-spacing on hover
+  - .underline-decorative: SVG wavy underline via background-image
+- 3D element enhancements added:
+  - .scene-3d/.scene-3d-tight: perspective containers for 3D children
+  - .card-3d-premium: enhanced 3D tilt with realistic multi-layer shadows
+  - .card-3d-reflective: 3D tilt + reflective surface sweep effect on hover
+  - .panel-3d-float: floating panel with hover lift + shadow expansion
+  - .depth-layer-back/mid/front: parallax-like depth layering system
+  - .ribbon-3d: perspective-transformed ribbon badge
+  - .inset-3d/.raised-3d: pressed/protruding surface effects
+- Shadow system enhancements added:
+  - 7 elevation levels: .shadow-flat through .shadow-2xl with progressive multi-layer shadows
+  - .shadow-gold/.shadow-gold-lg: gold-tinted ambient shadows
+  - .shadow-glow-gold/.shadow-glow-gold-intense: colored glow shadows for CTAs
+  - .shadow-inner, .shadow-neu/.shadow-neu-inset: inner and neumorphic shadows
+  - .shadow-pulse: animated shadow breathing effect
+  - .shadow-long: retro long shadow
+  - .shadow-spread/.shadow-spread-gold: spread glow for hero elements
+  - .shadow-bottom, .shadow-directional: directional shadows
+- Combined effects: .heading-premium-3d, .glass-3d-card (glassmorphism + 3D depth)
+- Full dark mode variants for ALL new classes
+- Components updated with new classes:
+  1. Hero.tsx: scene-3d, heading-display, text-shadow-elegant, body-lg, label-tracking-wide
+  2. ServicesGrid.tsx: heading-2, card-3d-premium, glass-3d-card, shadow-gold-lg
+  3. StatsBar.tsx: panel-3d-float, nums-tabular, body-sm
+  4. Founder.tsx: heading-3, text-shadow-elegant, label-uppercase, body-lg, panel-3d-float
+  5. Navigation.tsx: shadow-directional, letter-spacing-hover
+  6. TrackRecord.tsx: heading-2, panel-3d-float, shadow-gold
+  7. EmergencyCTA.tsx: shadow-glow-gold, raised-3d, heading-3, text-shadow-lifted
+
+Verification Results:
+- ✅ bun run lint: 0 errors
+- ✅ Dev server: 200 OK on /
+- ✅ globals.css: 4454 lines (+660 lines appended)
+- ✅ All new classes purely additive (zero existing CSS modified)
+- ✅ Full dark mode coverage for all new classes
+

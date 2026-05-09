@@ -12,7 +12,7 @@ export function EmergencyCTA() {
     <section
       ref={ref}
       id="emergency-cta"
-      className="relative w-full overflow-hidden bg-brand-dark border-animated-dashed"
+      className="relative w-full overflow-hidden bg-brand-dark border-animated-dashed shadow-glow-gold raised-3d"
       aria-label="Emergency bail attorney contact"
     >
       {/* Subtle diagonal gold accent line - top */}
@@ -56,7 +56,7 @@ export function EmergencyCTA() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-inverse mb-4 leading-tight"
+              className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-inverse mb-4 leading-tight heading-3 text-shadow-lifted"
             >
               Need a Bail Attorney{" "}
               <span className="gold-glow-text">Right Now?</span>

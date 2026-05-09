@@ -19,7 +19,7 @@ function StatItem({ value, suffix = "", prefix = "", label, duration = 2 }: Stat
   return (
     <motion.div
       ref={ref}
-      className="flex flex-col items-center text-center px-4 sm:px-6 py-6"
+      className="flex flex-col items-center text-center px-4 sm:px-6 py-6 panel-3d-float"
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -34,7 +34,7 @@ function StatItem({ value, suffix = "", prefix = "", label, duration = 2 }: Stat
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         />
-        <span className="relative font-display text-4xl sm:text-5xl lg:text-6xl font-bold gradient-text-gold tracking-tight">
+        <span className="relative font-display text-4xl sm:text-5xl lg:text-6xl font-bold gradient-text-gold tracking-tight nums-tabular">
           <CountUp
             end={value}
             suffix={suffix}
@@ -45,7 +45,7 @@ function StatItem({ value, suffix = "", prefix = "", label, duration = 2 }: Stat
         </span>
       </div>
       <motion.span
-        className="font-body text-sm sm:text-base text-brand-inverse/70 tracking-widest uppercase"
+        className="font-body text-sm sm:text-base text-brand-inverse/70 tracking-widest uppercase body-sm"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}

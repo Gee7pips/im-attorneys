@@ -49,7 +49,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full overflow-hidden bg-brand-dark wave-divider-bottom"
+      className="relative min-h-screen w-full overflow-hidden bg-brand-dark wave-divider-bottom scene-3d"
     >
       {/* ─── Main Layout: 60/40 Split on Desktop ─── */}
       <div className="relative flex min-h-screen flex-col lg:flex-row">
@@ -71,7 +71,7 @@ export function Hero() {
                 variants={fadeUp}
                 className="mb-6"
               >
-                <span className="inline-block font-body text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-brand-gold">
+                <span className="inline-block font-body text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-brand-gold label-tracking-wide">
                   Boutique Law Firm &middot; Pretoria
                 </span>
               </motion.div>
@@ -93,7 +93,7 @@ export function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
-                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-white mb-6"
+                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-white mb-6 heading-display text-shadow-elegant"
               >
                 Legal Service{" "}
                 <span className="text-gold-gradient">Curated</span> for You.
@@ -105,7 +105,7 @@ export function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
-                className="font-body text-base sm:text-lg leading-relaxed text-white/70 max-w-lg mb-10"
+                className="font-body text-base sm:text-lg leading-relaxed text-white/70 max-w-lg mb-10 body-lg"
               >
                 Personal and business legal solutions from Pretoria&apos;s most
                 prestigious address — Menlyn Maine.

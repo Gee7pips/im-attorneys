@@ -99,7 +99,7 @@ function CircularGauge({
   return (
     <motion.div
       ref={ref}
-      className="relative flex flex-col items-center cursor-pointer"
+      className="relative flex flex-col items-center cursor-pointer panel-3d-float shadow-gold"
       initial={{ opacity: 0, scale: 0.7 }}
       animate={
         isInView
@@ -558,7 +558,7 @@ export function TrackRecord() {
         <ScrollReveal className="text-center mb-16 sm:mb-24">
           <div className="flex flex-col items-center">
             <GoldLine width={60} className="mb-6" />
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 heading-2">
               <span className="text-gold-gradient">Our Track Record</span>
             </h2>
             <p
