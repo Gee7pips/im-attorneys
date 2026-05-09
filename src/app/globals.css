@@ -1729,3 +1729,371 @@ input:focus, textarea:focus, select:focus {
 .dark .line-stagger .line-stagger__item {
   background: linear-gradient(90deg, #E4D49A, #C6A84B);
 }
+
+/* ========================================
+   PHASE 7 — PREMIUM COMPONENT UTILITIES
+   ======================================== */
+
+/* ─────────────────────────────────────────
+   1. BADGE-GOLD — Gold pill badge
+   ───────────────────────────────────────── */
+
+.badge-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(198, 168, 75, 0.1);
+  border: 1px solid rgba(198, 168, 75, 0.2);
+  color: #C6A84B;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.badge-gold:hover {
+  background: rgba(198, 168, 75, 0.15);
+  border-color: rgba(198, 168, 75, 0.3);
+}
+
+/* ─────────────────────────────────────────
+   2. BADGE-DARK — Dark pill badge variant
+   ───────────────────────────────────────── */
+
+.badge-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(13, 27, 42, 0.08);
+  border: 1px solid rgba(13, 27, 42, 0.15);
+  color: #0D1B2A;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.badge-dark:hover {
+  background: rgba(13, 27, 42, 0.12);
+}
+
+.dark .badge-dark {
+  border-color: rgba(240, 237, 232, 0.2);
+  color: #F0EDE8;
+}
+
+.dark .badge-dark:hover {
+  background: rgba(240, 237, 232, 0.06);
+}
+
+/* ─────────────────────────────────────────
+   3. STAT-COUNTER — Animated stat number
+   ───────────────────────────────────────── */
+
+.stat-counter {
+  font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 1;
+  color: #0D1B2A;
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .stat-counter {
+    font-size: 3rem;
+  }
+}
+
+.stat-counter:hover {
+  transform: scale(1.03);
+}
+
+/* Gold gradient text variant for stat counters */
+.stat-counter.text-gold-gradient {
+  background: linear-gradient(135deg, #C6A84B 0%, #E4D49A 50%, #C6A84B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .stat-counter {
+  color: #F0EDE8;
+}
+
+/* ─────────────────────────────────────────
+   4. ICON-BOX-GOLD — Gold icon container
+   ───────────────────────────────────────── */
+
+.icon-box-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  background: rgba(198, 168, 75, 0.1);
+  border: 1px solid rgba(198, 168, 75, 0.15);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.icon-box-gold svg,
+.icon-box-gold [data-lucide],
+.icon-box-gold .icon {
+  color: #C6A84B;
+}
+
+.icon-box-gold:hover {
+  background: rgba(198, 168, 75, 0.15);
+  box-shadow: 0 4px 16px rgba(198, 168, 75, 0.15);
+}
+
+.dark .icon-box-gold {
+  background: rgba(198, 168, 75, 0.08);
+  border-color: rgba(198, 168, 75, 0.12);
+}
+
+.dark .icon-box-gold svg,
+.dark .icon-box-gold [data-lucide],
+.dark .icon-box-gold .icon {
+  color: #E4D49A;
+}
+
+.dark .icon-box-gold:hover {
+  background: rgba(198, 168, 75, 0.12);
+  box-shadow: 0 4px 16px rgba(198, 168, 75, 0.1);
+}
+
+/* ─────────────────────────────────────────
+   5. TEXT-BALANCE — Better typography
+   ───────────────────────────────────────── */
+
+.text-balance {
+  text-wrap: balance;
+  max-width: 65ch;
+}
+
+/* ─────────────────────────────────────────
+   6. HOVER-FLOAT — Gentle floating animation
+   ───────────────────────────────────────── */
+
+.hover-float {
+  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.hover-float:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(198, 168, 75, 0.15);
+}
+
+.dark .hover-float:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ─────────────────────────────────────────
+   7. HOVER-GLOW-GOLD — Gold glow on hover
+   ───────────────────────────────────────── */
+
+.hover-glow-gold {
+  transition: box-shadow 0.4s ease;
+  box-shadow: none;
+}
+
+.hover-glow-gold:hover {
+  box-shadow:
+    0 0 30px rgba(198, 168, 75, 0.25),
+    0 0 60px rgba(198, 168, 75, 0.1);
+}
+
+.dark .hover-glow-gold:hover {
+  box-shadow:
+    0 0 40px rgba(198, 168, 75, 0.2),
+    0 0 80px rgba(198, 168, 75, 0.06);
+}
+
+/* ─────────────────────────────────────────
+   8. BORDER-SHINE — Animated border shine
+   ───────────────────────────────────────── */
+
+.border-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 20%,
+    rgba(198, 168, 75, 0.6) 45%,
+    #E4D49A 50%,
+    rgba(198, 168, 75, 0.6) 55%,
+    transparent 80%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: borderShine 3s ease-in-out infinite;
+  animation-play-state: paused;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.border-shine:hover::after {
+  animation-play-state: running;
+}
+
+@keyframes borderShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.dark .border-shine::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 20%,
+    rgba(228, 212, 154, 0.5) 45%,
+    #E4D49A 50%,
+    rgba(228, 212, 154, 0.5) 55%,
+    transparent 80%,
+    transparent 100%
+  );
+}
+
+/* ─────────────────────────────────────────
+   9. PROSE-PREMIUM — Premium typography
+   ───────────────────────────────────────── */
+
+.prose-premium {
+  max-width: 65ch;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #3A4A5C;
+}
+
+.prose-premium h1,
+.prose-premium h2,
+.prose-premium h3,
+.prose-premium h4,
+.prose-premium h5,
+.prose-premium h6 {
+  font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  color: #0D1B2A;
+}
+
+.prose-premium a {
+  color: #C6A84B;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.prose-premium a:hover {
+  color: #B8993F;
+}
+
+.prose-premium ul,
+.prose-premium ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+.prose-premium ul li,
+.prose-premium ol li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-premium ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  background: #C6A84B;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.prose-premium blockquote {
+  border-left: 2px solid #C6A84B;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #0D1B2A;
+}
+
+.dark .prose-premium {
+  color: #D0D0D0;
+}
+
+.dark .prose-premium h1,
+.dark .prose-premium h2,
+.dark .prose-premium h3,
+.dark .prose-premium h4,
+.dark .prose-premium h5,
+.dark .prose-premium h6 {
+  color: #F0EDE8;
+}
+
+.dark .prose-premium a:hover {
+  color: #E4D49A;
+}
+
+.dark .prose-premium blockquote {
+  border-left-color: rgba(198, 168, 75, 0.5);
+  color: #F0EDE8;
+}
+
+/* ─────────────────────────────────────────
+   10. OVERLAY-GRADIENT — Section gradient
+   ───────────────────────────────────────── */
+
+.overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(13, 27, 42, 0.8) 0%,
+    rgba(13, 27, 42, 0.2) 40%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   11. FLEX-CENTER — Quick flex center
+   ───────────────────────────────────────── */
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

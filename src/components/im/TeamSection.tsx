@@ -1,14 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Mail, Phone, ArrowRight } from "lucide-react";
+import { Mail, Phone, ArrowRight, User } from "lucide-react";
 import {
   ScrollReveal,
   GoldLine,
   StaggerContainer,
   staggerChildVariants,
 } from "./ScrollReveal";
+import {
+  TeamMemberModal,
+  teamMemberDetails,
+  type TeamMemberDetail,
+} from "./TeamMemberModal";
 
 interface TeamMember {
   name: string;
@@ -51,7 +57,7 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
-function TeamCard({ member, index }: { member: TeamMember; index: number }) {
+function TeamCard({ member, index, onViewProfile }: { member: TeamMember; index: number; onViewProfile: (name: string) => void }) {
   return (
     <motion.article
       variants={staggerChildVariants}
@@ -130,12 +136,37 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
             <Phone className="w-4 h-4" />
           </a>
         </div>
+
+        {/* View Full Profile button */}
+        <button
+          onClick={() => onViewProfile(member.name)}
+          className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-sm border border-brand-gold/30 text-brand-gold text-xs font-semibold tracking-wider uppercase hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"
+          aria-label={`View full profile of ${member.name}`}
+        >
+          <User className="w-3.5 h-3.5" />
+          View Full Profile
+        </button>
       </div>
     </motion.article>
   );
 }
 
 export function TeamSection() {
+  const [selectedMember, setSelectedMember] = useState<TeamMemberDetail | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleViewProfile = (name: string) => {
+    const detail = teamMemberDetails.find((m) => m.name === name);
+    if (detail) {
+      setSelectedMember(detail);
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedMember(null), 350);
+  };
   return (
     <section
       id="team"
@@ -188,7 +219,7 @@ export function TeamSection() {
           staggerDelay={0.15}
         >
           {teamMembers.map((member, index) => (
-            <TeamCard key={member.name} member={member} index={index} />
+            <TeamCard key={member.name} member={member} index={index} onViewProfile={handleViewProfile} />
           ))}
         </StaggerContainer>
 
@@ -212,6 +243,13 @@ export function TeamSection() {
           </div>
         </ScrollReveal>
       </div>
+
+      {/* Team Member Detail Modal */}
+      <TeamMemberModal
+        member={selectedMember}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 }

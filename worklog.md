@@ -756,3 +756,137 @@ Priority Recommendations for Next Phase:
 5. LOW: Add client-side cookie consent management API
 6. LOW: Create a "Meet Our Team" modal with detailed bios for each member
 7. LOW: Add real-time consultation booking calendar integration
+
+---
+Task ID: 13-a
+Agent: Frontend Styling Expert
+Task: Phase 7 CSS enhancements — badges, stats, hover effects, border shine, prose
+
+Work Log:
+- Added .badge-gold — gold pill badge (rgba bg, gold border, uppercase, hover bg shift)
+- Added .badge-dark — dark pill variant (inverted colors for dark mode)
+- Added .stat-counter — large display stat number (font-display, text-4xl→5xl, hover scale)
+- Added .icon-box-gold — 3rem gold icon container (border, hover shadow, gold icon color)
+- Added .text-balance — text-wrap: balance + max-width: 65ch fallback
+- Added .hover-float — translateY(-8px) + gold glow shadow on hover
+- Added .hover-glow-gold — dual-ring gold glow box-shadow on hover
+- Added .border-shine — animated ::after gradient sweep line on hover (borderShine keyframe)
+- Added .prose-premium — 65ch prose block with premium typography (display headings, gold links, diamond bullets, gold blockquote)
+- Added .overlay-gradient — absolute gradient overlay for image sections
+- Added .flex-center — quick display:flex center utility
+- Added full dark mode variants for applicable classes
+- globals.css grew from ~1731 lines to ~2099 lines (+368 lines)
+
+Stage Summary:
+- 11 new CSS utility classes + dark mode variants added
+- 1 new keyframe animation: borderShine
+- All styles appended to end of file (no existing styles modified)
+
+---
+Task ID: 13-b
+Agent: Full-Stack Developer
+Task: Create TeamMemberModal component — detailed team member bio modal
+
+Work Log:
+- Created TeamMemberModal.tsx with comprehensive team member detail view
+- Exports: TeamMemberModal component, TeamMemberDetail interface, teamMemberDetails array
+- 3 team members with full data:
+  - Ingrid Mtsweni: LLB UJ 2018, 4 specialties, 4 languages, admitted 2019
+  - Katlego Seitisho: LLB UP, 4 specialties, 3 languages, admitted 2020
+  - Mmabatho Moncha: ND Legal Secretary TUT, 4 specialties, 3 languages
+- Modal features:
+  - Framer Motion AnimatePresence with desktop (scale+fade) and mobile (slide-up) variants
+  - Dark backdrop with backdrop-blur, click-to-close
+  - Glass morphism card: rgba(255,255,255,0.92) + blur(20px) + gold border top
+  - Desktop: side-by-side layout (portrait left, details right)
+  - Mobile: stacked layout with rounded top
+  - 4 detail sections in 2x2 grid: Qualifications, Specialties, Languages, Admission Year
+  - Contact row: email button + gold phone CTA button
+- Accessibility: role="dialog", aria-modal, focus trap, Escape key, body scroll lock
+
+Stage Summary:
+- New component: /src/components/im/TeamMemberModal.tsx (18417 bytes)
+- Lint passes clean (0 errors)
+
+---
+Task ID: 13-c
+Agent: Full-Stack Developer
+Task: Create MilestonesTimeline component — firm history timeline
+
+Work Log:
+- Created MilestonesTimeline.tsx with 8 firm milestones (2018-2025)
+- Timeline design:
+  - Vertical gold line with animated growth on scroll
+  - Gold dot nodes with gold-pulse-ring animation
+  - Desktop: alternating left/right layout
+  - Mobile: single column, timeline on left
+  - Staggered scroll-in animation via StaggerContainer
+- Milestones: Foundation Laid (2018) → Admitted (2019) → Banking (2020) → Vision (2021) → Founded (2022) → Menlyn Maine (2023) → Team Growth (2024) → Recognition (2025)
+- Section styling: bg-dot-pattern, corner-gold-bl, section-number watermark "01"
+- Card design: card-glass class, year in gold, title in dark, description in body
+- Animated timeline line using framer-motion useInView
+
+Stage Summary:
+- New component: /src/components/im/MilestonesTimeline.tsx (8174 bytes)
+- Lint passes clean (0 errors)
+
+---
+Task ID: 14
+Agent: Main Orchestrator (Cron Cycle 7 — Team Modal + Timeline + CSS)
+Task: Integrate new components, wire modal to TeamSection, QA testing
+
+Current Project Status Assessment:
+- Website is PRODUCTION-READY: lint, runtime, and QA all pass clean
+- Zero runtime errors in browser console
+- 25 content sections + 7 floating/overlay components = 38 total components
+- globals.css now at ~2099 lines with 75+ utility classes
+- New features verified: TeamMemberModal, MilestonesTimeline
+
+Work Log:
+- Read worklog.md and assessed project status from 12 previous task cycles
+- QA testing via agent-browser:
+  - Fresh page load: 200 OK, 0 errors
+  - Deep scroll through all 25 sections: 0 errors
+  - Dark mode toggle: functional, 0 errors
+  - Console: only React DevTools info + 2 benign warnings (Embla, LCP)
+  - Verified "View Full Profile" buttons on all 3 team cards
+  - Verified "Our Journey" region with milestone headings
+  - Team modal tested: opens on click, 0 runtime errors
+  - Took 3 screenshots at key positions
+- Delegated to 3 parallel subagents:
+  - Task 13-a: Phase 7 CSS utilities (badges, stats, hover effects, border shine, prose)
+  - Task 13-b: TeamMemberModal component (detailed bio modal)
+  - Task 13-c: MilestonesTimeline component (firm history timeline)
+- Integration work (page.tsx):
+  - Added MilestonesTimeline between CaseResults and LegalInsights
+- Integration work (TeamSection.tsx):
+  - Added useState for modal state management
+  - Added "View Full Profile" button (User icon + gold border) to each team card
+  - Connected TeamMemberModal with teamMemberDetails data lookup
+  - Modal opens on button click, closes on Escape/overlay click
+
+Verification Results:
+- ✅ bun run lint: 0 errors
+- ✅ agent-browser QA: 0 runtime errors
+- ✅ Console: only React DevTools info + 2 benign warnings
+- ✅ TeamMemberModal: "View Full Profile" buttons render, modal opens, 0 errors
+- ✅ MilestonesTimeline: "Our Journey" section renders with milestones
+- ✅ All 38 components functional
+
+Unresolved Issues / Risks:
+- Embla Carousel container position warning (benign, known library behavior)
+- LCP image warning for hero-building.png (cosmetic)
+- Testimonials are placeholder content — needs real client reviews
+- Team member bios for Katlego and Mmabatho are placeholder
+- TrackRecord statistics are illustrative — needs client confirmation
+- CaseResults amounts are illustrative — needs client confirmation
+- Milestone dates are illustrative — needs client confirmation
+
+Priority Recommendations for Next Phase:
+1. MEDIUM: Implement email notification on form submissions (via z-ai-web-dev-sdk)
+2. MEDIUM: Create full blog article pages (dynamic routes) for Legal Insights
+3. MEDIUM: Add dedicated vacation programme application form with file upload
+4. LOW: Optimize images with next/image blur placeholders for loading states
+5. LOW: Add client-side cookie consent management API
+6. LOW: Add more micro-interactions (parallax depth layers, 3D tilt on cards)
+7. LOW: Add real-time consultation booking calendar integration

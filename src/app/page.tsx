@@ -33,6 +33,7 @@ import { PageTransition } from "@/components/im/PageTransition";
 import { ClientMarquee } from "@/components/im/ClientMarquee";
 import { AwardsRecognition } from "@/components/im/AwardsRecognition";
 import { CaseResults } from "@/components/im/CaseResults";
+import { MilestonesTimeline } from "@/components/im/MilestonesTimeline";
 
 export default function Home() {
   return (
@@ -102,6 +103,9 @@ export default function Home() {
 
         {/* Case Results */}
         <CaseResults />
+
+        {/* Milestones Timeline */}
+        <MilestonesTimeline />
 
         {/* Legal Insights */}
         <LegalInsights />
