@@ -10,12 +10,16 @@ import { TheFirm } from "@/components/im/TheFirm";
 import { ServicesGrid } from "@/components/im/ServicesGrid";
 import { EmergencyCTA } from "@/components/im/EmergencyCTA";
 import { Founder } from "@/components/im/Founder";
+import { TeamSection } from "@/components/im/TeamSection";
+import { VacationProgramme } from "@/components/im/VacationProgramme";
 import { ParallaxQuote } from "@/components/im/ParallaxQuote";
 import { Testimonials } from "@/components/im/Testimonials";
+import { FAQSection } from "@/components/im/FAQSection";
 import { ContactForm } from "@/components/im/ContactForm";
 import { LocationMap } from "@/components/im/LocationMap";
 import { Footer } from "@/components/im/Footer";
 import { WhatsAppButton } from "@/components/im/WhatsAppButton";
+import { BackToTop } from "@/components/im/BackToTop";
 
 export default function Home() {
   return (
@@ -46,10 +50,16 @@ export default function Home() {
         {/* 24/7 Emergency CTA */}
         <EmergencyCTA />
 
-        {/* Founder Section */}
+        {/* Founder Spotlight */}
+        <Founder />
+
+        {/* Team Section */}
         <section id="team">
-          <Founder />
+          <TeamSection />
         </section>
+
+        {/* Vacation Programme */}
+        <VacationProgramme />
 
         {/* Parallax Quote */}
         <ParallaxQuote />
@@ -57,6 +67,11 @@ export default function Home() {
         {/* Testimonials Section */}
         <section id="testimonials">
           <Testimonials />
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq">
+          <FAQSection />
         </section>
 
         {/* Contact Section */}
@@ -69,8 +84,9 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
-      {/* Floating WhatsApp Button */}
+      {/* Floating Elements */}
       <WhatsAppButton />
+      <BackToTop />
     </BannerProvider>
   );
 }

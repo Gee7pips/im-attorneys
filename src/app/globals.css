@@ -105,6 +105,12 @@
   html {
     scroll-behavior: smooth;
   }
+  body {
+    font-variant-ligatures: common-ligatures;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 /* Premium scrollbar styling */
@@ -199,4 +205,92 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(198, 168, 75, 0.2);
+}
+
+/* Premium focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid rgba(198, 168, 75, 0.5);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Premium link underline animation */
+a {
+  text-decoration: none;
+}
+
+/* Smooth image loading placeholder */
+img {
+  transition: opacity 0.3s ease;
+}
+
+/* Premium card hover shadow transition */
+.card-hover-lift {
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), 
+              box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(13, 27, 42, 0.12), 0 8px 16px rgba(13, 27, 42, 0.06);
+}
+
+/* Gold accent border animation for cards */
+.gold-border-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.gold-border-reveal::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: linear-gradient(180deg, #C6A84B, #E4D49A, #C6A84B);
+  transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  z-index: 1;
+}
+
+.gold-border-reveal:hover::before {
+  width: 4px;
+}
+
+/* Section separator with gold gradient */
+.section-separator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(198, 168, 75, 0.3) 50%, transparent 100%);
+}
+
+/* Premium body text style for better readability */
+.text-premium-body {
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth accordion transition */
+[data-state="open"] > .accordion-content {
+  animation: slideDown 0.3s ease-out;
+}
+
+[data-state="closed"] > .accordion-content {
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+
+/* Premium input focus ring */
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 3px rgba(198, 168, 75, 0.15) !important;
 }

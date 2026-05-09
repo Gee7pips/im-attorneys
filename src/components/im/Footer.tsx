@@ -6,8 +6,9 @@ import { Instagram, Facebook, Linkedin, MapPin, Phone, Mail } from "lucide-react
 const quickLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Team", href: "#team" },
   { label: "Services", href: "#services" },
+  { label: "Our Team", href: "#team" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 

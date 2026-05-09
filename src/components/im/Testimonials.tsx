@@ -131,7 +131,7 @@ export function Testimonials() {
         {/* Carousel */}
         <div className="relative">
           {/* Embla viewport */}
-          <div className="overflow-hidden" ref={emblaRef}>
+          <div className="relative overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-4 md:-ml-6">
               {testimonials.map((testimonial, index) => (
                 <div
