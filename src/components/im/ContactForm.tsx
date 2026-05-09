@@ -1,0 +1,411 @@
+"use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod/v4";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  MessageCircle,
+  Send,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { ScrollReveal, GoldLine } from "@/components/im/ScrollReveal";
+
+const contactSchema = z.object({
+  fullName: z
+    .string()
+    .min(2, "Please enter your full name")
+    .max(100, "Name is too long"),
+  phone: z
+    .string()
+    .min(8, "Please enter a valid phone number")
+    .max(20, "Phone number is too long"),
+  email: z.email("Please enter a valid email address"),
+  areaOfLaw: z.string().min(1, "Please select an area of law"),
+  description: z
+    .string()
+    .min(10, "Please provide a brief description of at least 10 characters")
+    .max(2000, "Description is too long"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
+const areasOfLaw = [
+  "Family Law",
+  "Wills & Estates",
+  "Criminal Law",
+  "Commercial Law",
+  "Claims Against State",
+  "General Litigation",
+  "Other",
+];
+
+const contactDetails = [
+  {
+    icon: MapPin,
+    label: "Address",
+    value: "Pegasus Building, 210 Amarand Avenue, Menlyn Maine, Pretoria, 0181",
+    href: "https://maps.google.com/?q=IM+Attorneys+Menlyn+Maine+Pretoria",
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "081 248 8048",
+    href: "tel:+27812488048",
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    value: "attorneys@iminc.co.za",
+    href: "mailto:attorneys@iminc.co.za",
+  },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: "Chat with us",
+    href: "https://wa.me/270812488048?text=Hello%20IM%20Attorneys%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.",
+  },
+];
+
+export function ContactForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      fullName: "",
+      phone: "",
+      email: "",
+      areaOfLaw: "",
+      description: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit enquiry");
+      }
+
+      toast({
+        title: "Enquiry Sent Successfully",
+        description:
+          "Thank you for reaching out. Our team will contact you within 24 hours.",
+        variant: "default",
+      });
+
+      reset();
+    } catch {
+      toast({
+        title: "Something Went Wrong",
+        description:
+          "We couldn't submit your enquiry. Please try calling us directly or emailing attorneys@iminc.co.za.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section id="contact" className="relative py-20 md:py-28 bg-brand-parchment overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
+      <div className="absolute -top-32 -right-32 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Section Header */}
+        <ScrollReveal className="text-center mb-12 md:mb-16">
+          <span className="inline-block font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-brand-gold mb-3">
+            Get in Touch
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">
+            Let Us Help You
+          </h2>
+          <div className="flex justify-center">
+            <GoldLine width={60} />
+          </div>
+          <p className="mt-5 font-body text-brand-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Whether you need urgent legal assistance or wish to discuss a
+            matter, our team is ready to provide expert guidance.
+          </p>
+        </ScrollReveal>
+
+        <div className="grid lg:grid-cols-5 gap-10 lg:gap-14">
+          {/* Left Side: Contact Info */}
+          <ScrollReveal direction="left" className="lg:col-span-2">
+            <div className="space-y-8">
+              {/* Firm Name */}
+              <div>
+                <h3 className="font-display text-2xl font-bold text-brand-dark mb-1">
+                  IM Attorneys Inc
+                </h3>
+                <p className="font-body text-brand-muted text-sm">
+                  100% Female Black-Owned Boutique Law Firm
+                </p>
+              </div>
+
+              {/* Contact Details */}
+              <div className="space-y-5">
+                {contactDetails.map((detail) => (
+                  <a
+                    key={detail.label}
+                    href={detail.href}
+                    target={detail.label === "WhatsApp" ? "_blank" : undefined}
+                    rel={
+                      detail.label === "WhatsApp"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="flex items-start gap-4 group"
+                  >
+                    <div className="flex-shrink-0 w-11 h-11 rounded-full bg-brand-dark/5 flex items-center justify-center group-hover:bg-brand-gold/10 transition-colors duration-300">
+                      <detail.icon className="w-5 h-5 text-brand-gold" />
+                    </div>
+                    <div>
+                      <p className="font-body text-xs font-semibold tracking-wider uppercase text-brand-muted mb-0.5">
+                        {detail.label}
+                      </p>
+                      <p className="font-body text-brand-dark text-sm group-hover:text-brand-gold transition-colors duration-300">
+                        {detail.value}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              {/* Divider */}
+              <div className="h-px bg-brand-border/60" />
+
+              {/* Office Hours */}
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-11 h-11 rounded-full bg-brand-dark/5 flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-brand-gold" />
+                </div>
+                <div>
+                  <p className="font-body text-xs font-semibold tracking-wider uppercase text-brand-muted mb-1">
+                    Office Hours
+                  </p>
+                  <p className="font-body text-brand-dark text-sm font-medium">
+                    Mon – Fri: 08:00 – 17:00
+                  </p>
+                  <p className="font-body text-brand-muted text-xs mt-0.5">
+                    Closed on weekends & public holidays
+                  </p>
+                </div>
+              </div>
+
+              {/* Bail Applications Notice */}
+              <motion.div
+                className="bg-brand-dark text-white rounded-lg p-5 relative overflow-hidden"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-brand-gold/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+                <div className="relative">
+                  <p className="font-body text-xs font-semibold tracking-wider uppercase text-brand-gold mb-1.5">
+                    24/7 Availability
+                  </p>
+                  <p className="font-body text-sm text-white/90 leading-relaxed">
+                    Urgent bail applications are handled around the clock. If you
+                    need immediate legal assistance, call us anytime.
+                  </p>
+                  <a
+                    href="tel:+27812488048"
+                    className="inline-flex items-center gap-2 mt-3 text-brand-gold hover:text-brand-gold-light transition-colors font-body font-semibold text-sm"
+                  >
+                    <Phone className="w-4 h-4" />
+                    Call Now: 081 248 8048
+                  </a>
+                </div>
+              </motion.div>
+            </div>
+          </ScrollReveal>
+
+          {/* Right Side: Form */}
+          <ScrollReveal direction="right" className="lg:col-span-3">
+            <div className="bg-white rounded-xl shadow-[0_8px_32px_rgba(13,27,42,0.08)] p-6 sm:p-8 md:p-10">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                {/* Full Name */}
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="fullName"
+                    className="font-body text-sm font-medium text-brand-dark"
+                  >
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <Input
+                    id="fullName"
+                    placeholder="e.g. John Doe"
+                    className="h-11 border-brand-border/70 bg-brand-cream/30 font-body text-brand-dark placeholder:text-brand-muted/60 focus-visible:border-brand-gold focus-visible:ring-brand-gold/20"
+                    {...register("fullName")}
+                  />
+                  {errors.fullName && (
+                    <p className="flex items-center gap-1 text-xs text-red-500 font-body mt-1">
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.fullName.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Phone & Email row */}
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="phone"
+                      className="font-body text-sm font-medium text-brand-dark"
+                    >
+                      Phone Number <span className="text-red-500">*</span>
+                    </label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="e.g. 081 234 5678"
+                      className="h-11 border-brand-border/70 bg-brand-cream/30 font-body text-brand-dark placeholder:text-brand-muted/60 focus-visible:border-brand-gold focus-visible:ring-brand-gold/20"
+                      {...register("phone")}
+                    />
+                    {errors.phone && (
+                      <p className="flex items-center gap-1 text-xs text-red-500 font-body mt-1">
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.phone.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="email"
+                      className="font-body text-sm font-medium text-brand-dark"
+                    >
+                      Email Address <span className="text-red-500">*</span>
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="e.g. john@example.co.za"
+                      className="h-11 border-brand-border/70 bg-brand-cream/30 font-body text-brand-dark placeholder:text-brand-muted/60 focus-visible:border-brand-gold focus-visible:ring-brand-gold/20"
+                      {...register("email")}
+                    />
+                    {errors.email && (
+                      <p className="flex items-center gap-1 text-xs text-red-500 font-body mt-1">
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Area of Law */}
+                <div className="space-y-1.5">
+                  <label className="font-body text-sm font-medium text-brand-dark">
+                    Area of Law <span className="text-red-500">*</span>
+                  </label>
+                  <Select onValueChange={(val) => setValue("areaOfLaw", val)}>
+                    <SelectTrigger className="w-full h-11 border-brand-border/70 bg-brand-cream/30 font-body text-brand-dark focus:ring-brand-gold/20 focus:ring-[3px] focus-visible:border-brand-gold">
+                      <SelectValue placeholder="Select an area of law" />
+                    </SelectTrigger>
+                    <SelectContent className="font-body">
+                      {areasOfLaw.map((area) => (
+                        <SelectItem key={area} value={area}>
+                          {area}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.areaOfLaw && (
+                    <p className="flex items-center gap-1 text-xs text-red-500 font-body mt-1">
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.areaOfLaw.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Brief Description */}
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="description"
+                    className="font-body text-sm font-medium text-brand-dark"
+                  >
+                    Brief Description <span className="text-red-500">*</span>
+                  </label>
+                  <Textarea
+                    id="description"
+                    placeholder="Briefly describe your legal matter or how we can assist you..."
+                    rows={5}
+                    className="border-brand-border/70 bg-brand-cream/30 font-body text-brand-dark placeholder:text-brand-muted/60 focus-visible:border-brand-gold focus-visible:ring-brand-gold/20 resize-none"
+                    {...register("description")}
+                  />
+                  {errors.description && (
+                    <p className="flex items-center gap-1 text-xs text-red-500 font-body mt-1">
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.description.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full h-12 bg-brand-gold hover:bg-brand-gold-light text-brand-dark font-body font-semibold text-sm tracking-wide rounded-sm transition-all duration-300 hover:shadow-[0_4px_16px_rgba(198,168,75,0.3)] disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send My Enquiry
+                      <Send className="w-4 h-4 ml-1" />
+                    </>
+                  )}
+                </Button>
+
+                {/* Privacy note */}
+                <p className="text-center font-body text-xs text-brand-muted leading-relaxed">
+                  Your information is treated as strictly confidential. We comply
+                  with the Protection of Personal Information Act (POPIA).
+                </p>
+              </form>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+    </section>
+  );
+}
