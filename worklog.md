@@ -479,3 +479,126 @@ Priority Recommendations for Next Phase:
 5. LOW: Optimize images with next/image blur placeholders for loading states
 6. LOW: Add client-side cookie consent management API
 7. LOW: Add more micro-interactions (hover effects on footer links, parallax depth on scroll)
+
+---
+Task ID: 9-a
+Agent: Full-Stack Developer
+Task: Create OurProcess component — 4-step client journey
+
+Work Log:
+- Created OurProcess.tsx with 4-step horizontal timeline (vertical on mobile):
+  1. Consultation — MessageSquare icon — Free initial consultation
+  2. Strategy — Lightbulb icon — Tailored legal strategy
+  3. Execution — Gavel icon — Diligent representation
+  4. Resolution — Award icon — Favourable resolution
+- Each step: card-glass morphism, step number watermark, gold icon container, title + description
+- Timeline connector: horizontal gold gradient line (desktop), vertical (mobile), animated with useInView
+- StaggerContainer + staggerChildVariants for entrance animation
+- wave-divider-bottom, bg-crosshatch patterns applied
+- Responsive: single column mobile → 4 columns desktop
+
+Stage Summary:
+- New component: /src/components/im/OurProcess.tsx (200+ lines)
+- Lint passes clean (0 errors)
+
+---
+Task ID: 9-b
+Agent: Full-Stack Developer
+Task: Create CursorGlow + PageTransition components
+
+Work Log:
+- Created CursorGlow.tsx: Subtle gold radial gradient following mouse cursor
+  - Uses requestAnimationFrame with lerp interpolation (0.15 factor) for smooth 60fps tracking
+  - Desktop-only (matchMedia pointer: coarse detection)
+  - Fade in/out with opacity transition on mouse enter/leave
+  - Non-intrusive: pointer-events none, z-0, ~300px radius glow
+- Created PageTransition.tsx: Gentle page entrance animation wrapper
+  - framer-motion motion.div with opacity 0→1 over 0.6s easeOut
+  - 200ms delay before starting (waits for LoadingScreen)
+  - Simple children wrapper API
+
+Stage Summary:
+- 2 new components: CursorGlow.tsx (80 lines), PageTransition.tsx (20 lines)
+- Lint passes clean (0 errors)
+
+---
+Task ID: 9-c
+Agent: Frontend Styling Expert
+Task: Premium CSS utility additions — timeline, step watermarks, link animations, marquee
+
+Work Log:
+- Added .timeline-connector with horizontal/vertical responsive gold line
+- Added .step-number-watermark (6rem Playfair gold overlay)
+- Added .link-underline-anim (gold gradient underline expansion on hover)
+- Added .gold-pulse-ring (outward ring pulse animation, 2s infinite)
+- Added .image-reveal / .image-reveal.revealed (navy mask slide-away)
+- Added .text-fade-mask (CSS mask gradient fade at bottom)
+- Added .card-lift-glow (lift + gold glow shadow on hover)
+- Added .border-animated-dashed (dashed gold border with gradient fill)
+- Added .marquee-container / .marquee-content (30s infinite scroll)
+- Added 5 dark mode variants for new classes
+- Enhanced ::selection with gold tint for both light and dark mode
+- globals.css grew from ~1147 lines to ~1356 lines (+209 lines)
+
+Stage Summary:
+- 15+ new CSS utility classes and selectors added
+- 2 new keyframe animations: goldPulseRing, marqueeScroll
+- Full dark mode support
+
+---
+Task ID: 10
+Agent: Main Orchestrator (Cron Cycle 5 — Process + Cursor + Page Transition)
+Task: Integrate new components, apply CSS utilities, QA testing, final verification
+
+Current Project Status Assessment:
+- Website is PRODUCTION-READY: lint, runtime, and QA all pass clean
+- Zero runtime errors in browser console
+- 21 content sections + 7 floating/overlay components = 32 total components
+- globals.css now at ~1356 lines with 55+ utility classes
+- New features verified: OurProcess timeline, CursorGlow ambient effect, PageTransition entrance
+
+Work Log:
+- Read worklog.md and assessed project status from 8 previous task cycles
+- QA testing via agent-browser:
+  - Fresh page load: 200 OK, 0 errors
+  - Full page scroll through all sections: 0 errors
+  - Quick Consultation drawer: form fill + Escape close, 0 errors
+  - Dark mode toggle: functional, 0 errors
+  - Console: only React DevTools info + Fast Refresh rebuilds (no errors)
+  - Took 5 screenshots across page positions
+- Delegated to 3 parallel subagents:
+  - Task 9-a: OurProcess component (4-step client journey timeline)
+  - Task 9-b: CursorGlow + PageTransition components
+  - Task 9-c: CSS enhancements (timeline, watermarks, animations, marquee, selection)
+- Integration work:
+  - Added OurProcess between ServicesGrid and EmergencyCTA in page.tsx
+  - Added CursorGlow as first child inside BannerProvider (z-0, non-intrusive)
+  - Wrapped main content with PageTransition for gentle fade-in entrance
+  - Applied corner-gold-tr + corner-gold-bl to LocationMap section
+  - Applied border-animated-dashed to EmergencyCTA section
+
+Verification Results:
+- ✅ bun run lint: 0 errors
+- ✅ agent-browser QA: 0 runtime errors
+- ✅ Console: only React DevTools info + Fast Refresh rebuilds (no errors)
+- ✅ OurProcess section: 4 step cards rendering with correct content
+- ✅ CursorGlow: active on desktop, hidden on touch devices
+- ✅ PageTransition: gentle fade-in on page load
+- ✅ All 32 components functional
+- ✅ New CSS utilities applied to 2 existing sections
+
+Unresolved Issues / Risks:
+- Embla Carousel container position warning (benign, known library behavior)
+- LCP image warning for hero-building.png (cosmetic)
+- Testimonials are placeholder content — needs real client reviews
+- Team member bios for Katlego and Mmabatho are placeholder
+- TrackRecord statistics are illustrative — needs client confirmation of actual figures
+
+Priority Recommendations for Next Phase:
+1. MEDIUM: Implement email notification on form submissions (via z-ai-web-dev-sdk)
+2. MEDIUM: Create full blog article pages (dynamic routes) for Legal Insights
+3. MEDIUM: Add dedicated vacation programme application form with file upload
+4. LOW: Optimize images with next/image blur placeholders for loading states
+5. LOW: Add client-side cookie consent management API
+6. LOW: Add more micro-interactions (parallax depth layers, 3D tilt on cards)
+7. LOW: Create a "Meet Our Team" modal with detailed bios for each member

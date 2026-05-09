@@ -6,7 +6,7 @@ import { ScrollReveal, GoldLine } from "@/components/im/ScrollReveal";
 
 export function LocationMap() {
   return (
-    <section className="relative bg-white overflow-hidden">
+    <section className="relative bg-white overflow-hidden corner-gold-tr corner-gold-bl">
       {/* Top decorative line */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
 

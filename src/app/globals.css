@@ -1145,3 +1145,212 @@ input:focus, textarea:focus, select:focus {
   height: 48px;
   background: linear-gradient(0deg, rgba(198, 168, 75, 0.5), transparent);
 }
+
+/* ========================================
+   TASK 9-c — PREMIUM STYLING DETAILS
+   Prestige Noir Africana Enhancements
+   ======================================== */
+
+/* ─────────────────────────────────────────
+   1. TIMELINE CONNECTOR STYLES
+   ───────────────────────────────────────── */
+
+/* Timeline horizontal connector */
+.timeline-connector {
+  position: relative;
+}
+
+.timeline-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(198, 168, 75, 0.3) 10%, rgba(198, 168, 75, 0.3) 90%, transparent);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Mobile vertical timeline */
+@media (max-width: 1023px) {
+  .timeline-connector::after {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, transparent, rgba(198, 168, 75, 0.3) 10%, rgba(198, 168, 75, 0.3) 90%, transparent);
+  }
+}
+
+/* ─────────────────────────────────────────
+   2. STEP NUMBER WATERMARK
+   ───────────────────────────────────────── */
+
+.step-number-watermark {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(198, 168, 75, 0.06);
+  position: absolute;
+  top: -0.5rem;
+  left: 0.5rem;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ─────────────────────────────────────────
+   3. PREMIUM LINK HOVER UNDERLINE ANIMATION
+   ───────────────────────────────────────── */
+
+.link-underline-anim {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline-anim::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #C6A84B, #E4D49A);
+  transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.link-underline-anim:hover::after {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────
+   4. GOLD PULSE RING ANIMATION (step icons)
+   ───────────────────────────────────────── */
+
+.gold-pulse-ring {
+  position: relative;
+}
+
+.gold-pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(198, 168, 75, 0.3);
+  animation: goldPulseRing 2s ease-out infinite;
+}
+
+@keyframes goldPulseRing {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* ─────────────────────────────────────────
+   5. IMAGE REVEAL MASK ANIMATION
+   ───────────────────────────────────────── */
+
+.image-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-reveal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #0D1B2A;
+  transform-origin: right;
+  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.image-reveal.revealed::after {
+  transform: scaleX(0);
+}
+
+/* ─────────────────────────────────────────
+   6. TEXT GRADIENT MASK FADE
+   ───────────────────────────────────────── */
+
+.text-fade-mask {
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+/* ─────────────────────────────────────────
+   7. HOVER SCALE SHADOW CARD
+   ───────────────────────────────────────── */
+
+.card-lift-glow {
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-lift-glow:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px -12px rgba(198, 168, 75, 0.2), 0 8px 20px -8px rgba(13, 27, 42, 0.1);
+}
+
+/* ─────────────────────────────────────────
+   8. ANIMATED BORDER DASHED (decorative)
+   ───────────────────────────────────────── */
+
+.border-animated-dashed {
+  border: 2px dashed rgba(198, 168, 75, 0.2);
+  background-image: linear-gradient(rgba(198, 168, 75, 0.03), rgba(198, 168, 75, 0.03));
+}
+
+/* ─────────────────────────────────────────
+   9. MARQUEE / INFINITE SCROLL
+   ───────────────────────────────────────── */
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marqueeScroll 30s linear infinite;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   10. DARK MODE VARIANTS (new classes)
+   ───────────────────────────────────────── */
+
+.dark .step-number-watermark {
+  color: rgba(198, 168, 75, 0.04);
+}
+
+.dark .card-lift-glow:hover {
+  box-shadow: 0 20px 50px -12px rgba(198, 168, 75, 0.15), 0 8px 20px -8px rgba(0, 0, 0, 0.3);
+}
+
+.dark .image-reveal::after {
+  background: #0A1628;
+}
+
+.dark .border-animated-dashed {
+  border-color: rgba(198, 168, 75, 0.12);
+}
+
+/* ─────────────────────────────────────────
+   11. CUSTOM SELECTION STYLING ENHANCEMENT
+   ───────────────────────────────────────── */
+
+::selection {
+  background: rgba(198, 168, 75, 0.25);
+  color: #0D1B2A;
+}
+
+.dark ::selection {
+  background: rgba(198, 168, 75, 0.35);
+  color: #F0EDE8;
+}

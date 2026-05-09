@@ -27,15 +27,20 @@ import { CookieConsent } from "@/components/im/CookieConsent";
 import { TrustBadges } from "@/components/im/TrustBadges";
 import { TrackRecord } from "@/components/im/TrackRecord";
 import { QuickConsultation } from "@/components/im/QuickConsultation";
+import { OurProcess } from "@/components/im/OurProcess";
+import { CursorGlow } from "@/components/im/CursorGlow";
+import { PageTransition } from "@/components/im/PageTransition";
 
 export default function Home() {
   return (
     <BannerProvider>
+      <CursorGlow />
       <ScrollProgress />
       <LoadingScreen />
       <OnboardingBanner />
       <Navigation />
 
+      <PageTransition>
       <main className="min-h-screen">
         {/* Hero Section */}
         <section id="home">
@@ -57,6 +62,9 @@ export default function Home() {
         <section id="services">
           <ServicesGrid />
         </section>
+
+        {/* Our Process */}
+        <OurProcess />
 
         {/* 24/7 Emergency CTA */}
         <EmergencyCTA />
@@ -100,6 +108,7 @@ export default function Home() {
         {/* Newsletter */}
         <NewsletterSection />
       </main>
+      </PageTransition>
 
       {/* Footer */}
       <Footer />

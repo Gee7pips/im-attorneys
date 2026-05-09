@@ -12,7 +12,7 @@ export function EmergencyCTA() {
     <section
       ref={ref}
       id="emergency-cta"
-      className="relative w-full overflow-hidden bg-brand-dark"
+      className="relative w-full overflow-hidden bg-brand-dark border-animated-dashed"
       aria-label="Emergency bail attorney contact"
     >
       {/* Subtle diagonal gold accent line - top */}
