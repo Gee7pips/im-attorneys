@@ -282,6 +282,10 @@ export function Hero() {
       <div className="hidden lg:block absolute top-0 right-[40%] z-10 w-px h-32 bg-gradient-to-b from-brand-gold/40 to-transparent" />
       {/* Bottom-left subtle gold glow */}
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-gold/[0.03] rounded-full blur-3xl pointer-events-none" />
+      {/* Ambient gold orb — top left */}
+      <div className="ambient-orb absolute -top-20 -left-20 w-80 h-80 pointer-events-none" />
+      {/* Ambient warm orb — bottom right */}
+      <div className="ambient-orb absolute -bottom-32 right-0 w-96 h-96 pointer-events-none" style={{ animationDelay: "-5s" }} />
     </section>
   );
 }

@@ -144,6 +144,9 @@ export function ContactForm() {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
       <div className="absolute -top-32 -right-32 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Morphing border accent */}
+      <div className="absolute top-8 right-8 w-32 h-32 morphing-border opacity-20 pointer-events-none" />
+      <div className="absolute bottom-8 left-8 w-24 h-24 morphing-border opacity-15 pointer-events-none" style={{ animationDelay: "-4s" }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}

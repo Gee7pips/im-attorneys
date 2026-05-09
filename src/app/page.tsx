@@ -37,6 +37,9 @@ import { MilestonesTimeline } from "@/components/im/MilestonesTimeline";
 import { LegalResources } from "@/components/im/LegalResources";
 import { LiveChatBubble } from "@/components/im/LiveChatBubble";
 import { FeesAndBilling } from "@/components/im/FeesAndBilling";
+import { PracticeAreaExplorer } from "@/components/im/PracticeAreaExplorer";
+import { OfficeHours } from "@/components/im/OfficeHours";
+import { SocialProof } from "@/components/im/SocialProof";
 
 export default function Home() {
   return (
@@ -72,6 +75,9 @@ export default function Home() {
         <section id="services">
           <ServicesGrid />
         </section>
+
+        {/* Practice Area Explorer */}
+        <PracticeAreaExplorer />
 
         {/* Our Process */}
         <OurProcess />
@@ -127,6 +133,9 @@ export default function Home() {
         {/* Contact Section */}
         <ContactForm />
 
+        {/* Office Hours */}
+        <OfficeHours />
+
         {/* Location & Map */}
         <LocationMap />
 
@@ -141,6 +150,7 @@ export default function Home() {
       {/* Floating Elements */}
       <QuickConsultation />
       <LiveChatBubble />
+      <SocialProof />
       <WhatsAppButton />
       <BackToTop />
       <CookieConsent />

@@ -2588,3 +2588,450 @@ input:focus, textarea:focus, select:focus {
 .dark .text-stroke-gold {
   -webkit-text-stroke-color: #E4D49A;
 }
+
+/* =========================================================================
+   Phase 9 CSS Enhancements — ambient orbs, particle trails, text scramble,
+   perspective grid, morphing shapes, premium cards
+   ========================================================================= */
+
+/* ── 1. Ambient Orb ────────────────────────────────────────────────────── */
+
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -40px) scale(1.08);
+  }
+  50% {
+    transform: translate(-20px, -60px) scale(0.95);
+  }
+  75% {
+    transform: translate(-40px, -20px) scale(1.05);
+  }
+}
+
+.ambient-orb {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(198, 168, 75, 0.18) 0%,
+    rgba(228, 212, 154, 0.08) 40%,
+    rgba(249, 248, 245, 0.02) 70%,
+    transparent 100%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+  animation: orbFloat 12s ease-in-out infinite;
+  z-index: 0;
+}
+
+.dark .ambient-orb {
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(198, 168, 75, 0.12) 0%,
+    rgba(228, 212, 154, 0.04) 40%,
+    rgba(13, 27, 42, 0.01) 70%,
+    transparent 100%
+  );
+}
+
+/* ── 2. Particle Trail ─────────────────────────────────────────────────── */
+
+@keyframes particleDrift {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-40px) scale(0.6);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-80px) scale(0);
+    opacity: 0;
+  }
+}
+
+.particle-trail {
+  position: relative;
+  width: 6px;
+  height: 6px;
+}
+
+.particle-trail::before,
+.particle-trail::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.particle-trail::before {
+  width: 4px;
+  height: 4px;
+  background: rgba(198, 168, 75, 0.5);
+  left: -1px;
+  top: 1px;
+  animation: particleDrift 3s ease-in-out infinite;
+}
+
+.particle-trail::after {
+  width: 3px;
+  height: 3px;
+  background: rgba(228, 212, 154, 0.4);
+  left: 3px;
+  top: 4px;
+  animation: particleDrift 3s ease-in-out 1.2s infinite;
+}
+
+.dark .particle-trail::before {
+  background: rgba(198, 168, 75, 0.3);
+}
+
+.dark .particle-trail::after {
+  background: rgba(228, 212, 154, 0.2);
+}
+
+/* ── 3. Text Scramble Reveal ───────────────────────────────────────────── */
+
+@keyframes textScramble {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+.text-scramble-reveal {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation: textScramble 1.2s steps(1) forwards;
+}
+
+/* ── 4. Perspective Grid ───────────────────────────────────────────────── */
+
+.perspective-grid {
+  position: relative;
+  overflow: hidden;
+}
+
+.perspective-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(198, 168, 75, 0.12) 0px,
+      rgba(198, 168, 75, 0.12) 1px,
+      transparent 1px,
+      transparent 60px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(198, 168, 75, 0.12) 0px,
+      rgba(198, 168, 75, 0.12) 1px,
+      transparent 1px,
+      transparent 60px
+    );
+  transform: perspective(500px) rotateX(45deg);
+  transform-origin: center top;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── 5. Morphing Border ────────────────────────────────────────────────── */
+
+@keyframes morphBorder {
+  0% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  12.5% {
+    border-radius: 58% 42% 36% 64% / 58% 58% 42% 42%;
+  }
+  25% {
+    border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+  }
+  37.5% {
+    border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+  }
+  50% {
+    border-radius: 67% 33% 47% 53% / 37% 33% 67% 63%;
+  }
+  62.5% {
+    border-radius: 47% 53% 36% 64% / 40% 67% 33% 60%;
+  }
+  75% {
+    border-radius: 42% 58% 64% 36% / 56% 38% 62% 44%;
+  }
+  87.5% {
+    border-radius: 36% 64% 42% 58% / 46% 52% 48% 54%;
+  }
+  100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+}
+
+.morphing-border {
+  border: 1px solid rgba(198, 168, 75, 0.25);
+  animation: morphBorder 8s ease-in-out infinite;
+}
+
+.dark .morphing-border {
+  border-color: rgba(198, 168, 75, 0.15);
+}
+
+/* ── 6. Card Aura ──────────────────────────────────────────────────────── */
+
+@keyframes cardAura {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(198, 168, 75, 0.1),
+      0 4px 24px rgba(198, 168, 75, 0.06),
+      0 0 60px rgba(198, 168, 75, 0.04);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(198, 168, 75, 0.25),
+      0 8px 40px rgba(198, 168, 75, 0.12),
+      0 0 80px rgba(198, 168, 75, 0.08);
+  }
+}
+
+.card-aura {
+  animation: cardAura 4s ease-in-out infinite;
+}
+
+.dark .card-aura {
+  animation: cardAuraDark 4s ease-in-out infinite;
+}
+
+@keyframes cardAuraDark {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(198, 168, 75, 0.06),
+      0 4px 24px rgba(198, 168, 75, 0.04),
+      0 0 60px rgba(198, 168, 75, 0.02);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(198, 168, 75, 0.18),
+      0 8px 40px rgba(198, 168, 75, 0.08),
+      0 0 80px rgba(198, 168, 75, 0.05);
+  }
+}
+
+/* ── 7. Text Shadow Shine ──────────────────────────────────────────────── */
+
+@keyframes textShine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.text-shadow-shine {
+  background: linear-gradient(
+    90deg,
+    #C6A84B 0%,
+    #C6A84B 35%,
+    #F9F8F5 45%,
+    #E4D49A 55%,
+    #C6A84B 65%,
+    #C6A84B 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShine 3s linear infinite;
+}
+
+/* ── 8. Gradient Mesh Background ───────────────────────────────────────── */
+
+.gradient-mesh-bg {
+  background:
+    radial-gradient(
+      ellipse 600px 400px at 15% 20%,
+      rgba(198, 168, 75, 0.10) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 500px 500px at 80% 10%,
+      rgba(228, 212, 154, 0.08) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 700px 300px at 50% 70%,
+      rgba(198, 168, 75, 0.06) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 400px 600px at 90% 85%,
+      rgba(249, 248, 245, 0.10) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 350px 350px at 30% 90%,
+      rgba(228, 212, 154, 0.05) 0%,
+      transparent 100%
+    ),
+    #F9F8F5;
+}
+
+.dark .gradient-mesh-bg {
+  background:
+    radial-gradient(
+      ellipse 600px 400px at 15% 20%,
+      rgba(198, 168, 75, 0.06) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 500px 500px at 80% 10%,
+      rgba(228, 212, 154, 0.04) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 700px 300px at 50% 70%,
+      rgba(198, 168, 75, 0.03) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 400px 600px at 90% 85%,
+      rgba(13, 27, 42, 0.15) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 350px 350px at 30% 90%,
+      rgba(228, 212, 154, 0.02) 0%,
+      transparent 100%
+    ),
+    #0D1B2A;
+}
+
+/* ── 9. Hover Ripple ───────────────────────────────────────────────────── */
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.hover-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-ripple::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(198, 168, 75, 0.35) 0%,
+    rgba(198, 168, 75, 0.1) 40%,
+    transparent 70%
+  );
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  margin-left: -30px;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hover-ripple:active::after {
+  animation: ripple 0.6s ease-out forwards;
+}
+
+/* ── 10. Stat Glow Ring ────────────────────────────────────────────────── */
+
+@keyframes statRingRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.stat-glow-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-glow-ring::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(198, 168, 75, 0.0) 0%,
+    rgba(198, 168, 75, 0.5) 25%,
+    rgba(228, 212, 154, 0.7) 50%,
+    rgba(198, 168, 75, 0.5) 75%,
+    rgba(198, 168, 75, 0.0) 100%
+  );
+  animation: statRingRotate 4s linear infinite;
+  z-index: -1;
+}
+
+.stat-glow-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* ── 11. Line Draw ─────────────────────────────────────────────────────── */
+
+@keyframes lineDraw {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.line-draw {
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: lineDraw 1s ease-out forwards;
+}
+
+/* ── 12. Content Reveal Up ─────────────────────────────────────────────── */
+
+.content-reveal-up {
+  transform: translateY(40px);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.content-reveal-up[data-visible="true"] {
+  transform: translateY(0);
+  opacity: 1;
+}

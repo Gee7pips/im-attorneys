@@ -86,6 +86,9 @@ export function StatsBar() {
         }}
       />
 
+      {/* Perspective grid overlay */}
+      <div className="perspective-grid absolute inset-0 pointer-events-none" />
+
       <div ref={containerRef} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-brand-gold/10">
           {stats.map((stat, index) => (

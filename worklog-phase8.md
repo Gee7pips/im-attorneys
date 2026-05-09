@@ -151,6 +151,33 @@ Unresolved Issues / Risks:
 - Milestone dates are illustrative - needs client confirmation
 - AI chat responses are static - needs backend integration for real AI responses
 
+---
+Task ID: 17-d
+Agent: Full-Stack Developer
+Task: Create OfficeHours component — live open/closed status widget with timezone awareness
+
+Work Log:
+- Created /src/components/im/OfficeHours.tsx as a "use client" component
+- Live SAST time calculation using Intl.DateTimeFormat with timeZone: 'Africa/Johannesburg'
+- Office hours schedule: Mon-Fri 08:00-17:00, Sat 09:00-13:00, Sun Closed
+- useEffect with setTimeout(0) + setInterval(60s) for live updates — avoids hydration mismatch and lint rule violation
+- Status badge: Green pulsing dot + "Open Now" OR Red static dot + "Closed"
+- Current SAST time display: "Current Time: 14:32 SAST" with Clock icon
+- Weekly schedule table with 7 rows (Mon-Sun), current day highlighted with gold bg/8%
+- "Today" badge shown next to current day, status column shows Open/Closed pill
+- Emergency notice card: gold-bordered (brand-gold/40), AlertTriangle icon, "After Hours Emergency?" heading
+- Emergency phone link (081 248 8048) + WhatsApp link in action buttons
+- Section: bg-brand-parchment, card: bg-white rounded-xl p-6 md:p-8 shadow-sm
+- ScrollReveal for section header and main card, motion.div for emergency notice entrance
+- Responsive: table columns collapse on mobile (status column hidden on sm-)
+
+Stage Summary:
+- New component: /src/components/im/OfficeHours.tsx
+- Live timezone-aware open/closed status with SAST time
+- Weekly schedule grid with current day highlighting
+- Emergency contact card with phone + WhatsApp CTAs
+- Lint passes clean (0 errors)
+
 Priority Recommendations for Next Phase:
 1. MEDIUM: Implement real AI chat responses via z-ai-web-dev-sdk LLM integration
 2. MEDIUM: Implement email notification on form submissions (via z-ai-web-dev-sdk)
@@ -159,3 +186,90 @@ Priority Recommendations for Next Phase:
 5. LOW: Add client-side cookie consent management API
 6. LOW: Add more micro-interactions and parallax depth layers
 7. LOW: Create a consultation booking calendar integration
+
+---
+Task ID: 17-a
+Agent: Frontend Styling Expert
+Task: Phase 9 CSS enhancements — ambient orbs, particle trails, text scramble reveal, perspective grid, morphing shapes, premium cards
+
+Work Log:
+- Added .ambient-orb — floating blurred gold/cream radial-gradient sphere with @keyframes orbFloat (translate + scale, 12s)
+- Added .particle-trail — container with ::before/::after tiny circles drifting upward via @keyframes particleDrift (translateY + opacity)
+- Added .text-scramble-reveal — clip-path inset reveal from left to right with @keyframes textScramble steps(1) animation
+- Added .perspective-grid — CSS-only perspective grid floor using repeating-linear-gradient (90deg + 0deg) with perspective(500px) rotateX(45deg) transform + mask-image fade
+- Added .morphing-border — continuously morphing border-radius with @keyframes morphBorder (8 asymmetric keyframes, 8s cycle)
+- Added .card-aura — pulsing box-shadow aura with @keyframes cardAura cycling between subtle and visible glow states
+- Added .text-shadow-shine — background-clip text with sweeping gradient highlight via @keyframes textShine (3s linear infinite)
+- Added .gradient-mesh-bg — organic color blending with 5 overlapping radial-gradient layers at varied positions
+- Added .hover-ripple — click-triggered expanding radial ripple via ::after with @keyframes ripple (scale 0→4, 0.6s)
+- Added .stat-glow-ring — rotating conic-gradient ring with @keyframes statRingRotate (4s linear infinite)
+- Added .line-draw — self-drawing line scaleX(0→1) with transform-origin left via @keyframes lineDraw (1s ease-out)
+- Added .content-reveal-up — translateY(40px) + opacity 0→1 triggered by [data-visible="true"] attribute
+- Dark mode variants added for: .ambient-orb, .particle-trail, .morphing-border, .card-aura (dedicated cardAuraDark keyframes), .gradient-mesh-bg
+- 12 new keyframe animations: orbFloat, particleDrift, textScramble, morphBorder, cardAura, cardAuraDark, textShine, ripple, statRingRotate, lineDraw
+
+Stage Summary:
+- 12 new CSS utility classes appended to end of globals.css
+- 10 new @keyframes animations
+- 5 dark mode variants
+- globals.css grew from 2591 to 3037 lines (+446 lines)
+- bun run lint: 0 errors
+- No existing styles modified
+
+---
+Task ID: 17-c
+Agent: Full-Stack Developer
+Task: Create SocialProof component — real-time social proof notification toasts
+
+Work Log:
+- Created /src/components/im/SocialProof.tsx with periodic social proof notification toasts
+- Position: fixed bottom-24 left-6 z-40 (above footer, bottom-left), max-w-xs
+- Toast style: bg-white rounded-xl shadow-xl border border-gray-100 p-4
+- Animation: framer-motion AnimatePresence with slide-in from left (x: -100% → 0) and slide-out
+- Auto-dismiss after 5 seconds with smooth exit animation
+- Toast content: avatar circle (w-8 h-8, bg-brand-gold/10, User icon) + name + "just now" time + action text + "IM Attorneys Inc" footer
+- Data pool: 15 South African names × 6 practice areas × 6 action templates = 90+ unique combinations
+- Timing: first notification after 8s delay, subsequent every 15-25s random interval
+- Scroll-aware: only shows when user scrolled past hero (60% viewport), hides near footer (within 300px of bottom)
+- Visibility API: pauses notifications when tab is not visible (document.visibilitychange)
+- Close button: small X button top-right for manual dismiss, reschedules next notification
+- One notification at a time (new replaces old via state)
+- Used recursive scheduling inside useEffect to avoid circular useCallback lint errors
+- ARIA: role="status" aria-live="polite" for accessibility
+
+Stage Summary:
+- New component: /src/components/im/SocialProof.tsx
+- Named export: SocialProof
+- Lint passes clean (0 errors)
+
+---
+Task ID: 17-b
+Agent: Full-Stack Developer
+Task: Create PracticeAreaExplorer component — interactive tabbed practice area deep-dive
+
+Work Log:
+- Created /src/components/im/PracticeAreaExplorer.tsx as a "use client" component
+- Section header: "Explore Our Practice Areas" in font-display text-3xl md:text-4xl with divider-gold-fancy ornamental separator and descriptive subtext
+- 6 interactive tab buttons with horizontal flex-wrap layout (scrollable on mobile):
+  - Family Law (Heart), Wills & Estates (FileText), Claims vs State (Landmark), Criminal Law (Shield), Commercial Law (Briefcase), General Litigation (Scale)
+  - Active tab: bg-brand-gold text-white with shadow; Inactive: bg-white text-slate-700 with border hover:border-brand-gold/50
+- Tab content panel with AnimatePresence fade+slide animation:
+  - Left column: Large icon (w-16 h-16 gold container), title in font-display text-2xl, gold divider, full description, "When to Consult Us" with 4 bullet items (CheckCircle gold icons)
+  - Right column: "Key Services" grid (4-6 service cards with bg-brand-parchment/50 and gold left border), "Common Questions" with 2 FAQ items, CTA button "Discuss Your Case" → scrolls to #contact
+- Rich content data for all 6 practice areas:
+  - Family Law: Divorce, custody, maintenance, protection orders, ante-nuptial contracts, parenting plans
+  - Wills & Estates: Will drafting, estate administration, executor appointment, trusts, estate planning strategy
+  - Claims vs State: RAF claims, medical negligence, police brutality, constitutional rights, state liability, human rights litigation
+  - Criminal Law: Bail applications (24/7), defence, appeals, plea negotiations, sexual offences, pre-trial strategy
+  - Commercial Law: Contract drafting, commercial disputes, regulatory compliance, property transactions, corporate governance, business restructuring
+  - General Litigation: Civil disputes, debt recovery, eviction proceedings, contractual disputes, arbitration & mediation, application proceedings
+- Accessibility: tab/tabpanel roles, aria-selected, aria-controls, aria-labelledby, full keyboard navigation (Arrow keys, Home, End), focus management on tab change, roving tabindex pattern
+- Animations: ScrollReveal for section header, AnimatePresence mode="wait" for tab content transitions
+- Content panel container: bg-brand-cream/40 rounded-2xl border with min-h-[480px]
+
+Stage Summary:
+- New component: /src/components/im/PracticeAreaExplorer.tsx
+- 6 practice areas with rich content (descriptions, services, FAQs, when-to-consult items)
+- Full WAI-ARIA tab pattern with keyboard navigation
+- AnimatePresence tab transitions with ScrollReveal section header
+- Lint passes clean (0 errors)

@@ -145,7 +145,7 @@ export function NewsletterSection() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="h-12 px-6 sm:px-8 bg-brand-gold hover:bg-brand-gold-light text-brand-dark font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:shadow-[0_4px_16px_rgba(198,168,75,0.3)] disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
+              className="h-12 px-6 sm:px-8 bg-brand-gold hover:bg-brand-gold-light text-brand-dark font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:shadow-[0_4px_16px_rgba(198,168,75,0.3)] disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap hover-ripple"
             >
               {isSubmitting ? (
                 <>

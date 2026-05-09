@@ -221,7 +221,7 @@ export function ServiceDetailModal({
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-title"
-              className="relative w-full sm:max-w-[600px] max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-lg shadow-2xl"
+              className="relative w-full sm:max-w-[600px] max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-lg shadow-2xl card-aura"
               style={{
                 background:
                   "rgba(255, 255, 255, 0.92)",
