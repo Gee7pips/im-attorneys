@@ -86,6 +86,8 @@ const contactDetails = [
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [popiaConsent, setPopiaConsent] = useState(false);
+  const [contactConsent, setContactConsent] = useState(false);
   const { toast } = useToast();
 
   const {
@@ -106,6 +108,15 @@ export function ContactForm() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    if (!popiaConsent || !contactConsent) {
+      toast({
+        title: "Consent Required",
+        description: "Please tick both consent checkboxes before submitting your enquiry. This is required under POPIA.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/contact", {
@@ -126,6 +137,8 @@ export function ContactForm() {
       });
 
       reset();
+      setPopiaConsent(false);
+      setContactConsent(false);
     } catch {
       toast({
         title: "Something Went Wrong",
@@ -380,6 +393,50 @@ export function ContactForm() {
                   )}
                 </div>
 
+                {/* POPIA Consent Checkboxes */}
+                <div className="space-y-3">
+                  <div className="flex items-start gap-2.5">
+                    <input
+                      type="checkbox"
+                      id="popia-consent"
+                      checked={popiaConsent}
+                      onChange={(e) => setPopiaConsent(e.target.checked)}
+                      className="w-4 h-4 mt-0.5 rounded border-brand-border accent-[#C6A84B] cursor-pointer"
+                    />
+                    <label
+                      htmlFor="popia-consent"
+                      className="font-body text-xs text-brand-muted leading-relaxed cursor-pointer"
+                    >
+                      I consent to I.M Attorneys Inc collecting and processing my personal information as described in the{" "}
+                      <a
+                        href="/privacy-policy"
+                        className="text-brand-gold underline hover:text-brand-gold-light"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Privacy Policy
+                      </a>
+                      . I understand I may withdraw this consent at any time.
+                    </label>
+                  </div>
+
+                  <div className="flex items-start gap-2.5">
+                    <input
+                      type="checkbox"
+                      id="contact-consent"
+                      checked={contactConsent}
+                      onChange={(e) => setContactConsent(e.target.checked)}
+                      className="w-4 h-4 mt-0.5 rounded border-brand-border accent-[#C6A84B] cursor-pointer"
+                    />
+                    <label
+                      htmlFor="contact-consent"
+                      className="font-body text-xs text-brand-muted leading-relaxed cursor-pointer"
+                    >
+                      I confirm that the information provided is accurate and I consent to being contacted regarding my enquiry via phone, email, or WhatsApp.
+                    </label>
+                  </div>
+                </div>
+
                 {/* Submit Button */}
                 <Button
                   type="submit"
@@ -399,11 +456,27 @@ export function ContactForm() {
                   )}
                 </Button>
 
-                {/* Privacy note */}
-                <p className="text-center font-body text-xs text-brand-muted leading-relaxed">
-                  Your information is treated as strictly confidential. We comply
-                  with the Protection of Personal Information Act (POPIA).
-                </p>
+                {/* POPIA & ECTA notice */}
+                <div className="space-y-1">
+                  <p className="text-center font-body text-xs text-brand-muted leading-relaxed">
+                    Your information is protected under the Protection of Personal Information Act (POPIA), 2013.
+                  </p>
+                  <p className="text-center font-body text-xs text-brand-muted leading-relaxed">
+                    For more information about how we handle your data, please read our{" "}
+                    <a
+                      href="/privacy-policy"
+                      className="text-brand-gold underline hover:text-brand-gold-light"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Privacy Policy
+                    </a>
+                    .
+                  </p>
+                  <p className="text-center font-body text-xs text-brand-muted leading-relaxed">
+                    You have a 14-day cooling-off period for electronic service engagements as per ECTA Section 43.
+                  </p>
+                </div>
               </form>
             </div>
           </ScrollReveal>

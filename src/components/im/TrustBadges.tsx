@@ -5,6 +5,9 @@ import {
   Award,
   ShieldCheck,
   MapPin,
+  FileCheck,
+  Scale,
+  BookOpen,
 } from "lucide-react";
 import {
   ScrollReveal,
@@ -17,17 +20,32 @@ const badges = [
   {
     icon: Shield,
     label: "Legal Practice Council",
-    sublabel: "Registered",
-  },
-  {
-    icon: Award,
-    label: "BBBEE Level 1",
-    sublabel: "100% Female Black-Owned",
+    sublabel: "Registered & Regulated",
   },
   {
     icon: ShieldCheck,
     label: "POPIA Compliant",
     sublabel: "Data Privacy Protected",
+  },
+  {
+    icon: FileCheck,
+    label: "ECTA Compliant",
+    sublabel: "Electronic Transactions Act",
+  },
+  {
+    icon: BookOpen,
+    label: "PAIA Manual",
+    sublabel: "Information Access Act",
+  },
+  {
+    icon: Scale,
+    label: "FICA Compliant",
+    sublabel: "Financial Intelligence",
+  },
+  {
+    icon: Award,
+    label: "BBBEE Level 1",
+    sublabel: "100% Female Black-Owned",
   },
   {
     icon: MapPin,
@@ -41,7 +59,7 @@ export function TrustBadges() {
     <section className="bg-brand-dark py-12 sm:py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <StaggerContainer
-          className="grid grid-cols-2 gap-6 sm:gap-0 md:grid-cols-4"
+          className="grid grid-cols-2 gap-6 sm:gap-0 md:grid-cols-7"
           staggerDelay={0.12}
         >
           {badges.map((badge, index) => {

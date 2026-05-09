@@ -70,6 +70,7 @@ export function QuickConsultation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [messageCharCount, setMessageCharCount] = useState(0);
+  const [popiaConsent, setPopiaConsent] = useState(false);
   const { toast } = useToast();
   const drawerRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -184,6 +185,15 @@ export function QuickConsultation() {
 
   // --- Form Submission ---
   const onSubmit = async (data: QuickConsultFormData) => {
+    if (!popiaConsent) {
+      toast({
+        title: "Consent Required",
+        description: "Please tick the consent checkbox before submitting. This is required under POPIA.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/contact", {
@@ -210,6 +220,7 @@ export function QuickConsultation() {
 
       reset();
       setMessageCharCount(0);
+      setPopiaConsent(false);
       closeDrawer();
     } catch {
       toast({
@@ -433,6 +444,32 @@ export function QuickConsultation() {
                   </div>
                 </div>
 
+                {/* POPIA Consent Checkbox */}
+                <div className="flex items-start gap-2.5">
+                  <input
+                    type="checkbox"
+                    id="qc-popia-consent"
+                    checked={popiaConsent}
+                    onChange={(e) => setPopiaConsent(e.target.checked)}
+                    className="w-4 h-4 mt-0.5 rounded border-brand-border accent-[#C6A84B] cursor-pointer"
+                  />
+                  <label
+                    htmlFor="qc-popia-consent"
+                    className="font-body text-xs text-brand-muted leading-relaxed cursor-pointer"
+                  >
+                    I consent to I.M Attorneys Inc processing my personal information as per the{" "}
+                    <a
+                      href="/privacy-policy"
+                      className="text-brand-gold underline hover:text-brand-gold-light"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Privacy Policy
+                    </a>
+                    .
+                  </label>
+                </div>
+
                 {/* Submit Button */}
                 <Button
                   type="submit"
@@ -458,7 +495,16 @@ export function QuickConsultation() {
             <div className="flex-shrink-0 px-6 py-4 border-t border-brand-border/30 bg-brand-cream/20">
               {/* POPIA Notice */}
               <p className="font-body text-xs text-brand-muted leading-relaxed mb-3">
-                Your information is confidential and protected under POPIA.
+                Your information is confidential and protected under the Protection of Personal Information Act (POPIA), 2013. For more details, please read our{" "}
+                <a
+                  href="/privacy-policy"
+                  className="text-brand-gold underline hover:text-brand-gold-light"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy Policy
+                </a>
+                . You may withdraw your consent at any time.
               </p>
 
               {/* Emergency Line */}

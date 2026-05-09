@@ -44,8 +44,11 @@ import { BeforeAfterSlider } from "@/components/im/BeforeAfterSlider";
 import { TestimonialDetail } from "@/components/im/TestimonialDetail";
 import { CTABanner } from "@/components/im/CTABanner";
 import { InteractiveOnboarding } from "@/components/im/InteractiveOnboarding";
+import { ComplianceModals, useComplianceModals } from "@/components/im/ComplianceModals";
 
 export default function Home() {
+  const { openModal, open, close } = useComplianceModals();
+
   return (
     <BannerProvider>
       <CursorGlow />
@@ -152,8 +155,8 @@ export default function Home() {
       </main>
       </PageTransition>
 
-      {/* Footer */}
-      <Footer />
+      {/* Footer — with compliance modal triggers */}
+      <Footer onOpenModal={open} />
 
       {/* Floating Elements */}
       <QuickConsultation />
@@ -161,7 +164,10 @@ export default function Home() {
       <SocialProof />
       <WhatsAppButton />
       <BackToTop />
-      <CookieConsent />
+      <CookieConsent onOpenCookiePolicy={() => open("cookies")} />
+
+      {/* Regulatory Compliance Modals (POPIA, ECTA, PAIA, FICA, LPC) */}
+      <ComplianceModals openModal={openModal} onOpenModal={open} />
 
       {/* Sticky CTA Banner */}
       <CTABanner />

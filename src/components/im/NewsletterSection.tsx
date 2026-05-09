@@ -18,6 +18,7 @@ type NewsletterFormData = z.infer<typeof newsletterSchema>;
 
 export function NewsletterSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [popiaConsent, setPopiaConsent] = useState(false);
   const { toast } = useToast();
 
   const {
@@ -33,6 +34,15 @@ export function NewsletterSection() {
   });
 
   const onSubmit = async (data: NewsletterFormData) => {
+    if (!popiaConsent) {
+      toast({
+        title: "Consent Required",
+        description: "Please tick the consent checkbox before subscribing. This is required under POPIA.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/newsletter", {
@@ -53,6 +63,7 @@ export function NewsletterSection() {
       });
 
       reset();
+      setPopiaConsent(false);
     } catch {
       toast({
         title: "Subscription Failed",
@@ -122,50 +133,77 @@ export function NewsletterSection() {
         <ScrollReveal delay={0.15}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3 max-w-lg mx-auto"
+            className="space-y-3 max-w-lg mx-auto"
             noValidate
           >
-            {/* Email input */}
-            <div className="flex-1 relative">
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                className="h-12 w-full border-brand-border/70 bg-white/70 font-body text-brand-dark placeholder:text-brand-muted/60 focus-visible:border-brand-gold focus-visible:ring-brand-gold/20 rounded-sm"
-                {...register("email")}
-                aria-label="Email address"
-              />
-              {errors.email && (
-                <p className="absolute -bottom-5 left-0 font-body text-xs text-red-500">
-                  {errors.email.message}
-                </p>
-              )}
+            {/* Email input + Subscribe button row */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3">
+              {/* Email input */}
+              <div className="flex-1 relative">
+                <Input
+                  type="email"
+                  placeholder="Enter your email address"
+                  className="h-12 w-full border-brand-border/70 bg-white/70 font-body text-brand-dark placeholder:text-brand-muted/60 focus-visible:border-brand-gold focus-visible:ring-brand-gold/20 rounded-sm"
+                  {...register("email")}
+                  aria-label="Email address"
+                />
+                {errors.email && (
+                  <p className="absolute -bottom-5 left-0 font-body text-xs text-red-500">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Subscribe button */}
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="h-12 px-6 sm:px-8 bg-brand-gold hover:bg-brand-gold-light text-brand-dark font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:shadow-[0_4px_16px_rgba(198,168,75,0.3)] disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap hover-ripple"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span className="ml-1.5">Subscribing...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span className="ml-1.5">Subscribe</span>
+                  </>
+                )}
+              </Button>
             </div>
 
-            {/* Subscribe button */}
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="h-12 px-6 sm:px-8 bg-brand-gold hover:bg-brand-gold-light text-brand-dark font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:shadow-[0_4px_16px_rgba(198,168,75,0.3)] disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap hover-ripple"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span className="ml-1.5">Subscribing...</span>
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4" />
-                  <span className="ml-1.5">Subscribe</span>
-                </>
-              )}
-            </Button>
+            {/* POPIA Consent Checkbox */}
+            <div className="flex items-start gap-2.5">
+              <input
+                type="checkbox"
+                id="newsletter-popia-consent"
+                checked={popiaConsent}
+                onChange={(e) => setPopiaConsent(e.target.checked)}
+                className="w-4 h-4 mt-0.5 rounded border-brand-border accent-[#C6A84B] cursor-pointer"
+              />
+              <label
+                htmlFor="newsletter-popia-consent"
+                className="font-body text-xs text-brand-muted leading-relaxed cursor-pointer"
+              >
+                I consent to receiving legal updates and newsletters via email. I understand this consent is voluntary and I may unsubscribe at any time.
+              </label>
+            </div>
           </form>
 
           {/* POPIA notice */}
           <p className="mt-6 font-body text-xs text-brand-muted leading-relaxed max-w-md mx-auto">
-            We respect your privacy. You may unsubscribe at any time. Your data
-            is handled in compliance with the Protection of Personal Information
-            Act (POPIA).
+            We respect your privacy and handle your data in compliance with the Protection of Personal Information Act (POPIA). For more details, please read our{" "}
+            <a
+              href="/privacy-policy"
+              className="text-brand-gold underline hover:text-brand-gold-light"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Privacy Policy
+            </a>
+            . You may withdraw your consent and unsubscribe at any time.
           </p>
         </ScrollReveal>
       </div>
