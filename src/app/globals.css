@@ -294,3 +294,220 @@ img {
 input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(198, 168, 75, 0.15) !important;
 }
+
+/* ========================================
+   PREMIUM STYLING ENHANCEMENTS (Task 3-c)
+   ======================================== */
+
+/* 1. Section number indicators */
+.section-number {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(198, 168, 75, 0.08);
+  position: absolute;
+  top: -1rem;
+  right: 1.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 2. Premium card with glass effect */
+.card-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(198, 168, 75, 0.15);
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-glass:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(198, 168, 75, 0.3);
+  box-shadow: 0 25px 50px rgba(13, 27, 42, 0.1), 0 10px 20px rgba(13, 27, 42, 0.06);
+  transform: translateY(-4px);
+}
+
+/* 3. Animated gradient background for premium sections */
+.bg-animated-gradient {
+  background: linear-gradient(135deg, #F9F8F5 0%, #EEE8DC 25%, #F9F8F5 50%, #EEE8DC 75%, #F9F8F5 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 4. Premium ornamental section divider */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem 0;
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  height: 1px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, rgba(198, 168, 75, 0.4), transparent);
+}
+
+.ornament-divider .ornament-diamond {
+  width: 8px;
+  height: 8px;
+  background: #C6A84B;
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+
+/* Or as a standalone element */
+.ornament-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(198, 168, 75, 0.3) 20%, rgba(198, 168, 75, 0.5) 50%, rgba(198, 168, 75, 0.3) 80%, transparent 100%);
+}
+
+/* 5. Floating gold particles container */
+.particles-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(198, 168, 75, 0.15);
+  border-radius: 50%;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* 6. Button with golden glow on hover */
+.btn-gold-glow {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-gold-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(198, 168, 75, 0.2) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.btn-gold-glow:hover::after {
+  transform: translateX(100%);
+}
+
+.btn-gold-glow:hover {
+  box-shadow: 0 4px 20px rgba(198, 168, 75, 0.4), 0 0 40px rgba(198, 168, 75, 0.15);
+}
+
+/* 7. Elegant text shadow for headings */
+.text-elegant-shadow {
+  text-shadow: 0 2px 4px rgba(13, 27, 42, 0.08);
+}
+
+/* Gold text shimmer animation */
+.text-shimmer {
+  background: linear-gradient(110deg, #C6A84B 0%, #E4D49A 30%, #C6A84B 60%, #E4D49A 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 4s ease-in-out infinite;
+}
+
+@keyframes textShimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* 8. Diagonal stripe pattern */
+.bg-stripe-pattern {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 20px,
+    rgba(198, 168, 75, 0.02) 20px,
+    rgba(198, 168, 75, 0.02) 21px
+  );
+}
+
+/* Dot pattern */
+.bg-dot-pattern {
+  background-image: radial-gradient(circle, rgba(198, 168, 75, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* 9. Dark mode enhancements */
+.dark .glass-dark {
+  background: rgba(13, 27, 42, 0.95);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0D1B2A;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #C6A84B;
+  border-radius: 4px;
+}
+
+.dark .card-glass {
+  background: rgba(26, 50, 80, 0.7);
+  border-color: rgba(198, 168, 75, 0.15);
+}
+
+.dark .card-glass:hover {
+  background: rgba(26, 50, 80, 0.9);
+  border-color: rgba(198, 168, 75, 0.3);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* 10. Feature list with gold checkmarks */
+.feature-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  background: #C6A84B;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}

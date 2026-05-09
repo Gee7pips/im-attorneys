@@ -1,6 +1,7 @@
 "use client";
 
 import { BannerProvider } from "@/components/im/BannerContext";
+import { ScrollProgress } from "@/components/im/ScrollProgress";
 import { LoadingScreen } from "@/components/im/LoadingScreen";
 import { OnboardingBanner } from "@/components/im/OnboardingBanner";
 import { Navigation } from "@/components/im/Navigation";
@@ -20,10 +21,14 @@ import { LocationMap } from "@/components/im/LocationMap";
 import { Footer } from "@/components/im/Footer";
 import { WhatsAppButton } from "@/components/im/WhatsAppButton";
 import { BackToTop } from "@/components/im/BackToTop";
+import { NewsletterSection } from "@/components/im/NewsletterSection";
+import { CookieConsent } from "@/components/im/CookieConsent";
+import { TrustBadges } from "@/components/im/TrustBadges";
 
 export default function Home() {
   return (
     <BannerProvider>
+      <ScrollProgress />
       <LoadingScreen />
       <OnboardingBanner />
       <Navigation />
@@ -36,6 +41,9 @@ export default function Home() {
 
         {/* Stats Bar */}
         <StatsBar />
+
+        {/* Trust & Certifications */}
+        <TrustBadges />
 
         {/* About / The Firm Section */}
         <section id="about">
@@ -79,6 +87,9 @@ export default function Home() {
 
         {/* Location & Map */}
         <LocationMap />
+
+        {/* Newsletter */}
+        <NewsletterSection />
       </main>
 
       {/* Footer */}
@@ -87,6 +98,7 @@ export default function Home() {
       {/* Floating Elements */}
       <WhatsAppButton />
       <BackToTop />
+      <CookieConsent />
     </BannerProvider>
   );
 }

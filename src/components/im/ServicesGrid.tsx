@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Scale,
@@ -14,6 +15,11 @@ import {
   StaggerContainer,
   staggerChildVariants,
 } from "@/components/im/ScrollReveal";
+import {
+  ServiceDetailModal,
+  serviceDetails,
+  type ServiceDetail,
+} from "@/components/im/ServiceDetailModal";
 
 interface Service {
   title: string;
@@ -63,7 +69,13 @@ const services: Service[] = [
   },
 ];
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceCard({
+  service,
+  onOpen,
+}: {
+  service: Service;
+  onOpen: () => void;
+}) {
   const Icon = service.icon;
 
   return (
@@ -74,6 +86,16 @@ function ServiceCard({ service }: { service: Service }) {
       variants={staggerChildVariants}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
+      onClick={onOpen}
+      role="button"
+      tabIndex={0}
+      aria-label={`Learn more about ${service.title}`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
     >
       {/* Hover gold left border */}
       <motion.div
@@ -117,6 +139,23 @@ function ServiceCard({ service }: { service: Service }) {
 }
 
 export function ServicesGrid() {
+  const [modalService, setModalService] = useState<ServiceDetail | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenService = (title: string) => {
+    const detail = serviceDetails.find((s) => s.title === title);
+    if (detail) {
+      setModalService(detail);
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    // Delay clearing service for exit animation
+    setTimeout(() => setModalService(null), 350);
+  };
+
   return (
     <section
       id="services"
@@ -158,7 +197,11 @@ export function ServicesGrid() {
           staggerDelay={0.08}
         >
           {services.map((service) => (
-            <ServiceCard key={service.title} service={service} />
+            <ServiceCard
+              key={service.title}
+              service={service}
+              onOpen={() => handleOpenService(service.title)}
+            />
           ))}
         </StaggerContainer>
 
@@ -180,6 +223,13 @@ export function ServicesGrid() {
           </div>
         </ScrollReveal>
       </div>
+
+      {/* Service Detail Modal */}
+      <ServiceDetailModal
+        service={modalService}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 }
