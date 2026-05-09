@@ -1,270 +1,666 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Phone, MessageCircle, Clock, AlertTriangle } from "lucide-react";
-import { ScrollReveal, GoldLine } from "@/components/im/ScrollReveal";
+import {
+  useState,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Clock,
+  Phone,
+  MessageCircle,
+  AlertTriangle,
+  Circle,
+  ChevronRight,
+  Timer,
+} from "lucide-react";
+import {
+  ScrollReveal,
+  StaggerContainer,
+  staggerChildVariants,
+} from "@/components/im/ScrollReveal";
 
-// ── Schedule definition ──────────────────────────────────────────────
-type DaySchedule = {
-  label: string;
-  short: string;
-  open: number; // hour (24h)
+// ─── Schedule Data ───────────────────────────────────────────────────────────
+
+interface DaySchedule {
+  day: string;
+  shortDay: string;
+  open: number;
   close: number;
-  closed: boolean;
-};
+  isClosed: boolean;
+}
 
-const WEEK: DaySchedule[] = [
-  { label: "Monday", short: "Mon", open: 8, close: 17, closed: false },
-  { label: "Tuesday", short: "Tue", open: 8, close: 17, closed: false },
-  { label: "Wednesday", short: "Wed", open: 8, close: 17, closed: false },
-  { label: "Thursday", short: "Thu", open: 8, close: 17, closed: false },
-  { label: "Friday", short: "Fri", open: 8, close: 17, closed: false },
-  { label: "Saturday", short: "Sat", open: 9, close: 13, closed: false },
-  { label: "Sunday", short: "Sun", open: 0, close: 0, closed: true },
+const SCHEDULE: DaySchedule[] = [
+  { day: "Monday", shortDay: "Mon", open: 8, close: 17, isClosed: false },
+  { day: "Tuesday", shortDay: "Tue", open: 8, close: 17, isClosed: false },
+  { day: "Wednesday", shortDay: "Wed", open: 8, close: 17, isClosed: false },
+  { day: "Thursday", shortDay: "Thu", open: 8, close: 17, isClosed: false },
+  { day: "Friday", shortDay: "Fri", open: 8, close: 17, isClosed: false },
+  { day: "Saturday", shortDay: "Sat", open: 9, close: 13, isClosed: false },
+  { day: "Sunday", shortDay: "Sun", open: 0, close: 0, isClosed: true },
 ];
 
-function pad2(n: number) {
-  return String(n).padStart(2, "0");
-}
+const PHONE_NUMBER = "081 248 8048";
+const WHATSAPP_URL = "https://wa.me/27812488048";
 
-function getSASTNow(): { day: number; hour: number; minute: number; formatted: string } {
-  const now = new Date();
+// ─── Hydration-safe mounted hook ─────────────────────────────────────────────
 
-  const day = parseInt(
-    new Intl.DateTimeFormat("en-GB", {
-      timeZone: "Africa/Johannesburg",
-      weekday: "numeric",
-      calendar: "iso8601",
-    }).format(now),
-    10,
+const emptySubscribe = () => () => {};
+
+function useHydrated(): boolean {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
   );
+}
 
-  // iso8601 weekday: 1=Mon … 7=Sun. Convert to 0-based Mon=0 index.
-  const dayIdx = day === 7 ? 6 : day - 1;
+// ─── Time Utilities ──────────────────────────────────────────────────────────
 
-  const timeParts = new Intl.DateTimeFormat("en-GB", {
+function getSASTTime(): { hours: number; minutes: number; dayOfWeek: number } {
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "Africa/Johannesburg",
-    hour: "2-digit",
-    minute: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
     hour12: false,
-  }).format(now);
+    weekday: "short",
+  }).formatToParts(now);
 
-  const [hourStr, minuteStr] = timeParts.split(":");
-  const hour = parseInt(hourStr, 10);
-  const minute = parseInt(minuteStr, 10);
+  let hours = 0;
+  let minutes = 0;
+  let dayOfWeek = 0;
 
-  const formatted = `${pad2(hour)}:${pad2(minute)} SAST`;
+  const dayMap: Record<string, number> = {
+    Mon: 0,
+    Tue: 1,
+    Wed: 2,
+    Thu: 3,
+    Fri: 4,
+    Sat: 5,
+    Sun: 6,
+  };
 
-  return { day: dayIdx, hour, minute, formatted };
+  for (const part of parts) {
+    if (part.type === "hour") hours = parseInt(part.value, 10);
+    if (part.type === "minute") minutes = parseInt(part.value, 10);
+    if (part.type === "weekday") dayOfWeek = dayMap[part.value] ?? 0;
+  }
+
+  // Handle midnight (24 -> 0)
+  if (hours === 24) hours = 0;
+
+  return { hours, minutes, dayOfWeek };
 }
 
-function isOpenNow(sast: ReturnType<typeof getSASTNow>): boolean {
-  const schedule = WEEK[sast.day];
-  if (schedule.closed) return false;
-  const current = sast.hour + sast.minute / 60;
-  return current >= schedule.open && current < schedule.close;
+function formatSASTDisplay(
+  hours: number,
+  minutes: number
+): { time: string; seconds: string } {
+  const h = String(hours).padStart(2, "0");
+  const m = String(minutes).padStart(2, "0");
+  const now = new Date();
+  const s = String(now.getSeconds()).padStart(2, "0");
+  return { time: `${h}:${m}`, seconds: s };
 }
 
-function formatRange(schedule: DaySchedule): string {
-  if (schedule.closed) return "Closed";
-  return `${pad2(schedule.open)}:00 – ${pad2(schedule.close)}:00`;
+function isCurrentlyOpen(): boolean {
+  const { hours, dayOfWeek } = getSASTTime();
+  const today = SCHEDULE[dayOfWeek];
+  if (today.isClosed) return false;
+  return hours >= today.open && hours < today.close;
 }
 
-// ── Component ────────────────────────────────────────────────────────
-export function OfficeHours() {
-  const [sast, setSast] = useState<ReturnType<typeof getSASTNow> | null>(null);
+function getTimeUntilNextChange(): string {
+  const { hours, minutes, dayOfWeek } = getSASTTime();
+  const today = SCHEDULE[dayOfWeek];
+
+  if (today.isClosed) {
+    // Find next open day
+    for (let i = 1; i <= 7; i++) {
+      const nextIdx = (dayOfWeek + i) % 7;
+      const nextDay = SCHEDULE[nextIdx];
+      if (!nextDay.isClosed) {
+        if (i === 1) {
+          const diffHours = nextDay.open - hours;
+          const diffMins = diffHours * 60 - minutes;
+          if (diffMins <= 60) return `Opens in ${diffMins} min`;
+          return `Opens in ${diffHours}h ${diffMins % 60}m`;
+        }
+        return `Opens on ${nextDay.day}`;
+      }
+    }
+    return "";
+  }
+
+  if (hours >= today.open && hours < today.close) {
+    const closeHour = today.close;
+    const diffHours = closeHour - hours;
+    const diffMins = diffHours * 60 - minutes;
+    if (diffMins <= 60) return `Closes in ${diffMins} min`;
+    return `Closes in ${diffHours}h ${diffMins % 60}m`;
+  }
+
+  // Before opening today
+  const diffMins = today.open * 60 - (hours * 60 + minutes);
+  if (diffMins > 0 && diffMins <= 60) return `Opens in ${diffMins} min`;
+  if (diffMins > 0) return `Opens in ${Math.floor(diffMins / 60)}h ${diffMins % 60}m`;
+
+  // After closing today, find next open day
+  for (let i = 1; i <= 7; i++) {
+    const nextIdx = (dayOfWeek + i) % 7;
+    const nextDay = SCHEDULE[nextIdx];
+    if (!nextDay.isClosed) {
+      return `Opens on ${nextDay.day}`;
+    }
+  }
+  return "";
+}
+
+// ─── Sub-Components ──────────────────────────────────────────────────────────
+
+function DigitalClock() {
+  const mounted = useHydrated();
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const update = () => setSast(getSASTNow());
-
-    // Defer initial setState to avoid synchronous set-state-in-effect
-    const initId = setTimeout(update, 0);
-
-    // Update every minute
-    const intervalId = setInterval(update, 60_000);
-
+    if (!mounted) return;
+    // Schedule first tick asynchronously to avoid sync setState in effect
+    const timeout = setTimeout(() => setTick(1), 0);
+    const interval = setInterval(() => setTick((t) => t + 1), 60000);
     return () => {
-      clearTimeout(initId);
-      clearInterval(intervalId);
+      clearTimeout(timeout);
+      clearInterval(interval);
     };
-  }, []);
+  }, [mounted]);
 
-  // Avoid hydration mismatch — render a static placeholder until client mounts
-  const isReady = sast !== null;
-  const open = isReady ? isOpenNow(sast) : false;
-  const currentDayIdx = isReady ? sast.day : -1;
+  const timeData = useMemo(() => {
+    if (!mounted || tick === 0) return { time: "--:--", seconds: "--" };
+    const { hours, minutes } = getSASTTime();
+    return formatSASTDisplay(hours, minutes);
+  }, [mounted, tick]);
 
   return (
-    <section className="bg-brand-parchment">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
-        {/* Section Header */}
-        <ScrollReveal className="mb-12 text-center md:mb-16">
-          <span className="mb-3 inline-block font-body text-xs font-semibold tracking-[0.2em] uppercase text-brand-gold sm:text-sm">
-            Office Hours
+    <div className="flex items-center gap-4">
+      <div className="relative">
+        <div className="flex items-baseline font-display tracking-wider">
+          <span
+            className={`text-4xl sm:text-5xl md:text-6xl font-bold tabular-nums transition-opacity duration-500 ${
+              mounted
+                ? "text-brand-gold"
+                : "text-transparent"
+            }`}
+            style={
+              mounted
+                ? {
+                    textShadow: "0 0 30px rgba(198, 168, 75, 0.4)",
+                  }
+                : undefined
+            }
+          >
+            {timeData.time}
           </span>
-          <h2 className="font-display text-3xl font-bold text-brand-dark sm:text-4xl md:text-5xl">
-            When We&apos;re Available
-          </h2>
-          <div className="mt-4 flex justify-center">
-            <GoldLine width={60} />
+          <span
+            className={`text-lg sm:text-xl font-body font-light text-brand-gold/60 ml-1 transition-opacity duration-500 ${
+              mounted ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            SAST
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatusBadge() {
+  const mounted = useHydrated();
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const interval = setInterval(() => {
+      setTick((t) => t + 1);
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [mounted]);
+
+  const open = mounted ? isCurrentlyOpen() : false;
+  const countdown = mounted ? getTimeUntilNextChange() : "";
+  // tick is read to ensure re-computation on interval
+  void tick;
+
+  if (!mounted) {
+    return (
+      <div className="flex items-center gap-3 h-10">
+        <div className="w-16 h-8 bg-brand-navy-light rounded-full" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+      <motion.div
+        className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border"
+        animate={{
+          borderColor: open
+            ? "rgba(34, 197, 94, 0.4)"
+            : "rgba(239, 68, 68, 0.4)",
+          backgroundColor: open
+            ? "rgba(34, 197, 94, 0.08)"
+            : "rgba(239, 68, 68, 0.08)",
+        }}
+        initial={false}
+        transition={{ duration: 0.5 }}
+      >
+        <span className="relative flex h-3 w-3">
+          {open ? (
+            <motion.span
+              className="absolute inline-flex h-full w-full rounded-full bg-green-500"
+              animate={{
+                opacity: [1, 0.4, 1],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ) : (
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500" />
+          )}
+          <span
+            className={`relative inline-flex rounded-full h-3 w-3 ${
+              open ? "bg-green-500" : "bg-red-500"
+            }`}
+          />
+        </span>
+        <span
+          className={`text-sm font-body font-semibold tracking-wide ${
+            open ? "text-green-400" : "text-red-400"
+          }`}
+        >
+          {open ? "OPEN NOW" : "CLOSED"}
+        </span>
+      </motion.div>
+
+      {countdown && (
+        <motion.span
+          className="text-xs font-body text-brand-muted/70 tracking-wide"
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          {countdown}
+        </motion.span>
+      )}
+    </div>
+  );
+}
+
+function DayScheduleRow({
+  day,
+  index,
+}: {
+  day: DaySchedule;
+  index: number;
+}) {
+  const mounted = useHydrated();
+  const isToday = useMemo(() => {
+    if (!mounted) return false;
+    const { dayOfWeek } = getSASTTime();
+    return dayOfWeek === index;
+  }, [mounted, index]);
+
+  const barWidth = day.isClosed ? 0 : ((day.close - day.open) / 24) * 100;
+  const barOffset = day.isClosed ? 0 : (day.open / 24) * 100;
+
+  return (
+    <motion.div
+      className={`
+        group relative flex items-center gap-3 sm:gap-4 py-3 px-3 sm:px-4 rounded-xl transition-all duration-300
+        ${
+          isToday
+            ? "bg-brand-gold/[0.07] border border-brand-gold/20 shadow-[0_0_20px_rgba(198,168,75,0.08)]"
+            : "border border-transparent hover:bg-white/[0.02] hover:border-white/[0.04]"
+        }
+      `}
+      variants={staggerChildVariants}
+    >
+      {/* Day Label */}
+      <div className="flex-shrink-0 w-10 sm:w-20 flex flex-col">
+        <span
+          className={`text-sm sm:text-base font-body font-semibold tracking-wide ${
+            isToday ? "text-brand-gold" : "text-white/80"
+          }`}
+        >
+          {day.shortDay}
+        </span>
+        <span className="hidden sm:block text-[10px] font-body text-brand-muted/50 uppercase tracking-widest">
+          {day.day}
+        </span>
+      </div>
+
+      {/* Visual Bar Area */}
+      <div className="flex-1 relative h-8 sm:h-10 flex items-center">
+        {/* 24h Track */}
+        <div className="absolute inset-x-0 h-2.5 rounded-full bg-white/[0.04]" />
+
+        {/* Hour markers */}
+        <div className="absolute inset-x-0 flex justify-between px-0 pointer-events-none">
+          {[0, 6, 12, 18, 24].map((h) => (
+            <div key={h} className="relative">
+              <div className="w-px h-1.5 bg-white/[0.06] rounded-full" />
+              <span className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 text-[8px] font-body text-brand-muted/30">
+                {h === 0 || h === 24 ? "12a" : h === 6 ? "6a" : h === 12 ? "12p" : h === 18 ? "6p" : ""}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Active Hours Bar */}
+        {barWidth > 0 && (
+          <motion.div
+            className="absolute top-1/2 -translate-y-1/2 h-3 sm:h-4 rounded-full"
+            style={{
+              left: `${barOffset}%`,
+              right: `${100 - barOffset - barWidth}%`,
+            }}
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: index * 0.06, ease: "easeOut" }}
+          >
+            <div
+              className={`w-full h-full rounded-full ${
+                isToday
+                  ? "bg-gradient-to-r from-brand-gold to-[#E4D49A] shadow-[0_0_16px_rgba(198,168,75,0.35)]"
+                  : "bg-gradient-to-r from-brand-gold/60 to-brand-gold/40"
+              }`}
+            />
+            {isToday && (
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                animate={{
+                  boxShadow: [
+                    "0 0 8px rgba(198,168,75,0.3)",
+                    "0 0 20px rgba(198,168,75,0.5)",
+                    "0 0 8px rgba(198,168,75,0.3)",
+                  ],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              />
+            )}
+          </motion.div>
+        )}
+
+        {/* Current time indicator */}
+        {isToday && mounted && (
+          <CurrentTimeIndicator />
+        )}
+      </div>
+
+      {/* Time Range Text */}
+      <div className="flex-shrink-0 w-20 sm:w-24 text-right">
+        {day.isClosed ? (
+          <span className="text-sm font-body text-red-400/70 font-medium tracking-wide">
+            Closed
+          </span>
+        ) : (
+          <span
+            className={`text-sm font-body tabular-nums tracking-wide ${
+              isToday ? "text-brand-gold font-semibold" : "text-white/60"
+            }`}
+          >
+            {String(day.open).padStart(2, "0")}:00&ndash;
+            {String(day.close).padStart(2, "0")}:00
+          </span>
+        )}
+      </div>
+
+      {/* Today indicator */}
+      {isToday && (
+        <motion.div
+          className="flex-shrink-0"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-gold/15 text-brand-gold text-[10px] font-body font-semibold uppercase tracking-widest">
+            <Circle className="w-1.5 h-1.5 fill-brand-gold" />
+            Today
+          </span>
+        </motion.div>
+      )}
+    </motion.div>
+  );
+}
+
+function CurrentTimeIndicator() {
+  const [position, setPosition] = useState(0);
+
+  useEffect(() => {
+    const updatePosition = () => {
+      const { hours, minutes } = getSASTTime();
+      const currentDecimal = hours + minutes / 60;
+      setPosition((currentDecimal / 24) * 100);
+    };
+    updatePosition();
+    const interval = setInterval(updatePosition, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <motion.div
+      className="absolute top-1/2 -translate-y-1/2 z-10"
+      style={{ left: `${position}%` }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5 }}
+    >
+      <motion.div
+        className="relative"
+        animate={{ y: [0, -2, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div className="w-0.5 h-6 bg-white rounded-full shadow-[0_0_6px_rgba(255,255,255,0.5)]" />
+        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function EmergencyCard() {
+  return (
+    <motion.div
+      className="relative rounded-2xl overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+    >
+      {/* Glass morphism card */}
+      <div className="relative backdrop-blur-xl bg-white/[0.03] border border-brand-gold/25 rounded-2xl p-6 sm:p-8">
+        {/* Subtle gold glow */}
+        <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-brand-gold/10 via-transparent to-transparent pointer-events-none" />
+
+        {/* Red urgency glow behind alert */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative">
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-4">
+            <motion.div
+              className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20"
+              animate={{
+                boxShadow: [
+                  "0 0 10px rgba(239, 68, 68, 0.15)",
+                  "0 0 25px rgba(239, 68, 68, 0.25)",
+                  "0 0 10px rgba(239, 68, 68, 0.15)",
+                ],
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <AlertTriangle className="w-6 h-6 text-red-400" />
+            </motion.div>
+            <div>
+              <h3 className="text-lg sm:text-xl font-display font-bold text-white tracking-wide">
+                Emergency Legal Assistance
+              </h3>
+              <p className="text-xs font-body text-brand-muted/60 tracking-wide">
+                Available 24 hours for urgent matters
+              </p>
+            </div>
           </div>
-          <p className="mx-auto mt-5 max-w-2xl font-body text-base leading-relaxed text-brand-body md:text-lg">
-            Our offices follow South African Standard Time. Reach us during
-            business hours or contact our emergency line anytime.
+
+          {/* Description */}
+          <p className="text-sm font-body text-white/50 mb-6 leading-relaxed max-w-lg">
+            Facing a legal emergency? Don&apos;t wait. Reach out to us immediately
+            through phone or WhatsApp for priority assistance.
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+              className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-gold to-[#D4B85A] text-brand-dark font-body font-semibold text-sm tracking-wide transition-all duration-300 hover:shadow-[0_4px_24px_rgba(198,168,75,0.35)] hover:-translate-y-0.5 active:translate-y-0"
+              aria-label={`Call us at ${PHONE_NUMBER}`}
+            >
+              <Phone className="w-4.5 h-4.5 transition-transform duration-300 group-hover:rotate-12" />
+              <span>Call {PHONE_NUMBER}</span>
+              <ChevronRight className="w-4 h-4 opacity-0 -ml-2 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" />
+            </a>
+
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl border border-brand-gold/30 text-brand-gold font-body font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-brand-gold/10 hover:border-brand-gold/50 hover:-translate-y-0.5 active:translate-y-0"
+              aria-label="Contact us on WhatsApp"
+            >
+              <MessageCircle className="w-4.5 h-4.5 transition-transform duration-300 group-hover:scale-110" />
+              <span>WhatsApp</span>
+              <ChevronRight className="w-4 h-4 opacity-0 -ml-2 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Main Component ──────────────────────────────────────────────────────────
+
+export function OfficeHours() {
+  const mounted = useHydrated();
+
+  return (
+    <section
+      className="relative overflow-hidden bg-brand-dark py-16 sm:py-20 md:py-24"
+      aria-labelledby="office-hours-heading"
+    >
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Radial glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-gold/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-brand-navy-light/30 rounded-full blur-[100px]" />
+
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(198,168,75,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(198,168,75,0.5) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <ScrollReveal className="text-center mb-12 sm:mb-16">
+          {/* Section Label */}
+          <div className="inline-flex items-center gap-2 mb-5">
+            <Timer className="w-4 h-4 text-brand-gold/70" />
+            <span className="text-[11px] font-body font-semibold uppercase tracking-[0.25em] text-brand-gold/70">
+              Office Hours
+            </span>
+          </div>
+
+          {/* Main Heading */}
+          <h2
+            id="office-hours-heading"
+            className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4"
+          >
+            <span className="text-gold-gradient">When We&apos;re Available</span>
+          </h2>
+
+          <p className="text-sm sm:text-base font-body text-brand-muted max-w-md mx-auto leading-relaxed">
+            Our doors are open to assist you with expert legal counsel during
+            the hours below.
           </p>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.15}>
-          <div className="mx-auto max-w-3xl">
-            <div className="rounded-xl bg-white p-6 shadow-sm md:p-8">
-              {/* ── Live status banner ── */}
-              <div className="mb-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-                {/* Status badge */}
-                <div className="flex items-center gap-2.5 rounded-full border px-4 py-2 text-sm font-semibold shadow-sm"
-                  style={{
-                    borderColor: open ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)",
-                    backgroundColor: open ? "rgba(34,197,94,0.08)" : "rgba(239,68,68,0.08)",
-                    color: open ? "#16a34a" : "#dc2626",
-                  }}
-                >
-                  <span className="relative flex h-2.5 w-2.5">
-                    {open && (
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                    )}
-                    <span
-                      className="relative inline-flex h-2.5 w-2.5 rounded-full"
-                      style={{ backgroundColor: open ? "#22c55e" : "#ef4444" }}
-                    />
-                  </span>
-                  {open ? "Open Now" : "Closed"}
-                </div>
-
-                {/* Current time */}
-                {isReady && (
-                  <div className="flex items-center gap-2 text-sm text-brand-body">
-                    <Clock className="h-4 w-4 text-brand-gold" />
-                    <span className="font-body">
-                      Current Time: <span className="font-semibold text-brand-dark">{sast.formatted}</span>
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* ── Weekly schedule table ── */}
-              <div className="overflow-hidden rounded-lg border border-brand-border/30">
-                <table className="w-full text-left font-body text-sm">
-                  <thead>
-                    <tr className="border-b border-brand-border/20 bg-brand-dark/[0.02]">
-                      <th className="px-4 py-3 font-semibold text-brand-dark sm:px-5">Day</th>
-                      <th className="px-4 py-3 font-semibold text-brand-dark sm:px-5">Hours</th>
-                      <th className="hidden px-4 py-3 text-right font-semibold text-brand-dark sm:table-cell sm:px-5">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {WEEK.map((day, idx) => {
-                      const isToday = idx === currentDayIdx;
-                      const isCurrentlyOpen =
-                        isToday && open;
-
-                      return (
-                        <tr
-                          key={day.label}
-                          className="border-b border-brand-border/10 transition-colors last:border-b-0"
-                          style={{
-                            backgroundColor: isToday
-                              ? "rgba(198,168,75,0.08)"
-                              : undefined,
-                          }}
-                        >
-                          <td className="flex items-center gap-2 px-4 py-3 sm:px-5">
-                            <span className="font-medium text-brand-dark">
-                              {day.label}
-                            </span>
-                            {isToday && (
-                              <span className="rounded bg-brand-gold/20 px-2 py-0.5 text-xs font-semibold text-brand-gold">
-                                Today
-                              </span>
-                            )}
-                          </td>
-                          <td className="px-4 py-3 text-brand-body sm:px-5">
-                            {day.closed ? (
-                              <span className="text-brand-body/60 italic">Closed</span>
-                            ) : (
-                              <span className="text-brand-dark">{formatRange(day)}</span>
-                            )}
-                          </td>
-                          <td className="hidden px-4 py-3 text-right sm:table-cell sm:px-5">
-                            {isCurrentlyOpen ? (
-                              <span className="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-600">
-                                <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                                Open
-                              </span>
-                            ) : isToday && !open ? (
-                              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-500">
-                                <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
-                                Closed
-                              </span>
-                            ) : !day.closed ? (
-                              <span className="text-xs text-brand-body/50">
-                                {formatRange(day)}
-                              </span>
-                            ) : (
-                              <span className="text-xs text-brand-body/40 italic">
-                                Closed
-                              </span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* ── Emergency notice ── */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
-                className="mt-6 rounded-lg border border-brand-gold/40 bg-brand-gold/5 p-5"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-brand-gold/15">
-                    <AlertTriangle className="h-5 w-5 text-brand-gold" />
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="font-display text-lg font-bold text-brand-dark">
-                      After Hours Emergency?
-                    </h3>
-                    <p className="text-sm leading-relaxed text-brand-body">
-                      For criminal matters and urgent bail applications, our
-                      emergency line is available 24/7.
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      <a
-                        href="tel:+27812488048"
-                        className="inline-flex items-center gap-2 rounded-md bg-brand-dark px-4 py-2.5 font-body text-sm font-semibold text-white transition-colors hover:bg-brand-dark/90"
-                      >
-                        <Phone className="h-4 w-4" />
-                        081 248 8048
-                      </a>
-                      <a
-                        href="https://wa.me/27812488048?text=Emergency%20-%20Urgent%20legal%20assistance%20required"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-md border border-brand-gold/30 bg-white px-4 py-2.5 font-body text-sm font-semibold text-brand-dark transition-colors hover:bg-brand-gold/10"
-                      >
-                        <MessageCircle className="h-4 w-4 text-brand-gold" />
-                        WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+        {/* Live Clock + Status */}
+        <ScrollReveal delay={0.15} className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8 mb-10 sm:mb-14 p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.05]">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/15">
+              <Clock className="w-5 h-5 text-brand-gold/80" />
+            </div>
+            <div>
+              <p className="text-[10px] font-body font-semibold uppercase tracking-[0.2em] text-brand-muted/50 mb-0.5">
+                Current Time (SAST)
+              </p>
+              <DigitalClock />
             </div>
           </div>
+
+          <div className="flex flex-col items-center sm:items-end gap-1">
+            <StatusBadge />
+          </div>
         </ScrollReveal>
+
+        {/* Visual Week Schedule */}
+        <div className="mb-10 sm:mb-14">
+          <ScrollReveal>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="h-px flex-1 bg-gradient-to-r from-brand-gold/20 to-transparent" />
+              <span className="text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-brand-muted/40">
+                Weekly Schedule
+              </span>
+              <div className="h-px flex-1 bg-gradient-to-l from-brand-gold/20 to-transparent" />
+            </div>
+          </ScrollReveal>
+
+          <StaggerContainer
+            className="space-y-1.5 sm:space-y-2"
+            staggerDelay={0.06}
+          >
+            {SCHEDULE.map((day, index) => (
+              <DayScheduleRow key={day.day} day={day} index={index} />
+            ))}
+          </StaggerContainer>
+
+          {/* Legend */}
+          <ScrollReveal delay={0.4}>
+            <div className="flex items-center justify-center gap-6 mt-6 text-[10px] font-body text-brand-muted/40 uppercase tracking-widest">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-1.5 rounded-full bg-gradient-to-r from-brand-gold/60 to-brand-gold/40" />
+                <span>Operating Hours</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
+                <span>Current Time</span>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+
+        {/* Emergency Contact */}
+        <EmergencyCard />
       </div>
     </section>
   );
