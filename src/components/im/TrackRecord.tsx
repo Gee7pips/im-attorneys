@@ -71,7 +71,7 @@ interface StatCardProps {
 function StatCard({ value, suffix, prefix, label, icon: Icon, duration }: StatCardProps) {
   return (
     <motion.div
-      className="group relative rounded-lg border border-brand-gold/20 p-6 sm:p-8 text-center glass-glass transition-all duration-500 hover:-translate-y-1 hover:border-brand-gold/50"
+      className="group relative rounded-lg border border-brand-gold/20 p-6 sm:p-8 text-center glass-reflection transition-all duration-500 hover:-translate-y-1 hover:border-brand-gold/50"
       style={{
         background: "rgba(26, 50, 80, 0.45)",
         backdropFilter: "blur(12px)",

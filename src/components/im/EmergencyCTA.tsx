@@ -59,7 +59,7 @@ export function EmergencyCTA() {
               className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-inverse mb-4 leading-tight"
             >
               Need a Bail Attorney{" "}
-              <span className="text-brand-gold">Right Now?</span>
+              <span className="gold-glow-text">Right Now?</span>
             </motion.h3>
 
             <motion.p

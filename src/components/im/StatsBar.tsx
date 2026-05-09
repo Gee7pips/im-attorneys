@@ -34,7 +34,7 @@ function StatItem({ value, suffix = "", prefix = "", label, duration = 2 }: Stat
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         />
-        <span className="relative font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-gold tracking-tight">
+        <span className="relative font-display text-4xl sm:text-5xl lg:text-6xl font-bold gradient-text-gold tracking-tight">
           <CountUp
             end={value}
             suffix={suffix}

@@ -147,7 +147,7 @@ function MilestoneCard({
         `}
       >
         {/* Card */}
-        <div className="card-glass rounded-xl p-5 group cursor-default">
+        <div className="card-glass hover-border-gold rounded-xl p-5 group cursor-default">
           <span className="font-display text-lg font-bold text-brand-gold leading-tight">
             {year}
           </span>

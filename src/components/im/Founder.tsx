@@ -65,7 +65,7 @@ export function Founder() {
                 />
 
                 {/* Portrait image */}
-                <div className="relative aspect-[3/4] rounded-sm overflow-hidden bg-brand-parchment parallax-depth">
+                <div className="relative aspect-[3/4] rounded-sm overflow-hidden bg-brand-parchment parallax-depth image-hover-zoom">
                   <motion.img
                     src="/images/founder-portrait.png"
                     alt="Ingrid Mtsweni — Founder & Director of IM Attorneys Inc"

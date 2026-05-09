@@ -2097,3 +2097,494 @@ input:focus, textarea:focus, select:focus {
   align-items: center;
   justify-content: center;
 }
+
+/* ========================================
+   PHASE 8 — PREMIUM TEXT EFFECTS, CARD
+   TRANSITIONS, GLOW ANIMATIONS, CONTENT MASKS
+   (Task 15-a)
+   ======================================== */
+
+/* ─────────────────────────────────────────
+   1. TEXT-STROKE-GOLD — Gold outlined text
+   ───────────────────────────────────────── */
+
+.text-stroke-gold {
+  -webkit-text-stroke: 1.5px #C6A84B;
+  color: transparent;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ─────────────────────────────────────────
+   2. CARD-SPOTLIGHT — Radial gradient on hover
+   ───────────────────────────────────────── */
+
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid rgba(198, 168, 75, 0.12);
+  border-radius: 0.75rem;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(198, 168, 75, 0.1) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-spotlight:hover::before {
+  opacity: 1;
+}
+
+.card-spotlight:hover {
+  border-color: rgba(198, 168, 75, 0.3);
+  box-shadow: 0 0 30px rgba(198, 168, 75, 0.08);
+}
+
+/* ─────────────────────────────────────────
+   3. HOVER-REVEAL-OVERLAY — Gold gradient overlay on hover
+   ───────────────────────────────────────── */
+
+.hover-reveal-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-reveal-overlay::after {
+  content: 'View Details';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0D1B2A;
+  background: linear-gradient(to top, rgba(198, 168, 75, 0.85) 0%, rgba(228, 212, 154, 0.6) 60%, transparent 100%);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hover-reveal-overlay:hover::after {
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────
+   4. GLASS-REFLECTION — Glassmorphism with diagonal reflection
+   ───────────────────────────────────────── */
+
+.glass-reflection {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(198, 168, 75, 0.1);
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-reflection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.25) 45%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   5. GRADIENT-TEXT-GOLD — Animated gold↔cream text
+   ───────────────────────────────────────── */
+
+.gradient-text-gold {
+  background: linear-gradient(
+    90deg,
+    #C6A84B 0%,
+    #E4D49A 25%,
+    #F9F8F5 50%,
+    #E4D49A 75%,
+    #C6A84B 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientTextGold 4s ease-in-out infinite;
+}
+
+@keyframes gradientTextGold {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* ─────────────────────────────────────────
+   6. SCROLL-SNAP-SECTION — Full-section scroll snap
+   ───────────────────────────────────────── */
+
+.scroll-snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+}
+
+/* Apply to parent for snap behavior */
+.scroll-snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+/* ─────────────────────────────────────────
+   7. CONTENT-MASK-FADE — Bottom fade out
+   ───────────────────────────────────────── */
+
+.content-mask-fade {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 60%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 60%,
+    transparent 100%
+  );
+}
+
+/* ─────────────────────────────────────────
+   8. BORDER-GRADIENT-ANIMATED — Rotating conic border
+   ───────────────────────────────────────── */
+
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.border-gradient-animated {
+  position: relative;
+  border-radius: 0.75rem;
+  background: #FFFFFF;
+}
+
+.border-gradient-animated::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(0.75rem + 2px);
+  background: conic-gradient(
+    from var(--border-angle),
+    #C6A84B 0%,
+    #E4D49A 25%,
+    transparent 50%,
+    #C6A84B 75%,
+    #E4D49A 100%
+  );
+  z-index: -1;
+  animation: rotateBorder 4s linear infinite;
+}
+
+.border-gradient-animated::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  background: inherit;
+  z-index: -1;
+}
+
+@keyframes rotateBorder {
+  0% { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+/* ─────────────────────────────────────────
+   9. HOVER-SCALE-UP — Subtle scale on hover
+   ───────────────────────────────────────── */
+
+.hover-scale-up {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale-up:hover {
+  transform: scale(1.02);
+}
+
+/* ─────────────────────────────────────────
+   10. GOLD-GLOW-TEXT — Premium dual shadow glow
+   ───────────────────────────────────────── */
+
+.gold-glow-text {
+  color: #C6A84B;
+  text-shadow:
+    0 0 10px rgba(198, 168, 75, 0.4),
+    0 0 30px rgba(198, 168, 75, 0.15);
+}
+
+/* ─────────────────────────────────────────
+   11. DIVIDER-TEXT-CENTER — Centered text divider
+   ───────────────────────────────────────── */
+
+.divider-text-center {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.divider-text-center::before,
+.divider-text-center::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(198, 168, 75, 0.3) 50%,
+    transparent 100%
+  );
+}
+
+/* ─────────────────────────────────────────
+   12. BADGE-TAG — Small tag with gold left border
+   ───────────────────────────────────────── */
+
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1E293B;
+  background: rgba(198, 168, 75, 0.08);
+  border-left: 3px solid #C6A84B;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* ─────────────────────────────────────────
+   13. IMAGE-HOVER-ZOOM — Image zoom on hover
+   ───────────────────────────────────────── */
+
+.image-hover-zoom {
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.image-hover-zoom img {
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.image-hover-zoom:hover img {
+  transform: scale(1.1);
+}
+
+/* ─────────────────────────────────────────
+   14. SHIMMER-LOADING — Full skeleton loading shimmer
+   ───────────────────────────────────────── */
+
+.shimmer-loading {
+  position: relative;
+  overflow: hidden;
+  background: rgba(198, 168, 75, 0.05);
+  border-radius: 0.5rem;
+  min-height: 1rem;
+  min-width: 3rem;
+}
+
+.shimmer-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(198, 168, 75, 0.08) 25%,
+    rgba(198, 168, 75, 0.15) 50%,
+    rgba(198, 168, 75, 0.08) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerLoading 2s ease-in-out infinite;
+}
+
+@keyframes shimmerLoading {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ─────────────────────────────────────────
+   15. HOVER-BORDER-GOLD — Border reveal on hover
+   ───────────────────────────────────────── */
+
+.hover-border-gold {
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-border-gold:hover {
+  border-color: #C6A84B;
+  box-shadow: 0 0 0 1px rgba(198, 168, 75, 0.1);
+}
+
+/* ========================================
+   PHASE 8 — DARK MODE VARIANTS
+   ======================================== */
+
+/* card-spotlight dark */
+.dark .card-spotlight {
+  background: rgba(18, 34, 58, 0.8);
+  border-color: rgba(198, 168, 75, 0.08);
+}
+
+.dark .card-spotlight::before {
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(198, 168, 75, 0.12) 0%,
+    transparent 60%
+  );
+}
+
+.dark .card-spotlight:hover {
+  border-color: rgba(198, 168, 75, 0.25);
+  box-shadow: 0 0 30px rgba(198, 168, 75, 0.06);
+}
+
+/* hover-reveal-overlay dark */
+.dark .hover-reveal-overlay::after {
+  color: #0A1628;
+  background: linear-gradient(
+    to top,
+    rgba(198, 168, 75, 0.9) 0%,
+    rgba(228, 212, 154, 0.65) 60%,
+    transparent 100%
+  );
+}
+
+/* glass-reflection dark */
+.dark .glass-reflection {
+  background: rgba(18, 34, 58, 0.6);
+  border-color: rgba(198, 168, 75, 0.08);
+}
+
+.dark .glass-reflection::before {
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(198, 168, 75, 0.08) 45%,
+    rgba(198, 168, 75, 0.02) 50%,
+    transparent 70%
+  );
+}
+
+/* gradient-text-gold dark */
+.dark .gradient-text-gold {
+  background: linear-gradient(
+    90deg,
+    #C6A84B 0%,
+    #E4D49A 25%,
+    #1A3250 50%,
+    #E4D49A 75%,
+    #C6A84B 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientTextGold 4s ease-in-out infinite;
+}
+
+/* border-gradient-animated dark */
+.dark .border-gradient-animated {
+  background: #12223A;
+}
+
+.dark .border-gradient-animated::before {
+  background: conic-gradient(
+    from var(--border-angle),
+    #C6A84B 0%,
+    #E4D49A 25%,
+    transparent 50%,
+    #C6A84B 75%,
+    #E4D49A 100%
+  );
+}
+
+/* gold-glow-text dark (brighter for dark bg) */
+.dark .gold-glow-text {
+  color: #E4D49A;
+  text-shadow:
+    0 0 12px rgba(198, 168, 75, 0.5),
+    0 0 40px rgba(198, 168, 75, 0.2);
+}
+
+/* badge-tag dark */
+.dark .badge-tag {
+  color: #D0D0D0;
+  background: rgba(198, 168, 75, 0.08);
+  border-left-color: #C6A84B;
+}
+
+/* shimmer-loading dark */
+.dark .shimmer-loading {
+  background: rgba(198, 168, 75, 0.04);
+}
+
+.dark .shimmer-loading::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(198, 168, 75, 0.06) 25%,
+    rgba(198, 168, 75, 0.12) 50%,
+    rgba(198, 168, 75, 0.06) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerLoading 2s ease-in-out infinite;
+}
+
+/* hover-border-gold dark */
+.dark .hover-border-gold {
+  border-color: transparent;
+}
+
+.dark .hover-border-gold:hover {
+  border-color: rgba(198, 168, 75, 0.6);
+  box-shadow: 0 0 0 1px rgba(198, 168, 75, 0.08);
+}
+
+/* text-stroke-gold dark */
+.dark .text-stroke-gold {
+  -webkit-text-stroke-color: #E4D49A;
+}

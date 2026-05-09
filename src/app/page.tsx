@@ -34,6 +34,9 @@ import { ClientMarquee } from "@/components/im/ClientMarquee";
 import { AwardsRecognition } from "@/components/im/AwardsRecognition";
 import { CaseResults } from "@/components/im/CaseResults";
 import { MilestonesTimeline } from "@/components/im/MilestonesTimeline";
+import { LegalResources } from "@/components/im/LegalResources";
+import { LiveChatBubble } from "@/components/im/LiveChatBubble";
+import { FeesAndBilling } from "@/components/im/FeesAndBilling";
 
 export default function Home() {
   return (
@@ -110,6 +113,12 @@ export default function Home() {
         {/* Legal Insights */}
         <LegalInsights />
 
+        {/* Legal Resources */}
+        <LegalResources />
+
+        {/* Fees & Billing */}
+        <FeesAndBilling />
+
         {/* FAQ Section */}
         <section id="faq">
           <FAQSection />
@@ -131,6 +140,7 @@ export default function Home() {
 
       {/* Floating Elements */}
       <QuickConsultation />
+      <LiveChatBubble />
       <WhatsAppButton />
       <BackToTop />
       <CookieConsent />
