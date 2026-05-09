@@ -80,7 +80,7 @@ export function FAQSection() {
   return (
     <section
       id="faq"
-      className="relative py-20 sm:py-28 lg:py-36 bg-brand-parchment"
+      className="relative py-20 sm:py-28 lg:py-36 bg-brand-parchment bg-hexagonal"
       aria-labelledby="faq-heading"
     >
       {/* Subtle decorative gold gradient line at top */}

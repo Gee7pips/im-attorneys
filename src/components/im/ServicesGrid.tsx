@@ -80,7 +80,7 @@ function ServiceCard({
 
   return (
     <motion.div
-      className={`group relative bg-white rounded-sm overflow-hidden cursor-pointer ${
+      className={`group relative bg-white rounded-sm overflow-hidden cursor-pointer card-3d-tilt ${
         service.colSpan === 2 ? "md:col-span-2" : "md:col-span-1"
       }`}
       variants={staggerChildVariants}
@@ -159,7 +159,7 @@ export function ServicesGrid() {
   return (
     <section
       id="services"
-      className="relative py-20 sm:py-28 lg:py-36 bg-brand-cream bg-stripe-pattern"
+      className="relative py-20 sm:py-28 lg:py-36 bg-brand-cream bg-stripe-pattern corner-gold-tr corner-gold-bl"
       aria-labelledby="services-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

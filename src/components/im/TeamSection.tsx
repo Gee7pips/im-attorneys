@@ -55,7 +55,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
   return (
     <motion.article
       variants={staggerChildVariants}
-      className="group relative bg-white rounded-xl shadow-sm border border-brand-border/60 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-shadow/20 hover:border-brand-gold/30"
+      className="group relative bg-white rounded-xl shadow-sm border border-brand-border/60 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-shadow/20 hover:border-brand-gold/30 card-3d-tilt card-glass-elevated"
     >
       {/* Subtle top gold accent line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-brand-gold/0 to-transparent group-hover:via-brand-gold/60 transition-all duration-500" />

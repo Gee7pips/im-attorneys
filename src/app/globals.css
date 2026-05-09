@@ -1354,3 +1354,378 @@ input:focus, textarea:focus, select:focus {
   background: rgba(198, 168, 75, 0.35);
   color: #F0EDE8;
 }
+
+/* ========================================
+   PHASE 6 — ADVANCED PREMIUM UTILITIES
+   ======================================== */
+
+/* ─────────────────────────────────────────
+   1. 3D CARD TILT EFFECT
+   ───────────────────────────────────────── */
+
+.card-3d-tilt {
+  perspective: 1000px;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  box-shadow: 0 4px 12px rgba(13, 27, 42, 0.08), 0 2px 4px rgba(13, 27, 42, 0.04);
+}
+
+.card-3d-tilt:hover {
+  transform: rotateX(4deg) rotateY(-4deg) translateZ(8px);
+  box-shadow:
+    0 24px 48px rgba(13, 27, 42, 0.15),
+    0 12px 24px rgba(13, 27, 42, 0.08),
+    -4px 8px 16px rgba(198, 168, 75, 0.06);
+}
+
+/* ─────────────────────────────────────────
+   2. SKELETON LOADING ANIMATION
+   ───────────────────────────────────────── */
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #EEE8DC 0%,
+    #EEE8DC 37%,
+    rgba(198, 168, 75, 0.15) 50%,
+    #EEE8DC 63%,
+    #EEE8DC 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 2s ease-in-out infinite;
+  border-radius: 0.25rem;
+}
+
+.skeleton-shimmer.rounded {
+  border-radius: 0.5rem;
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─────────────────────────────────────────
+   3. SECTION REVEAL FROM EDGE
+   ───────────────────────────────────────── */
+
+.reveal-from-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  clip-path: inset(0 100% 0 0);
+  transition:
+    opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+    clip-path 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: 0.1s;
+}
+
+.reveal-from-left[data-revealed="true"] {
+  opacity: 1;
+  transform: translateX(0);
+  clip-path: inset(0 0 0 0);
+}
+
+.reveal-from-right {
+  opacity: 0;
+  transform: translateX(40px);
+  clip-path: inset(0 0 0 100%);
+  transition:
+    opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+    clip-path 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: 0.1s;
+}
+
+.reveal-from-right[data-revealed="true"] {
+  opacity: 1;
+  transform: translateX(0);
+  clip-path: inset(0 0 0 0);
+}
+
+/* ─────────────────────────────────────────
+   4. PREMIUM DIVIDER LINE (fancy diamond)
+   ───────────────────────────────────────── */
+
+.divider-gold-fancy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 200px;
+  margin: 2rem auto;
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(198, 168, 75, 0.5), transparent);
+}
+
+.divider-gold-fancy::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #C6A84B;
+  transform: translate(-50%, -50%) rotate(45deg);
+  animation: diamondPulse 3s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(198, 168, 75, 0.4);
+}
+
+@keyframes diamondPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+    box-shadow: 0 0 6px rgba(198, 168, 75, 0.4);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+    box-shadow: 0 0 14px rgba(198, 168, 75, 0.6);
+  }
+}
+
+/* ─────────────────────────────────────────
+   5. TEXT TYPING CURSOR
+   ───────────────────────────────────────── */
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 2px;
+  background-color: #C6A84B;
+  vertical-align: text-bottom;
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ─────────────────────────────────────────
+   6. IMAGE PARALLAX DEPTH
+   ───────────────────────────────────────── */
+
+.parallax-depth {
+  transform: perspective(800px) translateZ(0);
+  transition: transform 0.6s ease;
+  will-change: transform;
+}
+
+.parallax-depth:hover {
+  transform: perspective(800px) translateZ(30px) scale(1.04);
+}
+
+/* ─────────────────────────────────────────
+   7. STAGGERED LINE ANIMATION
+   ───────────────────────────────────────── */
+
+.line-stagger {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.line-stagger .line-stagger__item {
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, #C6A84B, #E4D49A);
+  border-radius: 1px;
+  animation: lineExpand 0.8s ease forwards;
+}
+
+.line-stagger .line-stagger__item:nth-child(1) {
+  animation-delay: 0s;
+  max-width: 80px;
+}
+
+.line-stagger .line-stagger__item:nth-child(2) {
+  animation-delay: 0.15s;
+  max-width: 56px;
+}
+
+.line-stagger .line-stagger__item:nth-child(3) {
+  animation-delay: 0.3s;
+  max-width: 36px;
+}
+
+@keyframes lineExpand {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* ─────────────────────────────────────────
+   8. GLASS CARD ELEVATED
+   ───────────────────────────────────────── */
+
+.card-glass-elevated {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(198, 168, 75, 0.2);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px rgba(13, 27, 42, 0.06), 0 2px 8px rgba(13, 27, 42, 0.04);
+  transition:
+    background 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-glass-elevated:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(198, 168, 75, 0.35);
+  box-shadow:
+    0 20px 48px rgba(13, 27, 42, 0.1),
+    0 8px 20px rgba(13, 27, 42, 0.06),
+    0 0 24px rgba(198, 168, 75, 0.12);
+}
+
+/* ─────────────────────────────────────────
+   9. PREMIUM SCROLL INDICATOR
+   ───────────────────────────────────────── */
+
+.scroll-indicator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #C6A84B;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.scroll-indicator::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid #C6A84B;
+  border-bottom: 2px solid #C6A84B;
+  transform: rotate(45deg);
+  opacity: 0.8;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(12px); opacity: 0.5; }
+}
+
+/* ─────────────────────────────────────────
+   10. TEXT GRADIENT OVERLAY
+   ───────────────────────────────────────── */
+
+.text-gradient-overlay {
+  background: linear-gradient(90deg, #0D1B2A 0%, #0D1B2A 30%, #C6A84B 70%, #E4D49A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────
+   DARK MODE VARIANTS — PHASE 6
+   ───────────────────────────────────────── */
+
+.dark .card-3d-tilt {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.dark .card-3d-tilt:hover {
+  transform: rotateX(4deg) rotateY(-4deg) translateZ(10px);
+  box-shadow:
+    0 28px 56px rgba(0, 0, 0, 0.4),
+    0 14px 28px rgba(0, 0, 0, 0.2),
+    -4px 10px 20px rgba(198, 168, 75, 0.08);
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #1A3250 0%,
+    #1A3250 37%,
+    rgba(198, 168, 75, 0.1) 50%,
+    #1A3250 63%,
+    #1A3250 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 2s ease-in-out infinite;
+}
+
+.dark .divider-gold-fancy {
+  background: linear-gradient(90deg, transparent, rgba(198, 168, 75, 0.4), transparent);
+}
+
+.dark .divider-gold-fancy::before {
+  background: #E4D49A;
+  box-shadow: 0 0 8px rgba(228, 212, 154, 0.5);
+}
+
+.dark .typing-cursor {
+  background-color: #E4D49A;
+}
+
+.dark .parallax-depth {
+  transform: perspective(800px) translateZ(0);
+}
+
+.dark .parallax-depth:hover {
+  transform: perspective(800px) translateZ(40px) scale(1.06);
+}
+
+.dark .card-glass-elevated {
+  background: rgba(26, 50, 80, 0.75);
+  border-color: rgba(198, 168, 75, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.dark .card-glass-elevated:hover {
+  background: rgba(26, 50, 80, 0.92);
+  border-color: rgba(198, 168, 75, 0.35);
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.2),
+    0 0 28px rgba(198, 168, 75, 0.1);
+}
+
+.dark .scroll-indicator {
+  color: #E4D49A;
+}
+
+.dark .scroll-indicator::before {
+  border-right-color: #E4D49A;
+  border-bottom-color: #E4D49A;
+}
+
+.dark .text-gradient-overlay {
+  background: linear-gradient(90deg, #F0EDE8 0%, #F0EDE8 30%, #E4D49A 70%, #C6A84B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .reveal-from-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  clip-path: inset(0 100% 0 0);
+}
+
+.dark .reveal-from-left[data-revealed="true"] {
+  opacity: 1;
+  transform: translateX(0);
+  clip-path: inset(0 0 0 0);
+}
+
+.dark .reveal-from-right {
+  opacity: 0;
+  transform: translateX(40px);
+  clip-path: inset(0 0 0 100%);
+}
+
+.dark .reveal-from-right[data-revealed="true"] {
+  opacity: 1;
+  transform: translateX(0);
+  clip-path: inset(0 0 0 0);
+}
+
+.dark .line-stagger .line-stagger__item {
+  background: linear-gradient(90deg, #E4D49A, #C6A84B);
+}

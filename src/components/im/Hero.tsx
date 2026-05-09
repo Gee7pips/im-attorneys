@@ -267,20 +267,13 @@ export function Hero() {
         duration={0.8}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
       >
-        <div className="flex flex-col items-center gap-2 cursor-pointer group">
+        <div className="scroll-indicator flex flex-col items-center gap-2 cursor-pointer group">
           <span className="font-body text-[10px] uppercase tracking-[0.25em] text-white/30 group-hover:text-white/50 transition-colors duration-300">
             Scroll
           </span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <ChevronDown className="w-5 h-5 text-white/30 group-hover:text-brand-gold transition-colors duration-300" />
-          </motion.div>
+          <div>
+            <ChevronDown className="w-5 h-5 text-brand-gold/60 group-hover:text-brand-gold transition-colors duration-300" />
+          </div>
         </div>
       </ScrollReveal>
 

@@ -93,7 +93,7 @@ export function LegalInsights() {
           {articles.map((article) => (
             <motion.article
               key={article.title}
-              className="group relative bg-white rounded-sm overflow-hidden card-hover-lift gold-border-reveal cursor-pointer"
+              className="group relative bg-white rounded-sm overflow-hidden card-hover-lift gold-border-reveal card-3d-tilt cursor-pointer"
               variants={staggerChildVariants}
             >
               {/* Image */}

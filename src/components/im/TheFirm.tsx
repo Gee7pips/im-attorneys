@@ -15,9 +15,9 @@ export function TheFirm() {
       style={{ backgroundColor: "#F9F8F5" }}
       aria-labelledby="the-firm-heading"
     >
-      {/* Gold horizontal rule above section */}
+      {/* Fancy gold divider above section */}
       <div className="flex justify-center mb-16 sm:mb-20">
-        <GoldLine width={60} />
+        <div className="divider-gold-fancy" />
       </div>
 
       <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

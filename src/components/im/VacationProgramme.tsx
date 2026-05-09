@@ -26,7 +26,8 @@ export function VacationProgramme() {
   return (
     <section
       id="vacation"
-      className="relative py-20 md:py-28 bg-white overflow-hidden">
+      className="relative py-20 md:py-28 bg-white overflow-hidden noise-overlay"
+    >
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent" />
       <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />

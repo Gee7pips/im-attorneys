@@ -30,6 +30,9 @@ import { QuickConsultation } from "@/components/im/QuickConsultation";
 import { OurProcess } from "@/components/im/OurProcess";
 import { CursorGlow } from "@/components/im/CursorGlow";
 import { PageTransition } from "@/components/im/PageTransition";
+import { ClientMarquee } from "@/components/im/ClientMarquee";
+import { AwardsRecognition } from "@/components/im/AwardsRecognition";
+import { CaseResults } from "@/components/im/CaseResults";
 
 export default function Home() {
   return (
@@ -52,6 +55,9 @@ export default function Home() {
 
         {/* Trust & Certifications */}
         <TrustBadges />
+
+        {/* Client Marquee */}
+        <ClientMarquee />
 
         {/* About / The Firm Section */}
         <section id="about">
@@ -90,6 +96,12 @@ export default function Home() {
 
         {/* Track Record */}
         <TrackRecord />
+
+        {/* Awards & Recognition */}
+        <AwardsRecognition />
+
+        {/* Case Results */}
+        <CaseResults />
 
         {/* Legal Insights */}
         <LegalInsights />
