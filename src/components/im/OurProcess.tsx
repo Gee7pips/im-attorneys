@@ -17,28 +17,28 @@ const steps = [
     number: "01",
     title: "Free Initial Consultation",
     description:
-      "We listen to your situation, assess your legal position, and provide clear guidance on your options — at no cost.",
+      "Every great outcome begins with a conversation. Tell us your story — we'll listen without judgement, assess your position honestly, and map out your options at absolutely no cost to you.",
     icon: MessageSquare,
   },
   {
     number: "02",
     title: "Tailored Legal Strategy",
     description:
-      "We develop a comprehensive legal strategy designed to achieve the best possible outcome for your unique circumstances.",
+      "No two cases are alike. We craft a bespoke legal strategy tailored to your specific goals, timeline, and circumstances — turning complexity into a clear path forward.",
     icon: Lightbulb,
   },
   {
     number: "03",
     title: "Diligent Representation",
     description:
-      "Our team executes your case with precision, keeping you informed at every stage and fighting for your rights.",
+      "With your strategy in hand, we go to work — preparing meticulously, advocating forcefully, and keeping you informed at every single stage. You will never wonder what's happening with your case.",
     icon: Gavel,
   },
   {
     number: "04",
     title: "Favourable Resolution",
     description:
-      "Whether through negotiation, mediation, or litigation — we pursue the resolution you deserve.",
+      "Whether the best path is skilful negotiation, mediation, or courtroom litigation — we pursue the outcome that protects your interests and your peace of mind.",
     icon: Award,
   },
 ];
@@ -405,12 +405,12 @@ export function OurProcess() {
         <div className="text-center mb-16 md:mb-24">
           <ScrollReveal>
             <p className="font-body text-sm font-semibold tracking-[0.2em] uppercase text-brand-gold mb-3">
-              Our Process
+              The IM Difference
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark text-elegant-shadow">
-              How We Work
+              Your Journey With Us
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
@@ -420,8 +420,8 @@ export function OurProcess() {
           </ScrollReveal>
           <ScrollReveal delay={0.3}>
             <p className="font-body text-brand-body leading-relaxed mt-5 max-w-2xl mx-auto text-base md:text-lg">
-              From your first consultation to the final resolution, we guide you
-              through every step with clarity, commitment, and care.
+              From the moment you reach out to the day your matter is resolved, we walk
+              beside you with clarity, determination, and a genuine commitment to seeing things through.
             </p>
           </ScrollReveal>
         </div>

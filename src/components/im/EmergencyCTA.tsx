@@ -58,8 +58,8 @@ export function EmergencyCTA() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-inverse mb-4 leading-tight heading-3 text-shadow-lifted"
             >
-              Need a Bail Attorney{" "}
-              <span className="gold-glow-text">Right Now?</span>
+              Facing an Arrest?{" "}
+              <span className="gold-glow-text">We Answer the Call.</span>
             </motion.h3>
 
             <motion.p
@@ -68,10 +68,10 @@ export function EmergencyCTA() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="font-body text-sm sm:text-base text-brand-inverse/60 max-w-xl mx-auto lg:mx-0 leading-relaxed"
             >
-              Arrests don&apos;t wait for business hours — and neither do we. Our
-              criminal defence team is available <strong className="text-brand-inverse/80">24 hours a day, 7 days a week</strong> for
-              urgent bail applications, police station consultations, and emergency
-              legal representation across Gauteng.
+              When every minute matters, the last thing you should worry about is finding
+              a lawyer who will actually pick up the phone. Our criminal defence attorneys are available
+              <strong className="text-brand-inverse/80">24 hours a day, 7 days a week</strong> for urgent bail applications,
+              police station call-outs, and emergency legal representation across Gauteng. You are not alone in this.
             </motion.p>
           </div>
 

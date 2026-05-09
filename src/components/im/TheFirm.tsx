@@ -71,20 +71,24 @@ export function TheFirm() {
             <ScrollReveal direction="right" delay={0.2} duration={0.8}>
               <div className="space-y-5 sm:space-y-6 max-w-2xl">
                 <p className="font-body text-base sm:text-lg leading-relaxed" style={{ color: "#3A4A5C" }}>
-                  IM Attorneys Inc is a proudly South African, 100% female black-owned boutique law firm.
-                  Founded by Ingrid Mtsweni, the firm combines deep banking-sector legal experience with a
-                  commitment to Ubuntu — bringing personalised, innovative solutions to every client.
+                  IM Attorneys Inc is a proudly South African, 100% female black-owned boutique law firm —
+                  a distinction we wear with purpose. Founded in February 2023 by Ingrid Mtsweni, the firm was born
+                  from a simple yet powerful conviction: that every person deserves world-class legal representation,
+                  delivered with empathy, integrity, and an unwavering commitment to Ubuntu.
                 </p>
 
                 <p className="font-body text-base sm:text-lg leading-relaxed" style={{ color: "#3A4A5C" }}>
-                  We are not a large, impersonal firm. We are a curated team that knows your name,
-                  understands your circumstances, and delivers strategic legal outcomes.
+                  We are not a volume-driven practice. We are a deliberately small, deeply dedicated team
+                  that knows your name, understands your story, and treats your matter as if it were our own.
+                  Our size is our strength — it means you receive the full attention of experienced attorneys,
+                  not a junior in a cubicle.
                 </p>
 
                 <p className="font-body text-base sm:text-lg leading-relaxed" style={{ color: "#3A4A5C" }}>
-                  Based in Pretoria&apos;s prestigious Menlyn Maine Precinct, we serve clients across Gauteng and
-                  beyond — blending big-firm expertise with the dedication and personal touch only a
-                  boutique practice can offer.
+                  Rooted in Pretoria&apos;s prestigious Menlyn Maine Precinct, we serve individuals and businesses
+                  across Gauteng and beyond. Whether you are safeguarding your family&apos;s future, protecting your
+                  legacy, or defending your rights — we bring big-firm expertise with the heart and
+                  responsiveness that only a true boutique practice can deliver.
                 </p>
 
                 {/* CTA Link */}
@@ -105,7 +109,7 @@ export function TheFirm() {
                     }}
                   >
                     <span className="relative">
-                      Read Our Story
+                      Discover Our Difference
                       <motion.span
                         className="absolute bottom-0 left-0 h-px bg-brand-gold"
                         initial={{ width: "0%" }}

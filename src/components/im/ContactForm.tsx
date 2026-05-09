@@ -168,14 +168,14 @@ export function ContactForm() {
             Get in Touch
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">
-            Let Us Help You
+            Ready to Take the Next Step?
           </h2>
           <div className="flex justify-center">
             <GoldLine width={60} />
           </div>
           <p className="mt-5 font-body text-brand-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Whether you need urgent legal assistance or wish to discuss a
-            matter, our team is ready to provide expert guidance.
+            Whether you're facing an urgent legal matter or simply need trusted advice, reach out today.
+            Your first consultation is on us — no obligation, no pressure, just honest legal guidance.
           </p>
         </ScrollReveal>
 
@@ -254,11 +254,11 @@ export function ContactForm() {
                 <div className="absolute top-0 right-0 w-24 h-24 bg-brand-gold/10 rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="relative">
                   <p className="font-body text-xs font-semibold tracking-wider uppercase text-brand-gold mb-1.5">
-                    24/7 Availability
+                    24/7 Criminal Defence
                   </p>
                   <p className="font-body text-sm text-white/90 leading-relaxed">
-                    Urgent bail applications are handled around the clock. If you
-                    need immediate legal assistance, call us anytime.
+                    Arrests don't keep office hours, and neither do we. If you or a loved one needs
+                    urgent bail or police station representation, call us right now — day or night.
                   </p>
                   <a
                     href="tel:+27812488048"
@@ -450,7 +450,7 @@ export function ContactForm() {
                     </>
                   ) : (
                     <>
-                      Send My Enquiry
+                      Request a Callback
                       <Send className="w-4 h-4 ml-1" />
                     </>
                   )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useRef, useState, useEffect, ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -174,51 +174,50 @@ function Counter({
     <motion.span
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
     >
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-      >
-        {prefix}
-      </motion.span>
-      <motion.span
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.1 }}
-      >
-        <InternalCounter end={end} duration={duration} />
-      </motion.span>
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, delay: duration * 0.8 }}
-      >
-        {suffix}
-      </motion.span>
+      {prefix}
+      <InternalCounter end={end} duration={duration} />
+      {suffix}
     </motion.span>
   );
 }
 
 function InternalCounter({ end, duration }: { end: number; duration: number }) {
-  const nodeRef = useRef<HTMLSpanElement>(null);
+  const [count, setCount] = useState(0);
+  const rafRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number | null>(null);
 
-  return (
-    <motion.span
-      ref={nodeRef}
-      initial="0"
-      animate={String(end)}
-      transition={{
-        duration,
-        ease: "easeOut",
-      }}
-      onUpdate={(latest) => {
-        if (nodeRef.current) {
-          nodeRef.current.textContent = latest;
-        }
-      }}
-    >
-      0
-    </motion.span>
-  );
+  useEffect(() => {
+    startTimeRef.current = null;
+
+    const animate = (timestamp: number) => {
+      if (startTimeRef.current === null) {
+        startTimeRef.current = timestamp;
+      }
+
+      const elapsed = timestamp - startTimeRef.current;
+      const progress = Math.min(elapsed / (duration * 1000), 1);
+
+      // Ease-out cubic for smooth deceleration
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.round(eased * end);
+
+      setCount(currentValue);
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [end, duration]);
+
+  return <>{count}</>;
 }

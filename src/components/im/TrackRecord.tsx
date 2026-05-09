@@ -559,14 +559,13 @@ export function TrackRecord() {
           <div className="flex flex-col items-center">
             <GoldLine width={60} className="mb-6" />
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 heading-2">
-              <span className="text-gold-gradient">Our Track Record</span>
+              <span className="text-gold-gradient">Results That Speak for Themselves</span>
             </h2>
             <p
               className="font-body text-base sm:text-lg max-w-2xl leading-relaxed"
               style={{ color: "rgba(239,232,220,0.45)" }}
             >
-              Numbers that speak to our commitment, expertise, and unwavering
-              dedication to achieving the best outcomes for every client.
+              Behind every number is a real person whose life, livelihood, or legacy we protected. Here is a glimpse of the impact we deliver.
             </p>
           </div>
         </ScrollReveal>
@@ -602,13 +601,13 @@ export function TrackRecord() {
             className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-center mb-2"
             style={{ color: "#EEE8DC" }}
           >
-            Success Across Practice Areas
+            Proven Success Across Every Practice Area
           </h3>
           <p
             className="font-body text-sm sm:text-base text-center"
             style={{ color: "rgba(239,232,220,0.4)" }}
           >
-            Consistently delivering results across every area of our practice
+            Strong outcomes you can count on — regardless of the legal challenge
           </p>
         </ScrollReveal>
 

@@ -33,42 +33,42 @@ const services: Service[] = [
   {
     title: "Family Law",
     description:
-      "Divorce, custody, ANCs, protection orders — handled with care and expertise.",
+      "Divorce, custody, ANC contracts, and protection orders — sensitive matters handled with compassion, discretion, and fierce advocacy for your family's future.",
     icon: Scale,
     variant: "featured",
   },
   {
     title: "Wills & Estates",
     description:
-      "Protect your legacy. We ensure your assets are preserved and intentionally transferred.",
+      "Your life's work deserves a plan. We draft watertight wills, administer estates, and ensure your legacy reaches the people who matter most.",
     icon: FileText,
     variant: "normal",
   },
   {
     title: "Claims Against the State",
     description:
-      "RAF claims, wrongful arrests, medical malpractice — we hold the state accountable.",
+      "When the system fails you, we fight back. RAF claims, wrongful arrests, medical negligence — we demand the accountability and compensation you deserve.",
     icon: Shield,
     variant: "normal",
   },
   {
     title: "Criminal Law",
     description:
-      "Bail available 24/7. Expert defence across all criminal matters.",
+      "Arrested or under investigation? Our criminal defence team responds day or night. We protect your freedom, your reputation, and your rights from the first call.",
     icon: Gavel,
     variant: "normal",
   },
   {
     title: "Commercial Law",
     description:
-      "Contracts, M&A, corporate governance — legal solutions that make business sense.",
+      "From drafting your first commercial contract to navigating mergers and corporate governance — we help you build, protect, and grow your business with confidence.",
     icon: Building2,
     variant: "wide",
   },
   {
     title: "General Litigation",
     description:
-      "Evictions, debt collection, debt review removal — we litigate what others avoid.",
+      "Evictions, debt recovery, and debt review removal — the complex matters other firms shy away from. We step in, take control, and get results.",
     icon: Scale,
     variant: "pill",
   },
@@ -301,7 +301,7 @@ export function ServicesGrid() {
               className="inline-block font-body text-xs font-semibold tracking-[0.25em] uppercase mb-4"
               style={{ color: "#C6A84B" }}
             >
-              Our Practice
+              What We Do
             </span>
           </ScrollReveal>
 
@@ -311,8 +311,8 @@ export function ServicesGrid() {
               className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-3xl mx-auto heading-2"
               style={{ color: "#0D1B2A" }}
             >
-              Every Legal Matter,{" "}
-              <span className="text-gold-gradient">Handled with Precision.</span>
+              Six Areas of Law,{" "}
+              <span className="text-gold-gradient">One Firm You Can Trust.</span>
             </h2>
           </ScrollReveal>
 

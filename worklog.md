@@ -1326,3 +1326,60 @@ Verification Results:
 - ✅ All new classes purely additive (zero existing CSS modified)
 - ✅ Full dark mode coverage for all new classes
 
+---
+Task ID: 14-a
+Agent: Main Orchestrator
+Task: Fix CountUp stats bug — numbers showing zeros
+
+Work Log:
+- Diagnosed root cause: InternalCounter in ScrollReveal.tsx used motion.span with initial="0" and animate={String(end)} which does NOT properly interpolate numeric values in framer-motion — the onUpdate callback was unreliable
+- Rewrote InternalCounter to use useState + useEffect + requestAnimationFrame with cubic ease-out for smooth numeric animation
+- Simplified Counter wrapper (removed unnecessary nested motion.span elements)
+- Added useState and useEffect imports to ScrollReveal.tsx
+
+Stage Summary:
+- CountUp component now correctly animates from 0 to target value on scroll-into-view
+- All stats in StatsBar.tsx and TrackRecord.tsx now display correct animated numbers
+- Lint passes clean (0 errors)
+
+---
+Task ID: 14-b
+Agent: Frontend Styling Expert
+Task: Phase 14 — Typography, Shadow & Gradient Upgrade in globals.css
+
+Work Log:
+- Appended 844 lines of new CSS (lines 4455–5298) to globals.css
+- Added complete typography system: heading-display through heading-5, body-lg, body-sm, label classes, text-shadow variants
+- Added shadow system: 13 new shadow classes (premium, gold, card, elevated, navy, 3D, inner-gold, raised, panel, scene)
+- Added gradient system: 10 new gradient classes (gold-premium, gold-subtle, dark-deep, section-dark, card-shine, border-glow, text-gold, overlay-dark, overlay-gold, ambient-orb)
+- Added 3D/depth components: 7 new classes (glass-3d-card, card-glass-organic, card-3d-premium, image-hover-zoom, morphing-border, spotlight-card, depth-layer)
+- Added dark mode variants for ALL 46+ new classes
+- Used clamp() for responsive fluid typography without media queries
+
+Stage Summary:
+- 46+ new CSS utility classes added, all with dark mode support
+- Zero existing styles modified — all changes are appended
+- Lint passes clean (0 errors)
+
+---
+Task ID: 14-c
+Agent: Full-Stack Developer
+Task: Phase 14 — Copywriting Upgrade across 9 components
+
+Work Log:
+- Hero.tsx: H1 → "Your Rights. Our Relentless Pursuit." / Subtitle upgraded with emotional framing / CTAs → "Start Your Free Consultation" + "View Our Expertise"
+- TheFirm.tsx: All 3 paragraphs rewritten for more compelling storytelling / Added Ubuntu emphasis / CTA → "Discover Our Difference"
+- ServicesGrid.tsx: Section label → "What We Do" / H2 → "Six Areas of Law, One Firm You Can Trust." / All 6 service descriptions upgraded to benefit-oriented with emotional hooks
+- EmergencyCTA.tsx: H3 → "Facing an Arrest? We Answer the Call." / Body copy more empathetic and reassuring
+- OurProcess.tsx: Section → "The IM Difference" / H2 → "Your Journey With Us" / All 4 step descriptions rewritten for benefit focus
+- ContactForm.tsx: H2 → "Ready to Take the Next Step?" / Added "no obligation, no pressure" / Bail box → "24/7 Criminal Defence" / Submit → "Request a Callback"
+- FAQSection.tsx: Label → "Knowledge & Clarity" / H2 → "Answers to the Questions We Hear Most"
+- TrackRecord.tsx: H2 → "Results That Speak for Themselves" / Subtitle upgraded with "real person" framing
+- StatsBar.tsx: Labels upgraded — "Established", "Areas of Expertise", "Dedicated Attorneys", "Bail Response"
+
+Stage Summary:
+- All 9 components updated with more persuasive, engaging, professional copywriting
+- Tone maintained: confident, approachable, professional, warm
+- All legal terminology preserved accurately
+- Lint passes clean (0 errors)
+- Dev server returns 200 OK

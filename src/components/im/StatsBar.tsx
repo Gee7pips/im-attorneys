@@ -57,10 +57,10 @@ function StatItem({ value, suffix = "", prefix = "", label, duration = 2 }: Stat
 }
 
 const stats: StatItemProps[] = [
-  { value: 2023, label: "Year Founded" },
-  { value: 6, suffix: "+", label: "Practice Areas" },
-  { value: 3, label: "Team Members" },
-  { value: 24, suffix: "/7", label: "Bail Applications" },
+  { value: 2023, label: "Established" },
+  { value: 6, suffix: "+", label: "Areas of Expertise" },
+  { value: 3, label: "Dedicated Attorneys" },
+  { value: 24, suffix: "/7", label: "Bail Response" },
 ];
 
 export function StatsBar() {

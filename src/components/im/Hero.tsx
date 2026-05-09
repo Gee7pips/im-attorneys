@@ -95,8 +95,8 @@ export function Hero() {
                 variants={fadeUp}
                 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-white mb-6 heading-display text-shadow-elegant"
               >
-                Legal Service{" "}
-                <span className="text-gold-gradient">Curated</span> for You.
+                Your Rights. Our{" "}
+                <span className="text-gold-gradient">Relentless</span> Pursuit.
               </motion.h1>
 
               {/* Body Text */}
@@ -107,8 +107,9 @@ export function Hero() {
                 variants={fadeUp}
                 className="font-body text-base sm:text-lg leading-relaxed text-white/70 max-w-lg mb-10 body-lg"
               >
-                Personal and business legal solutions from Pretoria&apos;s most
-                prestigious address — Menlyn Maine.
+                When your future, your family, or your business is on the line, you need
+                more than just a lawyer. You need a legal partner who fights for you with precision, passion,
+                and an intimate understanding of South African law.
               </motion.p>
 
               {/* CTA Buttons */}
@@ -124,7 +125,7 @@ export function Hero() {
                   href="mailto:attorneys@iminc.co.za?subject=Book%20a%20consultation"
                   className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-brand-gold text-brand-dark font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:bg-brand-gold-light hover:shadow-lg hover:shadow-brand-gold/20 w-full sm:w-auto"
                 >
-                  Book a Consultation
+                  Start Your Free Consultation
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
 
@@ -133,7 +134,7 @@ export function Hero() {
                   onClick={handleExploreServices}
                   className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-white/30 text-white font-body font-medium text-sm rounded-sm transition-all duration-300 hover:border-brand-gold hover:text-brand-gold hover:bg-white/5 backdrop-blur-sm w-full sm:w-auto"
                 >
-                  Explore Our Services
+                  View Our Expertise
                 </button>
               </motion.div>
 

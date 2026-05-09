@@ -98,7 +98,7 @@ export function FAQSection() {
               className="inline-block font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-4"
               style={{ color: "#C6A84B" }}
             >
-              Frequently Asked Questions
+              Knowledge & Clarity
             </span>
           </ScrollReveal>
 
@@ -108,7 +108,7 @@ export function FAQSection() {
               className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold leading-tight"
               style={{ color: "#0D1B2A" }}
             >
-              Common Legal Questions
+              Answers to the Questions We Hear Most
             </h2>
           </ScrollReveal>
 
@@ -134,8 +134,7 @@ export function FAQSection() {
         <ScrollReveal direction="up" delay={0.3}>
           <div className="mt-12 sm:mt-16 text-center">
             <p className="font-body text-sm sm:text-base text-brand-body mb-6 leading-relaxed max-w-lg mx-auto">
-              Have a question not answered here? Contact us for a confidential
-              consultation.
+              Can't find what you're looking for? We're here to help — reach out for a confidential, no-obligation conversation.
             </p>
             <a
               href="#contact"
