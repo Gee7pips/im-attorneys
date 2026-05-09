@@ -188,7 +188,8 @@ export function SocialProof() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: "-100%" }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="fixed bottom-24 left-6 z-40 max-w-xs w-full"
+          className="fixed left-3 sm:left-6 z-40 max-w-[260px] sm:max-w-xs w-full"
+          style={{ bottom: "max(3.5rem, calc(env(safe-area-inset-bottom, 1rem) + 3rem))" }}
           role="status"
           aria-live="polite"
         >

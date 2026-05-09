@@ -241,7 +241,8 @@ export function QuickConsultation() {
         type="button"
         aria-label={isOpen ? "Close consultation drawer" : "Quick Consultation"}
         onClick={isOpen ? closeDrawer : openDrawer}
-        className="fixed bottom-20 right-6 z-[90] w-14 h-14 rounded-full bg-brand-gold text-brand-dark shadow-lg shadow-brand-gold/25 hover:shadow-xl hover:shadow-brand-gold/35 transition-shadow duration-300 flex items-center justify-center group"
+        className="fixed right-3 sm:right-6 z-[90] w-10 h-10 sm:w-[52px] sm:h-[52px] rounded-full bg-brand-gold text-brand-dark shadow-lg shadow-brand-gold/25 hover:shadow-xl hover:shadow-brand-gold/35 transition-shadow duration-300 flex items-center justify-center group"
+        style={{ bottom: "max(9rem, calc(env(safe-area-inset-bottom, 1rem) + 8.5rem))" }}
         animate={{
           y: isOpen ? 0 : [0, -6, 0],
         }}
@@ -267,9 +268,9 @@ export function QuickConsultation() {
           transition={{ duration: 0.2 }}
         >
           {isOpen ? (
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6" />
           ) : (
-            <MessageSquare className="w-6 h-6" />
+            <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
           )}
         </motion.span>
 
@@ -277,7 +278,7 @@ export function QuickConsultation() {
         <AnimatePresence>
           {!isOpen && (
             <motion.span
-              className="absolute right-full mr-3 whitespace-nowrap bg-brand-dark text-white text-xs font-body font-medium px-3 py-1.5 rounded-md shadow-md pointer-events-none"
+              className="absolute right-full mr-2.5 whitespace-nowrap bg-brand-dark text-white text-xs font-body font-medium px-3 py-1.5 rounded-md shadow-md pointer-events-none hidden sm:block"
               initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 8 }}

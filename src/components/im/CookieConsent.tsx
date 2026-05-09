@@ -194,11 +194,11 @@ function MinimalCookieButton({
       exit={{ opacity: 0, scale: 0.7 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       onClick={onClick}
-      className="fixed right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-brand-gold/20 bg-brand-dark/90 text-brand-gold shadow-lg shadow-black/10 backdrop-blur-sm transition-colors duration-300 hover:bg-brand-dark hover:border-brand-gold/40"
-      style={{ bottom: "6rem" }}
+      className="fixed left-3 sm:left-6 z-40 flex w-9 h-9 sm:w-11 sm:h-11 items-center justify-center rounded-full border border-brand-gold/20 bg-brand-dark/90 text-brand-gold shadow-lg shadow-black/10 backdrop-blur-sm transition-colors duration-300 hover:bg-brand-dark hover:border-brand-gold/40"
+      style={{ bottom: "max(1rem, env(safe-area-inset-bottom, 1rem))" }}
       aria-label="Open cookie preferences"
     >
-      <Cookie className="h-5 w-5" />
+      <Cookie className="h-4 w-4 sm:h-5 sm:w-5" />
     </motion.button>
   );
 }

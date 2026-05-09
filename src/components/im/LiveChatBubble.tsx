@@ -121,15 +121,16 @@ export function LiveChatBubble() {
         type="button"
         aria-label={isOpen ? "Close AI Chat" : "Open AI Chat"}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="fixed bottom-36 right-6 z-50 flex flex-col items-center gap-1 group"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+        className="fixed right-3 sm:right-6 z-50 flex items-center justify-center group"
+        style={{ bottom: "max(3.5rem, calc(env(safe-area-inset-bottom, 1rem) + 3rem))" }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.92 }}
       >
         {/* Pulse ring */}
         <AnimatePresence>
           {!isOpen && (
             <motion.span
-              className="absolute inset-0 w-14 h-14 rounded-full bg-brand-gold"
+              className="absolute inset-0 w-10 h-10 sm:w-[52px] sm:h-[52px] rounded-full bg-brand-gold"
               initial={{ scale: 1, opacity: 0.4 }}
               animate={{ scale: 1.5, opacity: 0 }}
               exit={{ opacity: 0 }}
@@ -142,34 +143,44 @@ export function LiveChatBubble() {
           )}
         </AnimatePresence>
 
-        {/* Button circle */}
+        {/* Button circle — smaller on mobile */}
         <span
-          className={`relative w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
+          className={`relative w-10 h-10 sm:w-[52px] sm:h-[52px] rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
             isOpen
               ? "bg-brand-dark text-white shadow-black/20"
               : "bg-brand-gold text-brand-dark shadow-brand-gold/30 group-hover:shadow-[0_0_20px_rgba(198,168,75,0.5)]"
           }`}
         >
           {isOpen ? (
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6" />
           ) : (
-            <MessageCircle className="w-6 h-6" />
+            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
           )}
         </span>
 
-        {/* Label */}
-        {!isOpen && (
-          <span className="text-xs text-brand-gold font-medium font-body tracking-wide">
-            AI Chat
-          </span>
-        )}
+        {/* Tooltip — desktop only */}
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.span
+              className="absolute right-full mr-2.5 whitespace-nowrap bg-brand-dark text-white text-xs font-body font-medium px-3 py-1.5 rounded-lg shadow-lg pointer-events-none hidden sm:block"
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 8 }}
+              transition={{ duration: 0.2 }}
+            >
+              AI Chat
+              <span className="absolute top-1/2 -right-1 -translate-y-1/2 w-2 h-2 bg-brand-dark rotate-45" />
+            </motion.span>
+          )}
+        </AnimatePresence>
       </motion.button>
 
       {/* ============ Chat Panel ============ */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-52 right-6 z-50 w-80 sm:w-96 h-[480px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-brand-gold/20 flex flex-col overflow-hidden"
+            className="fixed right-3 sm:right-6 z-[55] w-[calc(100vw-1.5rem)] sm:w-96 h-[60vh] sm:h-[480px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-brand-gold/20 flex flex-col overflow-hidden"
+            style={{ bottom: "max(5.5rem, calc(env(safe-area-inset-bottom, 1rem) + 5rem))" }}
             variants={panelVariants}
             initial="closed"
             animate="open"

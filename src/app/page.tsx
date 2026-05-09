@@ -42,7 +42,7 @@ import { OfficeHours } from "@/components/im/OfficeHours";
 import { SocialProof } from "@/components/im/SocialProof";
 import { BeforeAfterSlider } from "@/components/im/BeforeAfterSlider";
 import { TestimonialDetail } from "@/components/im/TestimonialDetail";
-import { CTABanner } from "@/components/im/CTABanner";
+import { BailApplicationButton } from "@/components/im/BailApplicationButton";
 import { InteractiveOnboarding } from "@/components/im/InteractiveOnboarding";
 import { ComplianceModals, useComplianceModals } from "@/components/im/ComplianceModals";
 
@@ -158,19 +158,17 @@ export default function Home() {
       {/* Footer — with compliance modal triggers */}
       <Footer onOpenModal={open} />
 
-      {/* Floating Elements */}
-      <QuickConsultation />
-      <LiveChatBubble />
-      <SocialProof />
+      {/* Floating Action Buttons (right side, stacked) */}
       <WhatsAppButton />
+      <LiveChatBubble />
+      <QuickConsultation />
+      <BailApplicationButton />
       <BackToTop />
+      <SocialProof />
       <CookieConsent onOpenCookiePolicy={() => open("cookies")} />
 
       {/* Regulatory Compliance Modals (POPIA, ECTA, PAIA, FICA, LPC) */}
       <ComplianceModals openModal={openModal} onOpenModal={open} />
-
-      {/* Sticky CTA Banner */}
-      <CTABanner />
 
       {/* Interactive Onboarding Experience */}
       <InteractiveOnboarding />

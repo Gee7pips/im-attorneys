@@ -1383,3 +1383,33 @@ Stage Summary:
 - All legal terminology preserved accurately
 - Lint passes clean (0 errors)
 - Dev server returns 200 OK
+---
+Task ID: 15
+Agent: Main Agent
+Task: Fix floating icons — clustering, black box, mobile optimization, add bail button
+
+Work Log:
+- Identified CTABanner as the "black box" blocking floating icons (full-width fixed bar at bottom-0)
+- Removed CTABanner component from page.tsx and floating section
+- Created BailApplicationButton.tsx — red emergency button linking to phone for bail applications
+- Refactored WhatsAppButton.tsx — removed mobile text label, responsive sizing (40px mobile/52px desktop), safe-area-aware positioning
+- Refactored LiveChatBubble.tsx — responsive trigger (40px/52px), mobile-friendly panel (60vh width), removed "AI Chat" text label on mobile, safe-area-aware
+- Refactored QuickConsultation.tsx — responsive sizing, hidden tooltip on mobile, safe-area-aware
+- Refactored BackToTop.tsx — responsive sizing (36px/44px), safe-area-aware positioning
+- Refactored CookieConsent.tsx — moved minimal cookie button to LEFT side (was conflicting on right), responsive sizing
+- Refactored SocialProof.tsx — moved to LEFT side, responsive max-width, safe-area-aware
+- Removed InteractiveOnboarding floating trigger button (onboarding auto-opens after 5s anyway)
+- Used CSS `env(safe-area-inset-bottom)` for iOS safe area compatibility
+- Established clean vertical stacking system: WhatsApp → AI Chat → Bail → Quick Consult → Back to Top (right side)
+- Left side: Cookie button → Social proof notification
+- All positions use safe-area-inset-bottom for proper mobile handling
+- Lint passes clean (0 errors)
+
+Stage Summary:
+- Black box (CTABanner) removed — no more blocking
+- All floating icons properly stacked with no overlaps
+- Mobile: smaller icons (40px), responsive sizing
+- Desktop: larger icons (52px), tooltips on hover
+- New Bail Application button added (red, urgent styling)
+- iOS safe area insets respected
+- 7 component files modified, 1 new file created
