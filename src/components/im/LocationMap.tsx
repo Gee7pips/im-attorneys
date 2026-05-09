@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react";
+import Image from "next/image";
 import { ScrollReveal, GoldLine } from "@/components/im/ScrollReveal";
 
 export function LocationMap() {
@@ -122,9 +123,29 @@ export function LocationMap() {
             </motion.a>
           </ScrollReveal>
 
-          {/* Right Side: Map */}
-          <ScrollReveal direction="right" className="lg:col-span-3">
-            <div className="relative w-full h-[350px] sm:h-[400px] lg:h-full min-h-[400px] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(13,27,42,0.1)] border border-brand-border/30">
+          {/* Right Side: Map + Workspace Image */}
+          <ScrollReveal direction="right" className="lg:col-span-3 flex flex-col gap-6">
+            {/* Workspace photo */}
+            <div className="relative w-full h-[200px] sm:h-[240px] rounded-xl overflow-hidden shadow-md group">
+              <Image
+                src="/images/workspace-lounge.jpg"
+                alt="IM Attorneys modern workspace at Menlyn Maine co-working lounge"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/30 to-transparent" />
+              <div className="absolute bottom-3 left-4">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-dark/70 backdrop-blur-sm text-white text-xs font-body font-medium">
+                  <MapPin className="w-3 h-3 text-brand-gold" />
+                  Our Modern Workspace
+                </span>
+              </div>
+            </div>
+
+            {/* Google Map */}
+            <div className="relative w-full flex-1 min-h-[200px] sm:min-h-[300px] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(13,27,42,0.1)] border border-brand-border/30">
               {/* Map overlay gradient for polish */}
               <div className="absolute inset-0 pointer-events-none z-10 rounded-xl ring-1 ring-inset ring-black/5" />
 

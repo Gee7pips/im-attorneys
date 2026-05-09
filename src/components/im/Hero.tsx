@@ -177,16 +177,16 @@ export function Hero() {
             className="absolute inset-0"
           >
             <Image
-              src="/images/hero-building.png"
-              alt="IM Attorneys office building in Menlyn Maine, Pretoria"
+              src="/images/team-panoramic.jpg"
+              alt="IM Attorneys team — Ingrid Mtsweni with colleague at the office"
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority
               sizes="40vw"
             />
             {/* Gradient overlays for polish */}
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-brand-dark/40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/30 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-brand-dark/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/40 via-transparent to-brand-dark/20" />
           </motion.div>
 
           {/* Floating Gold Badge — positioned on the split line */}
@@ -229,14 +229,14 @@ export function Hero() {
             className="absolute inset-0"
           >
             <Image
-              src="/images/hero-building.png"
-              alt="IM Attorneys office building in Menlyn Maine, Pretoria"
+              src="/images/team-panoramic.jpg"
+              alt="IM Attorneys team at their Menlyn Maine, Pretoria office"
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority
               sizes="(max-width: 1024px) 100vw, 40vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-brand-dark" />
+            <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/30 via-transparent to-brand-dark" />
           </motion.div>
 
           {/* Mobile floating badge */}

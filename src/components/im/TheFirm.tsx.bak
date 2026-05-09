@@ -25,7 +25,7 @@ export function TheFirm() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column — Pull Quote + Team Image */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center lg:justify-start lg:pt-8 gap-10">
-            <ScrollReveal direction="left" delay={0.1} duration={0.8}>
+            <ScrollReveal direction="left" delay={0.1} duration={0.8}">
               <div className="relative max-w-md">
                 {/* Decorative gold quotation mark */}
                 <motion.span
@@ -79,9 +79,9 @@ export function TheFirm() {
                     loading="lazy"
                   />
                 </div>
-                {/* Bottom gold gradient */}
+                {/* Bottom gold gradient */
                 <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-brand-dark/30 to-transparent" />
-                {/* Gold accent border */}
+                {/* Gold accent border */
                 <div className="absolute inset-0 rounded-sm border border-brand-gold/20 pointer-events-none" />
               </div>
             </ScrollReveal>
@@ -131,6 +131,12 @@ export function TheFirm() {
                   >
                     <span className="relative">
                       Discover Our Difference
+                      <motion.span
+                        className="absolute bottom-0 left-0 h-px bg-brand-gold"
+                        initial={{ width: "0%" }}
+                        whileHover={{ width: "100%" }}
+                        transition={{ duration: 0.3 }}
+                      />
                       <span className="absolute bottom-0 left-0 h-px bg-brand-gold group-hover:w-full transition-all duration-300" style={{ width: "0%" }} />
                     </span>
                     <motion.span

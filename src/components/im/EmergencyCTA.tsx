@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
+import Image from "next/image";
 import { useRef } from "react";
 
 export function EmergencyCTA() {
@@ -75,35 +76,51 @@ export function EmergencyCTA() {
             </motion.p>
           </div>
 
-          {/* Right: CTA Buttons */}
+          {/* Right: Branded Folder Image + CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center gap-4 lg:gap-5 shrink-0"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col items-center gap-6 shrink-0"
           >
-            {/* Primary: Call CTA */}
-            <a
-              href="tel:+27812488048"
-              className="group relative flex items-center gap-3 px-7 sm:px-8 py-4 sm:py-4.5 bg-brand-gold text-brand-dark font-body font-semibold text-sm sm:text-base rounded-sm overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(198,168,75,0.35)] active:scale-[0.98]"
-            >
-              {/* Shimmer overlay on hover */}
-              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer-gold" />
+            {/* Branded folder image */}
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-sm overflow-hidden shadow-2xl shadow-brand-gold/10 border border-brand-gold/20">
+              <Image
+                src="/images/branded-folder.jpg"
+                alt="IM Attorneys branded folder — Ingrid Mtsweni Attorneys Incorporated"
+                fill
+                className="object-cover"
+                sizes="256px"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/40 to-transparent" />
+            </div>
 
-              <Phone className="relative w-5 h-5 flex-shrink-0" strokeWidth={2.5} />
-              <span className="relative whitespace-nowrap">Call Us Now: 081 248 8048</span>
-            </a>
+            {/* CTA Buttons row */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 lg:gap-5">
+              {/* Primary: Call CTA */}
+              <a
+                href="tel:+27812488048"
+                className="group relative flex items-center gap-3 px-7 sm:px-8 py-4 sm:py-4.5 bg-brand-gold text-brand-dark font-body font-semibold text-sm sm:text-base rounded-sm overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(198,168,75,0.35)] active:scale-[0.98]"
+              >
+                {/* Shimmer overlay on hover */}
+                <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer-gold" />
 
-            {/* Secondary: WhatsApp CTA */}
-            <a
-              href="https://wa.me/270812488048"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2.5 px-6 sm:px-7 py-4 sm:py-4.5 border border-brand-gold/40 text-brand-gold font-body font-medium text-sm sm:text-base rounded-sm hover:bg-brand-gold/10 hover:border-brand-gold/70 transition-all duration-300 active:scale-[0.98]"
-            >
-              <MessageCircle className="w-5 h-5 flex-shrink-0 group-hover:scale-110 transition-transform duration-200" />
-              <span className="whitespace-nowrap">WhatsApp Us&ensp;→</span>
-            </a>
+                <Phone className="relative w-5 h-5 flex-shrink-0" strokeWidth={2.5} />
+                <span className="relative whitespace-nowrap">Call Us Now: 081 248 8048</span>
+              </a>
+
+              {/* Secondary: WhatsApp CTA */}
+              <a
+                href="https://wa.me/270812488048"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2.5 px-6 sm:px-7 py-4 sm:py-4.5 border border-brand-gold/40 text-brand-gold font-body font-medium text-sm sm:text-base rounded-sm hover:bg-brand-gold/10 hover:border-brand-gold/70 transition-all duration-300 active:scale-[0.98]"
+              >
+                <MessageCircle className="w-5 h-5 flex-shrink-0 group-hover:scale-110 transition-transform duration-200" />
+                <span className="whitespace-nowrap">WhatsApp Us&ensp;→</span>
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>

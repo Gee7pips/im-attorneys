@@ -35,7 +35,7 @@ const teamMembers: TeamMember[] = [
     email: "attorneys@iminc.co.za",
     phone: "081 248 8048",
     image:
-      "https://img1.wsimg.com/isteam/ip/53d9d56f-19db-4b48-b7c6-ba9bb2b6070c/Content-Creator-Project.png",
+      "/images/team-collaboration.jpg",
     bio: "Ingrid acquired her LLB degree from the University of Johannesburg in 2018. After completing her articles and being admitted as an Attorney, she was appointed to join the legal department of one of South Africa\u2019s leading banking institutions. During that time, she gained a vast wealth of valuable experience and expanded her skills across different areas of law \u2014 which subsequently led her to found IM Attorneys Inc.",
     badge: "Founder",
   },
@@ -45,7 +45,7 @@ const teamMembers: TeamMember[] = [
     email: "katlego@iminc.co.za",
     phone: "071 234 1767",
     image:
-      "https://img1.wsimg.com/isteam/ip/53d9d56f-19db-4b48-b7c6-ba9bb2b6070c/IMG_0047.JPG",
+      "/images/attorney-portrait.jpg",
     bio: "Katlego is a skilled litigation attorney with a focus on delivering strategic and effective legal solutions. With extensive courtroom experience, Katlego represents clients in civil and commercial disputes, ensuring the best possible outcomes through meticulous preparation and aggressive advocacy.",
   },
   {
@@ -54,7 +54,7 @@ const teamMembers: TeamMember[] = [
     email: "info@iminc.co.za",
     phone: "064 510 9707",
     image:
-      "https://img1.wsimg.com/isteam/ip/53d9d56f-19db-4b48-b7c6-ba9bb2b6070c/FCA82DF0-0325-4635-AA2D-DA83D31697D0.PNG",
+      "/images/workspace-lounge.jpg",
     bio: "Mmabatho is the backbone of the firm\u2019s administrative operations. With exceptional organisational skills and a warm, professional demeanour, she ensures every client interaction is seamless and that the firm runs efficiently behind the scenes.",
   },
 ];

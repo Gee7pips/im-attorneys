@@ -1413,3 +1413,31 @@ Stage Summary:
 - New Bail Application button added (red, urgent styling)
 - iOS safe area insets respected
 - 7 component files modified, 1 new file created
+---
+Task ID: 16
+Agent: Main Agent
+Task: Integrate official company images across the website
+
+Work Log:
+- Analyzed all 7 uploaded images using VLM to understand content/context
+- Copied images to public/images/ with clean semantic names
+- Image mapping: team-panoramic, attorney-portrait, branded-folder, team-collaboration, team-discussion, workspace-lounge, branded-binders
+- Updated Hero.tsx: Replaced hero-building.png with team-panoramic.jpg (real team photo with IM branding)
+- Updated Founder.tsx: Replaced founder-portrait.png with attorney-portrait.jpg (professional suit portrait)
+- Updated TheFirm.tsx: Added team-discussion.jpg alongside founder quote, added Image import
+- Updated TeamSection.tsx: Replaced 3 external image URLs with local company images
+- Updated EmergencyCTA.tsx: Added branded-folder.jpg (shows IM Attorneys branding), added Image import
+- Updated LocationMap.tsx: Added workspace-lounge.jpg above Google Map, added Image import
+- Updated TrackRecord.tsx: Added branded-binders.jpg alongside practice area rings, added Image import
+- Fixed TheFirm.tsx ESLint parse error (rewrote file to clear encoding issue)
+- Lint passes clean, dev server returns 200 OK
+
+Stage Summary:
+- 7 company images integrated across 7 website sections
+- Hero: Real team photo (Ingrid Mtsweni with IM branded folder) replacing generic building
+- Founder: Professional attorney portrait in formal suit
+- TheFirm: Team collaboration photo added alongside pull quote
+- TeamSection: All 3 team members now use official company photos
+- EmergencyCTA: Branded IM folder close-up with "Ingrid Mtsweni Attorneys Incorporated" text
+- LocationMap: Modern co-working lounge workspace photo added
+- TrackRecord: Shelf of branded IM binders showing meticulous organization

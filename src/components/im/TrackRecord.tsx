@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { Trophy, TrendingUp, Scale, Award } from "lucide-react";
 import {
   ScrollReveal,
@@ -596,22 +597,23 @@ export function TrackRecord() {
         </div>
 
         {/* ── Part 2: Practice Area Success Rings ── */}
-        <ScrollReveal className="mb-8 sm:mb-10">
-          <h3
+        <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-start">
+          <ScrollReveal className="lg:col-span-3">
+            <h3
             className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-center mb-2"
             style={{ color: "#EEE8DC" }}
           >
             Proven Success Across Every Practice Area
           </h3>
-          <p
-            className="font-body text-sm sm:text-base text-center"
-            style={{ color: "rgba(239,232,220,0.4)" }}
-          >
-            Strong outcomes you can count on — regardless of the legal challenge
-          </p>
-        </ScrollReveal>
+            <p
+              className="font-body text-sm sm:text-base text-center lg:text-left"
+              style={{ color: "rgba(239,232,220,0.4)" }}
+            >
+              Strong outcomes you can count on — regardless of the legal challenge
+            </p>
+          </ScrollReveal>
 
-        <div className="max-w-2xl mx-auto space-y-4 sm:space-y-5">
+          <div className="max-w-2xl space-y-4 sm:space-y-5">
           {practiceAreas.map((area, index) => (
             <PracticeAreaRing
               key={area.name}
@@ -620,6 +622,32 @@ export function TrackRecord() {
               index={index}
             />
           ))}
+          </div>
+
+          {/* Branded binders image */}
+          <ScrollReveal direction="right" delay={0.3} className="hidden lg:block lg:col-span-2">
+            <div className="relative rounded-sm overflow-hidden shadow-2xl shadow-brand-gold/5 border border-brand-gold/15">
+              <div className="aspect-[3/4] relative">
+                <Image
+                  src="/images/branded-binders.jpg"
+                  alt="IM Attorneys branded document binders — organised case files"
+                  fill
+                  className="object-cover"
+                  sizes="20vw"
+                  loading="lazy"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="font-display text-sm font-bold" style={{ color: "#C6A84B" }}>
+                  Meticulous Record-Keeping
+                </p>
+                <p className="font-body text-xs mt-1" style={{ color: "rgba(239,232,220,0.5)" }}>
+                  Every case file, organised and secured
+                </p>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
 
         {/* ── Bottom gold accent line ── */}
