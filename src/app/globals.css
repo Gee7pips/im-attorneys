@@ -115,9 +115,18 @@
   --ring: #C6A84B;
 }
 
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  min-height: 100vh;
+  overflow-x: clip !important;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
   body {
     @apply bg-background text-foreground;
@@ -575,7 +584,7 @@ input:focus, textarea:focus, select:focus {
 
 .wave-divider-bottom {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .wave-divider-bottom::after {

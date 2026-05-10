@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BannerProvider } from "@/components/im/BannerContext";
 import { PracticeAreaPage } from "@/components/im/PracticeAreaPage";
-import { ScrollProgress } from "@/components/im/ScrollProgress";
+
 import { LoadingScreen } from "@/components/im/LoadingScreen";
 import { OnboardingBanner } from "@/components/im/OnboardingBanner";
 import { Navigation } from "@/components/im/Navigation";
@@ -24,29 +24,27 @@ import { ContactForm } from "@/components/im/ContactForm";
 import { LocationMap } from "@/components/im/LocationMap";
 import { Footer } from "@/components/im/Footer";
 import { WhatsAppButton } from "@/components/im/WhatsAppButton";
-import { BackToTop } from "@/components/im/BackToTop";
 import { NewsletterSection } from "@/components/im/NewsletterSection";
-import { CookieConsent } from "@/components/im/CookieConsent";
 import { TrustBadges } from "@/components/im/TrustBadges";
 import { TrackRecord } from "@/components/im/TrackRecord";
-import { QuickConsultation } from "@/components/im/QuickConsultation";
+
 import { OurProcess } from "@/components/im/OurProcess";
-import { CursorGlow } from "@/components/im/CursorGlow";
+
 import { PageTransition } from "@/components/im/PageTransition";
 import { ClientMarquee } from "@/components/im/ClientMarquee";
 import { AwardsRecognition } from "@/components/im/AwardsRecognition";
 import { CaseResults } from "@/components/im/CaseResults";
 import { MilestonesTimeline } from "@/components/im/MilestonesTimeline";
 import { LegalResources } from "@/components/im/LegalResources";
-import { LiveChatBubble } from "@/components/im/LiveChatBubble";
+
 import { FeesAndBilling } from "@/components/im/FeesAndBilling";
 import { PracticeAreaExplorer } from "@/components/im/PracticeAreaExplorer";
 import { OfficeHours } from "@/components/im/OfficeHours";
-import { SocialProof } from "@/components/im/SocialProof";
+
 import { BeforeAfterSlider } from "@/components/im/BeforeAfterSlider";
 import { TestimonialDetail } from "@/components/im/TestimonialDetail";
-import { BailApplicationButton } from "@/components/im/BailApplicationButton";
-import { InteractiveOnboarding } from "@/components/im/InteractiveOnboarding";
+
+
 import { ComplianceModals, useComplianceModals } from "@/components/im/ComplianceModals";
 
 export default function Home() {
@@ -63,8 +61,6 @@ export default function Home() {
 
   return (
     <BannerProvider>
-      <CursorGlow />
-      <ScrollProgress />
       <LoadingScreen />
       <OnboardingBanner />
       <Navigation />
@@ -86,7 +82,7 @@ export default function Home() {
           </motion.div>
         ) : (
           <PageTransition key="home">
-          <main className="min-h-screen">
+          <main className="min-h-screen overflow-x-hidden">
         {/* Hero Section */}
         <section id="home">
           <Hero />
@@ -188,20 +184,12 @@ export default function Home() {
       {/* Footer — with compliance modal triggers */}
       <Footer onOpenModal={open} />
 
-      {/* Floating Action Buttons (right side, stacked) */}
+      {/* Floating Action Button — WhatsApp only */}
       <WhatsAppButton />
-      <LiveChatBubble />
-      <QuickConsultation />
-      <BailApplicationButton />
-      <BackToTop />
-      <SocialProof />
-      <CookieConsent onOpenCookiePolicy={() => open("cookies")} />
 
       {/* Regulatory Compliance Modals (POPIA, ECTA, PAIA, FICA, LPC) */}
       <ComplianceModals openModal={openModal} onOpenModal={open} />
 
-      {/* Interactive Onboarding Experience */}
-      <InteractiveOnboarding />
     </BannerProvider>
   );
 }
