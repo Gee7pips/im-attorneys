@@ -25,6 +25,7 @@ import { LocationMap } from "@/components/im/LocationMap";
 import { Footer } from "@/components/im/Footer";
 import { WhatsAppButton } from "@/components/im/WhatsAppButton";
 import { BailFloatingIcon } from "@/components/im/BailFloatingIcon";
+import { ClientIntakeOnboarding } from "@/components/im/ClientIntakeOnboarding";
 import { NewsletterSection } from "@/components/im/NewsletterSection";
 import { TrustBadges } from "@/components/im/TrustBadges";
 import { TrackRecord } from "@/components/im/TrackRecord";
@@ -188,6 +189,7 @@ export default function Home() {
       {/* Floating Action Buttons */}
       <BailFloatingIcon />
       <WhatsAppButton />
+      <ClientIntakeOnboarding />
 
       {/* Regulatory Compliance Modals (POPIA, ECTA, PAIA, FICA, LPC) */}
       <ComplianceModals openModal={openModal} onOpenModal={open} />

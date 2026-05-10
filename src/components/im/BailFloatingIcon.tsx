@@ -1,128 +1,210 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ShieldAlert, Phone } from "lucide-react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ShieldAlert, Phone, X, MessageCircle } from "lucide-react";
 
 export function BailFloatingIcon() {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const closeCard = useCallback(() => {
+    setIsExpanded(false);
+  }, []);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeCard();
+    };
+    if (isExpanded) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isExpanded, closeCard]);
+
+  // Close on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        closeCard();
+      }
+    };
+    if (isExpanded) {
+      // Small delay to avoid the opening click immediately closing it
+      const timer = setTimeout(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+      }, 50);
+      return () => {
+        clearTimeout(timer);
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [isExpanded, closeCard]);
+
   return (
-    <motion.a
-      href="tel:+27812488048"
-      aria-label="24/7 Bail Application — Call Now"
-      className="fixed left-4 sm:left-6 bottom-[50%] -translate-y-1/2 z-[55] flex flex-col items-center gap-2 group no-underline"
-      initial={{ opacity: 0, x: -60, scale: 0.8 }}
+    <motion.div
+      className="fixed left-4 sm:left-6 bottom-20 sm:bottom-24 z-[55]"
+      initial={{ opacity: 0, x: -50, scale: 0.8 }}
       animate={{ opacity: 1, x: 0, scale: 1 }}
       transition={{
         duration: 0.8,
-        delay: 2.5,
+        delay: 2,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      {/* Outer glow ring - expanding pulse */}
-      <div className="absolute inset-0 rounded-full pointer-events-none">
-        <span
-          className="absolute inset-0 rounded-full border-2 border-red-500/40"
-          style={{ animation: "ringExpand 3s ease-out infinite" }}
-        />
-        <span
-          className="absolute inset-0 rounded-full border-2 border-brand-gold/30"
-          style={{ animation: "ringExpand 3s ease-out infinite 1.5s" }}
-        />
-      </div>
-
-      {/* Main icon container — 3D glass card */}
-      <motion.div
-        className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center cursor-pointer"
-        style={{
-          perspective: "800px",
-        }}
-        animate={{
-          y: [0, -10, -4, -12, 0],
-          rotateX: [0, 3, -2, 2, 0],
-          rotateY: [0, -3, 2, -2, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        whileHover={{
-          scale: 1.12,
-          rotateX: 0,
-          rotateY: 0,
-          y: -4,
-        }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {/* Glass background */}
-        <div
-          className="absolute inset-0 rounded-2xl"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(220,38,38,0.85) 0%, rgba(198,168,75,0.7) 50%, rgba(220,38,38,0.85) 100%)",
-            backdropFilter: "blur(20px) saturate(1.8)",
-            WebkitBackdropFilter: "blur(20px) saturate(1.8)",
-            border: "1px solid rgba(198,168,75,0.5)",
-            boxShadow: `
-              0 10px 40px rgba(220,38,38,0.35),
-              0 4px 16px rgba(198,168,75,0.3),
-              0 0 60px rgba(198,168,75,0.1),
-              inset 0 1px 0 rgba(255,255,255,0.4),
-              inset 0 -1px 0 rgba(0,0,0,0.2)
-            `,
-          }}
-        />
-
-        {/* Glossy shine overlay */}
-        <div
-          className="absolute inset-0 rounded-2xl pointer-events-none overflow-hidden"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.1) 100%)",
-          }}
-        />
-
-        {/* Animated shine sweep */}
-        <motion.div
-          className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none"
-        >
+      <AnimatePresence mode="wait">
+        {isExpanded ? (
+          /* ── Expanded Card ── */
           <motion.div
-            className="absolute -inset-full"
+            ref={cardRef}
+            key="card"
+            className="relative"
+            initial={{ opacity: 0, scale: 0.85, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.85, y: 10 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 28,
+              mass: 0.8,
+            }}
+          >
+            {/* Glass card backdrop */}
+            <div className="glass-premium rounded-2xl p-5 w-[280px] sm:w-[300px] relative">
+              {/* Close button */}
+              <button
+                onClick={closeCard}
+                aria-label="Close bail assistance panel"
+                className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 transition-colors cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5 text-white/70" />
+              </button>
+
+              {/* Gold accent line */}
+              <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[#C6A84B] to-transparent" />
+
+              {/* Shield icon + heading */}
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#C6A84B]/15 border border-[#C6A84B]/30">
+                  <ShieldAlert className="w-4.5 h-4.5 text-[#C6A84B]" strokeWidth={2} />
+                </div>
+                <div>
+                  <h3 className="font-display text-sm font-bold text-gold-gradient leading-tight">
+                    24/7 Bail Assistance
+                  </h3>
+                  <p className="font-body text-[11px] text-white/50 leading-snug">
+                    Emergency bail applications
+                  </p>
+                </div>
+              </div>
+
+              {/* Description */}
+              <p className="font-body text-xs text-white/70 leading-relaxed mb-4 pl-0.5">
+                Emergency bail applications — any time, any day. Our attorneys are ready to assist you around the clock.
+              </p>
+
+              {/* Action buttons */}
+              <div className="flex gap-2.5 mb-3.5">
+                <a
+                  href="tel:+27812488048"
+                  className="btn-premium flex-1 !py-2.5 !px-3 !text-xs !rounded-xl no-underline"
+                  aria-label="Call IM Attorneys for bail assistance"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  Call Now
+                </a>
+                <a
+                  href="https://wa.me/27812488048?text=Hello%2C%20I%20need%20urgent%20bail%20assistance."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-premium-outline flex-1 !py-2.5 !px-3 !text-xs !rounded-xl no-underline"
+                  aria-label="WhatsApp IM Attorneys for bail assistance"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  WhatsApp
+                </a>
+              </div>
+
+              {/* Operating hours */}
+              <div className="flex items-center gap-1.5 pt-3 border-t border-white/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <p className="font-body text-[10px] text-white/45 tracking-wide uppercase">
+                  Available 24 hours, 7 days a week
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          /* ── Compact Button ── */
+          <motion.button
+            key="button"
+            onClick={() => setIsExpanded(true)}
+            aria-label="24/7 Bail Application Assistance — Click for options"
+            className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C6A84B]/60"
             style={{
               background:
-                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 45%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.25) 55%, transparent 100%)",
-              transform: "skewX(-20deg)",
+                "linear-gradient(135deg, rgba(13,27,42,0.85) 0%, rgba(26,50,80,0.75) 50%, rgba(13,27,42,0.85) 100%)",
+              backdropFilter: "blur(20px) saturate(1.8)",
+              WebkitBackdropFilter: "blur(20px) saturate(1.8)",
+              border: "1px solid rgba(198,168,75,0.35)",
+              boxShadow:
+                "0 4px 20px rgba(0,0,0,0.3), 0 0 20px rgba(198,168,75,0.08), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.2)",
             }}
-            animate={{ left: ["-100%", "200%"] }}
+            // Breathing pulse animation
+            animate={{
+              scale: [1, 1.03, 1],
+            }}
             transition={{
-              duration: 4,
+              duration: 3,
               repeat: Infinity,
-              repeatDelay: 3,
               ease: "easeInOut",
             }}
-          />
-        </motion.div>
+            whileHover={{
+              scale: 1.08,
+              y: -2,
+              boxShadow:
+                "0 8px 32px rgba(198,168,75,0.25), 0 0 40px rgba(198,168,75,0.12), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.2)",
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {/* Shield icon */}
+            <ShieldAlert
+              className="w-5 h-5 sm:w-[22px] sm:h-[22px] text-[#C6A84B] drop-shadow-[0_0_6px_rgba(198,168,75,0.4)]"
+              strokeWidth={1.8}
+            />
 
-        {/* Icon content */}
-        <div className="relative z-10 flex flex-col items-center justify-center">
-          <ShieldAlert className="w-6 h-6 sm:w-7 sm:h-7 text-white drop-shadow-lg" strokeWidth={2} />
-          <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white/90 absolute -bottom-0.5 -right-0.5 drop-shadow" strokeWidth={2.5} />
-        </div>
-      </motion.div>
+            {/* Red pulsing availability dot */}
+            <span
+              className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-red-500 border-2 border-[#0D1B2A]/80"
+              style={{
+                boxShadow: "0 0 6px rgba(239,68,68,0.6), 0 0 12px rgba(239,68,68,0.3)",
+              }}
+            >
+              <span className="absolute inset-0 rounded-full bg-red-400 animate-ping opacity-75" />
+            </span>
 
-      {/* Label tooltip */}
-      <motion.div
-        className="glass-glossy rounded-lg px-2.5 py-1.5 pointer-events-none"
-        initial={{ opacity: 0, scale: 0.8, y: 4 }}
-        animate={{ opacity: 0, scale: 0.8, y: 4 }}
-        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ delay: 3.5 }}
-        style={{ marginBottom: "-4px" }}
-      >
-        <span className="font-body text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-dark whitespace-nowrap flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-          24/7 Bail
-        </span>
-      </motion.div>
-    </motion.a>
+            {/* Subtle gold shine sweep */}
+            <motion.div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+              <motion.div
+                className="absolute -inset-full"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent 0%, rgba(198,168,75,0.12) 45%, rgba(198,168,75,0.2) 50%, rgba(198,168,75,0.12) 55%, transparent 100%)",
+                  transform: "skewX(-20deg)",
+                }}
+                animate={{ left: ["-100%", "200%"] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatDelay: 4,
+                  ease: "easeInOut",
+                }}
+              />
+            </motion.div>
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
