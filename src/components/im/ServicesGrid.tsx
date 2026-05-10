@@ -266,7 +266,7 @@ function BentoServiceCard({
 }
 
 /* ─── Main Services Grid export ─── */
-export function ServicesGrid() {
+export function ServicesGrid({ onOpenPracticeArea }: { onOpenPracticeArea?: (slug: string) => void }) {
   const [modalService, setModalService] = useState<ServiceDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -363,6 +363,7 @@ export function ServicesGrid() {
         service={modalService}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
+        onViewFullPage={onOpenPracticeArea}
       />
     </section>
   );

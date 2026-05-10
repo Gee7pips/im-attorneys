@@ -11,6 +11,7 @@ import {
   ArrowRight,
   X,
   CheckCircle2,
+  BookOpen,
 } from "lucide-react";
 
 export interface ServiceDetail {
@@ -19,17 +20,20 @@ export interface ServiceDetail {
   description: string;
   features: string[];
   icon: React.ElementType;
+  slug: string;
 }
 
 export interface ServiceDetailModalProps {
   service: ServiceDetail | null;
   isOpen: boolean;
   onClose: () => void;
+  onViewFullPage?: (slug: string) => void;
 }
 
 export const serviceDetails: ServiceDetail[] = [
   {
     title: "Family Law",
+    slug: "family-law",
     tagline: "Protecting what matters most",
     description:
       "Family disputes demand sensitivity, discretion, and expert legal strategy. Our team understands the emotional weight of family law matters and provides compassionate yet decisive representation. We navigate the complexities of South African family law to secure the best outcomes for you and your loved ones, ensuring that your rights and interests are protected at every stage.",
@@ -45,6 +49,7 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     title: "Wills & Estates",
+    slug: "wills-estates",
     tagline: "Preserving your legacy for generations",
     description:
       "Estate planning is one of the most important steps you can take to protect your family's future. Our attorneys draft bespoke wills and estate plans that honour your wishes and comply with South African law. We guide executors through the probate process with precision, and we are experienced in resolving complex estate disputes to ensure your legacy is preserved.",
@@ -60,6 +65,7 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     title: "Claims Against the State",
+    slug: "claims-state",
     tagline: "Holding power to account",
     description:
       "When the state fails in its duty, you deserve justice. Our firm specialises in claims against government entities, including Road Accident Fund (RAF) claims, wrongful arrest and detention, medical negligence in state facilities, and police brutality. We have a proven track record of securing fair compensation and holding state actors accountable for their actions.",
@@ -75,6 +81,7 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     title: "Criminal Law",
+    slug: "criminal-law",
     tagline: "Fierce defence, unwavering commitment",
     description:
       "Facing criminal charges is one of the most stressful experiences anyone can endure. Our criminal law team is available 24/7 for urgent bail applications and provides robust defence across all criminal matters. From initial consultations through to trial and appeal, we fight tirelessly to protect your freedom, your reputation, and your constitutional rights.",
@@ -90,6 +97,7 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     title: "Commercial Law",
+    slug: "commercial-law",
     tagline: "Legal solutions that make business sense",
     description:
       "In today's complex regulatory environment, businesses need legal partners who understand both the law and the bottom line. Our commercial law team provides strategic advice on contracts, mergers and acquisitions, corporate governance, and compliance. We help businesses of all sizes — from startups to established enterprises — navigate legal risks and seize opportunities with confidence.",
@@ -105,6 +113,7 @@ export const serviceDetails: ServiceDetail[] = [
   },
   {
     title: "General Litigation",
+    slug: "general-litigation",
     tagline: "We litigate what others avoid",
     description:
       "Some legal matters require determined, experienced litigators who are not afraid to take on difficult cases. Our litigation team handles a broad spectrum of disputes, including evictions, debt collection, debt review removal, contractual disputes, and property-related matters. We are known for our meticulous preparation, aggressive advocacy, and relentless pursuit of favourable outcomes for our clients.",
@@ -151,6 +160,7 @@ export function ServiceDetailModal({
   service,
   isOpen,
   onClose,
+  onViewFullPage,
 }: ServiceDetailModalProps) {
   /* Body scroll lock */
   useEffect(() => {
@@ -307,8 +317,8 @@ export function ServiceDetailModal({
                   </ul>
                 </div>
 
-                {/* CTA Button */}
-                <div className="pt-2">
+                {/* CTA Buttons */}
+                <div className="pt-2 space-y-3">
                   <button
                     onClick={handleCTAClick}
                     className="group w-full inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-brand-gold text-brand-dark font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:bg-brand-gold-light hover:shadow-lg hover:shadow-brand-gold/20"
@@ -316,7 +326,20 @@ export function ServiceDetailModal({
                     <span>Book a Consultation</span>
                     <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
-                  <p className="text-center font-body text-xs text-brand-muted mt-3">
+                  {onViewFullPage && (
+                    <button
+                      onClick={() => {
+                        onClose();
+                        setTimeout(() => onViewFullPage(service.slug), 350);
+                      }}
+                      className="group w-full inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-brand-gold/30 text-brand-gold font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:border-brand-gold hover:bg-brand-gold/5"
+                    >
+                      <BookOpen className="w-4 h-4" />
+                      <span>View Full Practice Area</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </button>
+                  )}
+                  <p className="text-center font-body text-xs text-brand-muted">
                     Available 24/7 for urgent criminal matters
                   </p>
                 </div>

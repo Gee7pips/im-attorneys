@@ -5296,3 +5296,428 @@ input:focus, textarea:focus, select:focus {
 .dark .morphing-border::before {
   background: linear-gradient(135deg, rgba(198, 168, 75, 0.4), rgba(228, 212, 154, 0.1), rgba(198, 168, 75, 0.4));
 }
+
+/* ======================================== PRACTICE AREA & HERO ENHANCEMENTS ======================================== */
+
+/* ─────────────────────────────────────────
+   1. HERO CINEMATIC CLASSES
+   ───────────────────────────────────────── */
+
+/* Hero cinematic parallax image */
+.hero-cinematic-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Cinematic gradient overlays for hero */
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: 
+    linear-gradient(180deg, rgba(13, 27, 42, 0.3) 0%, rgba(13, 27, 42, 0.6) 50%, rgba(13, 27, 42, 0.95) 100%),
+    linear-gradient(90deg, rgba(13, 27, 42, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(198, 168, 75, 0.08) 0%, transparent 50%);
+}
+
+/* Trust credential item */
+.trust-credential {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.trust-credential .credential-value {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #C6A84B;
+  line-height: 1;
+}
+
+.trust-credential .credential-label {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+}
+
+/* Gold diamond separator (inline) */
+.gold-diamond-sep {
+  width: 5px;
+  height: 5px;
+  background: rgba(198, 168, 75, 0.4);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* Animated text reveal line */
+.text-reveal-line {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.text-reveal-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #C6A84B, #E4D49A, #C6A84B);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.text-reveal-line.revealed::after {
+  transform: scaleX(1);
+}
+
+/* Hero shield badge with glow */
+.hero-shield-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-shield-badge::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(198, 168, 75, 0.25);
+  animation: heroBadgePulse 3s ease-in-out infinite;
+}
+
+@keyframes heroBadgePulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 0; }
+}
+
+/* ─────────────────────────────────────────
+   2. PRACTICE AREA PAGE CLASSES
+   ───────────────────────────────────────── */
+
+/* Practice area hero gradient */
+.pa-hero-gradient {
+  background: linear-gradient(135deg, #0D1B2A 0%, #1A3250 40%, #0D1B2A 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.pa-hero-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(198, 168, 75, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+/* Service feature card for practice areas */
+.pa-service-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(198, 168, 75, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.pa-service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #C6A84B, #E4D49A);
+  transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pa-service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(13, 27, 42, 0.08), 0 4px 12px rgba(198, 168, 75, 0.06);
+  border-color: rgba(198, 168, 75, 0.25);
+}
+
+.pa-service-card:hover::before {
+  width: 100%;
+}
+
+/* Practice area process step */
+.pa-process-step {
+  position: relative;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(198, 168, 75, 0.08);
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.pa-process-step:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(198, 168, 75, 0.2);
+  box-shadow: 0 8px 24px rgba(13, 27, 42, 0.06);
+}
+
+/* Practice area case study card */
+.pa-case-card {
+  background: rgba(26, 50, 80, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(198, 168, 75, 0.12);
+  border-radius: 0.75rem;
+  padding: 1.75rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pa-case-card:hover {
+  background: rgba(26, 50, 80, 0.6);
+  border-color: rgba(198, 168, 75, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Practice area FAQ accordion */
+.pa-faq-item {
+  border: 1px solid rgba(221, 214, 200, 0.5);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.pa-faq-item.active {
+  border-color: rgba(198, 168, 75, 0.3);
+}
+
+.pa-faq-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.125rem 1.25rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: #0D1B2A;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.3s ease;
+}
+
+.pa-faq-item.active .pa-faq-trigger {
+  color: #C6A84B;
+}
+
+.pa-faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), padding 0.3s ease;
+  padding: 0 1.25rem;
+}
+
+.pa-faq-item.active .pa-faq-content {
+  max-height: 300px;
+  padding: 0 1.25rem 1.125rem;
+}
+
+.pa-faq-icon {
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  flex-shrink: 0;
+  color: #C6A84B;
+}
+
+.pa-faq-item.active .pa-faq-icon {
+  transform: rotate(45deg);
+}
+
+/* Practice area CTA section */
+.pa-cta-section {
+  background: linear-gradient(135deg, #0D1B2A 0%, #1A3250 50%, #0D1B2A 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.pa-cta-section::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(198, 168, 75, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Related area card */
+.pa-related-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(198, 168, 75, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pa-related-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(198, 168, 75, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(13, 27, 42, 0.08);
+}
+
+/* Breadcrumb styling */
+.pa-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pa-breadcrumb a {
+  color: rgba(198, 168, 75, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.pa-breadcrumb a:hover {
+  color: #C6A84B;
+}
+
+.pa-breadcrumb .separator {
+  color: rgba(198, 168, 75, 0.3);
+}
+
+/* Stat card in PA hero */
+.pa-stat {
+  text-align: center;
+  padding: 0.75rem 1rem;
+}
+
+.pa-stat-value {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #C6A84B;
+  line-height: 1;
+}
+
+.pa-stat-label {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+
+/* ─────────────────────────────────────────
+   3. DARK MODE VARIANTS
+   ───────────────────────────────────────── */
+
+/* Dark mode for practice area cards */
+.dark .pa-service-card {
+  background: rgba(26, 50, 80, 0.5);
+  border-color: rgba(198, 168, 75, 0.08);
+}
+
+.dark .pa-service-card:hover {
+  background: rgba(26, 50, 80, 0.7);
+  border-color: rgba(198, 168, 75, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dark .pa-service-card::before {
+  background: linear-gradient(90deg, #C6A84B, rgba(198, 168, 75, 0.5));
+}
+
+.dark .pa-process-step {
+  background: rgba(26, 50, 80, 0.4);
+  border-color: rgba(198, 168, 75, 0.06);
+}
+
+.dark .pa-process-step:hover {
+  background: rgba(26, 50, 80, 0.6);
+  border-color: rgba(198, 168, 75, 0.15);
+}
+
+.dark .pa-case-card {
+  background: rgba(10, 22, 40, 0.6);
+  border-color: rgba(198, 168, 75, 0.08);
+}
+
+.dark .pa-case-card:hover {
+  background: rgba(10, 22, 40, 0.8);
+  border-color: rgba(198, 168, 75, 0.2);
+}
+
+.dark .pa-faq-item {
+  border-color: rgba(198, 168, 75, 0.1);
+}
+
+.dark .pa-faq-item.active {
+  border-color: rgba(198, 168, 75, 0.25);
+}
+
+.dark .pa-faq-trigger {
+  color: #F0EDE8;
+}
+
+.dark .pa-related-card {
+  background: rgba(26, 50, 80, 0.5);
+  border-color: rgba(198, 168, 75, 0.08);
+}
+
+.dark .pa-related-card:hover {
+  background: rgba(26, 50, 80, 0.7);
+  border-color: rgba(198, 168, 75, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.dark .hero-gradient-overlay {
+  background: 
+    linear-gradient(180deg, rgba(10, 22, 40, 0.4) 0%, rgba(10, 22, 40, 0.7) 50%, rgba(10, 22, 40, 0.98) 100%),
+    linear-gradient(90deg, rgba(10, 22, 40, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(198, 168, 75, 0.05) 0%, transparent 50%);
+}
+
+/* ─────────────────────────────────────────
+   4. PAGE TRANSITION CLASSES
+   ───────────────────────────────────────── */
+
+/* Smooth page transition */
+.page-enter {
+  animation: pageEnter 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-exit {
+  animation: pageExit 0.3s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+}
+
+@keyframes pageExit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}

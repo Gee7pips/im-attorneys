@@ -12,6 +12,7 @@ import {
   CheckCircle,
   ArrowRight,
   HelpCircle,
+  BookOpen,
 } from "lucide-react";
 import {
   ScrollReveal,
@@ -437,7 +438,7 @@ function TabButton({
    Tab Content Panel Component
    ──────────────────────────────────────────── */
 
-function TabContentPanel({ area }: { area: PracticeArea }) {
+function TabContentPanel({ area, onOpenPracticeArea }: { area: PracticeArea; onOpenPracticeArea?: (slug: string) => void }) {
   const Icon = area.icon;
 
   return (
@@ -537,8 +538,8 @@ function TabContentPanel({ area }: { area: PracticeArea }) {
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="mt-auto">
+        {/* CTAs */}
+        <div className="mt-auto flex flex-col sm:flex-row gap-3">
           <a
             href="#contact"
             onClick={(e) => {
@@ -551,6 +552,16 @@ function TabContentPanel({ area }: { area: PracticeArea }) {
             <span>Discuss Your Case</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
+          {onOpenPracticeArea && (
+            <button
+              onClick={() => onOpenPracticeArea(area.id)}
+              className="group inline-flex items-center gap-2 px-6 py-3 border-2 border-brand-gold/30 text-brand-gold font-body font-semibold text-sm rounded-lg transition-all duration-300 hover:border-brand-gold hover:bg-brand-gold/5 focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 outline-none"
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>View Full Details</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          )}
         </div>
       </div>
     </motion.div>
@@ -561,7 +572,7 @@ function TabContentPanel({ area }: { area: PracticeArea }) {
    Main Component
    ──────────────────────────────────────────── */
 
-export function PracticeAreaExplorer() {
+export function PracticeAreaExplorer({ onOpenPracticeArea }: { onOpenPracticeArea?: (slug: string) => void }) {
   const [activeTab, setActiveTab] = useState(0);
   const tabListRef = useRef<HTMLDivElement>(null);
 
@@ -685,7 +696,7 @@ export function PracticeAreaExplorer() {
         {/* ── Tab Content ── */}
         <div className="bg-brand-cream/40 rounded-2xl border border-brand-border/50 p-6 sm:p-8 lg:p-10 min-h-[480px]">
           <AnimatePresence mode="wait">
-            <TabContentPanel area={practiceAreas[activeTab]} />
+            <TabContentPanel area={practiceAreas[activeTab]} onOpenPracticeArea={onOpenPracticeArea} />
           </AnimatePresence>
         </div>
       </div>

@@ -1,292 +1,329 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
 import Image from "next/image";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Shield, Scale, Clock, Award, Star } from "lucide-react";
 import { ScrollReveal } from "@/components/im/ScrollReveal";
 
-const practiceAreas = [
-  "Family Law",
-  "Wills & Estates",
-  "Criminal Law",
-  "Commercial Law",
-  "RAF Claims",
-];
+/* ------------------------------------------------------------------ */
+/*  Animation variants                                                 */
+/* ------------------------------------------------------------------ */
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (delay: number) => ({
+  hidden: { opacity: 0, y: 32 },
+  visible: (d: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      delay,
-      ease: [0.25, 0.1, 0.25, 1],
-    },
+    transition: { duration: 0.75, delay: d, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
-const slideFromRight = {
-  hidden: { opacity: 0, x: 80 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.25, 0.1, 0.25, 1],
-    },
-  },
+const lineReveal = {
+  hidden: { scaleX: 0 },
+  visible: (d: number) => ({
+    scaleX: 1,
+    transition: { duration: 0.9, delay: d, ease: [0.22, 1, 0.36, 1] },
+  }),
 };
 
+/* ------------------------------------------------------------------ */
+/*  Trust items                                                        */
+/* ------------------------------------------------------------------ */
+
+const trustItems = [
+  { icon: Clock, label: "24/7 Available" },
+  { icon: Scale, label: "500+ Cases Won" },
+  { icon: Award, label: "98% Success Rate" },
+  { icon: Star, label: "BBBEE Level 1" },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Hero Component                                                     */
+/* ------------------------------------------------------------------ */
+
 export function Hero() {
-  const handleExploreServices = () => {
-    const el = document.querySelector("#services");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Parallax: background image scrolls at 0.3× speed
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 0.4]);
 
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full overflow-hidden bg-brand-dark wave-divider-bottom scene-3d"
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden wave-divider-bottom"
     >
-      {/* ─── Main Layout: 60/40 Split on Desktop ─── */}
-      <div className="relative flex min-h-screen flex-col lg:flex-row">
-        {/* ─── Text Panel (60% on desktop) ─── */}
-        <div className="relative z-10 flex w-full flex-col justify-center lg:w-[60%]">
-          {/* Subtle background gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-dark to-brand-navy/60 lg:bg-none" />
+      {/* ====== Full-screen Background Image ====== */}
+      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
+        <Image
+          src="/images/team-panoramic.jpg"
+          alt="IM Attorneys — Boutique Law Firm, Pretoria"
+          fill
+          className="object-cover object-center scale-110"
+          priority
+        />
+      </motion.div>
 
-          <div className="relative z-10 px-6 py-8 sm:px-10 md:px-16 lg:px-20 xl:px-28">
-            {/* Mobile: image banner appears above this on small screens */}
-            <div className="lg:hidden mb-8 mt-16" />
+      {/* ====== Cinematic Color Grading Overlays ====== */}
+      {/* Base dark navy gradient from bottom */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#0D1B2A] via-[#0D1B2A]/80 to-transparent" />
+      {/* Gold accent at edges */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-br from-[#C6A84B]/10 via-transparent to-[#C6A84B]/5" />
+      {/* Vignette */}
+      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_40%,#0D1B2A_100%)]" />
+      {/* Scroll-based darkening */}
+      <motion.div
+        className="absolute inset-0 z-[1] bg-[#0D1B2A]"
+        style={{ opacity: overlayOpacity }}
+      />
 
-            <div className="mx-auto max-w-xl lg:max-w-none lg:mx-0">
-              {/* Small Caps Gold Label */}
-              <motion.div
-                custom={0}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="mb-6"
-              >
-                <span className="inline-block font-body text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-brand-gold label-tracking-wide">
-                  Boutique Law Firm &middot; Pretoria
-                </span>
-              </motion.div>
+      {/* ====== Animated Ambient Gold Orbs ====== */}
+      <motion.div
+        className="absolute top-[15%] left-[10%] w-[420px] h-[420px] rounded-full z-[2] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(198,168,75,0.12) 0%, transparent 70%)",
+        }}
+        animate={{ x: [0, 30, -20, 0], y: [0, -20, 15, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-[20%] right-[8%] w-[360px] h-[360px] rounded-full z-[2] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(228,212,154,0.08) 0%, transparent 70%)",
+        }}
+        animate={{ x: [0, -25, 20, 0], y: [0, 18, -12, 0] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute top-[50%] left-[55%] w-[280px] h-[280px] rounded-full z-[2] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(198,168,75,0.06) 0%, transparent 70%)",
+        }}
+        animate={{ x: [0, 15, -30, 0], y: [0, -30, 10, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-              {/* Decorative gold line */}
-              <motion.div
-                custom={0.05}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="mb-8"
-              >
-                <div className="h-[2px] w-16 bg-gradient-to-r from-brand-gold to-brand-gold/0" />
-              </motion.div>
-
-              {/* H1 Heading */}
-              <motion.h1
-                custom={0.2}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-white mb-6 heading-display text-shadow-elegant"
-              >
-                Your Rights. Our{" "}
-                <span className="text-gold-gradient">Relentless</span> Pursuit.
-              </motion.h1>
-
-              {/* Body Text */}
-              <motion.p
-                custom={0.4}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="font-body text-base sm:text-lg leading-relaxed text-white/70 max-w-lg mb-10 body-lg"
-              >
-                When your future, your family, or your business is on the line, you need
-                more than just a lawyer. You need a legal partner who fights for you with precision, passion,
-                and an intimate understanding of South African law.
-              </motion.p>
-
-              {/* CTA Buttons */}
-              <motion.div
-                custom={0.6}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12"
-              >
-                {/* Primary CTA — Gold */}
-                <a
-                  href="mailto:attorneys@iminc.co.za?subject=Book%20a%20consultation"
-                  className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-brand-gold text-brand-dark font-body font-semibold text-sm rounded-sm transition-all duration-300 hover:bg-brand-gold-light hover:shadow-lg hover:shadow-brand-gold/20 w-full sm:w-auto"
-                >
-                  Start Your Free Consultation
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </a>
-
-                {/* Secondary CTA — Outline */}
-                <button
-                  onClick={handleExploreServices}
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-white/30 text-white font-body font-medium text-sm rounded-sm transition-all duration-300 hover:border-brand-gold hover:text-brand-gold hover:bg-white/5 backdrop-blur-sm w-full sm:w-auto"
-                >
-                  View Our Expertise
-                </button>
-              </motion.div>
-
-              {/* Trust Signal Bar */}
-              <motion.div
-                custom={0.75}
-                initial="hidden"
-                animate="visible"
-                variants={fadeUp}
-                className="border-t border-white/10 pt-6"
-              >
-                <p className="font-body text-xs text-white/40 uppercase tracking-widest mb-3">
-                  Practice Areas
-                </p>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                  {practiceAreas.map((area, i) => (
-                    <span key={area} className="flex items-center gap-x-3">
-                      <span className="font-body text-sm text-white/60">
-                        {area}
-                      </span>
-                      {i < practiceAreas.length - 1 && (
-                        <span className="hidden sm:inline text-brand-gold/40 text-xs">
-                          &middot;
-                        </span>
-                      )}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-
-        {/* ─── Image Panel (40% on desktop) ─── */}
-        <div className="relative hidden lg:block lg:w-[40%]">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={slideFromRight}
-            className="absolute inset-0"
-          >
-            <Image
-              src="/images/team-panoramic.jpg"
-              alt="IM Attorneys team — Ingrid Mtsweni with colleague at the office"
-              fill
-              className="object-cover object-center"
-              priority
-              sizes="40vw"
-            />
-            {/* Gradient overlays for polish */}
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-brand-dark/50" />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/40 via-transparent to-brand-dark/20" />
-          </motion.div>
-
-          {/* Floating Gold Badge — positioned on the split line */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.6,
-              delay: 1.0,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="absolute -left-8 top-1/2 z-20 -translate-y-1/2"
-          >
-            <div className="relative bg-brand-gold px-5 py-3 shadow-xl shadow-black/20">
-              {/* Decorative notch left */}
-              <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent border-r-[8px] border-r-brand-gold" />
-              {/* Decorative notch right */}
-              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent border-l-[8px] border-l-brand-gold" />
-
-              <div className="flex flex-col items-center">
-                <span className="font-display text-sm font-semibold text-brand-dark leading-tight text-center whitespace-nowrap">
-                  Est. 2023
-                </span>
-                <div className="w-8 h-px bg-brand-dark/30 my-1" />
-                <span className="font-body text-[11px] text-brand-dark/70 text-center whitespace-nowrap">
-                  Menlyn Maine, Pretoria
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* ─── Mobile Image Banner (280px) ─── */}
-        <div className="relative block lg:hidden h-[280px] w-full flex-shrink-0">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={0.1}
-            className="absolute inset-0"
-          >
-            <Image
-              src="/images/team-panoramic.jpg"
-              alt="IM Attorneys team at their Menlyn Maine, Pretoria office"
-              fill
-              className="object-cover object-center"
-              priority
-              sizes="(max-width: 1024px) 100vw, 40vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/30 via-transparent to-brand-dark" />
-          </motion.div>
-
-          {/* Mobile floating badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.5,
-              delay: 0.8,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20"
-          >
-            <div className="bg-brand-gold px-4 py-2.5 shadow-lg shadow-black/20">
-              <div className="flex flex-col items-center">
-                <span className="font-display text-xs font-semibold text-brand-dark leading-tight text-center whitespace-nowrap">
-                  Est. 2023 &middot; Menlyn Maine, Pretoria
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+      {/* ====== Decorative Gold Corner Lines ====== */}
+      {/* Top-left */}
+      <div className="absolute top-8 left-8 z-[3] hidden lg:block">
+        <motion.div
+          className="w-24 h-px bg-brand-gold/30"
+          variants={lineReveal}
+          initial="hidden"
+          animate="visible"
+          custom={1.8}
+          style={{ originX: 0 }}
+        />
+        <motion.div
+          className="w-px h-24 bg-brand-gold/30 mt-0"
+          variants={lineReveal}
+          initial="hidden"
+          animate="visible"
+          custom={2.0}
+          style={{ originX: 0, scaleY: 1 }}
+        />
+      </div>
+      {/* Bottom-right */}
+      <div className="absolute bottom-16 right-8 z-[3] hidden lg:block">
+        <motion.div
+          className="w-24 h-px bg-brand-gold/30"
+          variants={lineReveal}
+          initial="hidden"
+          animate="visible"
+          custom={1.8}
+        />
+        <motion.div
+          className="w-px h-24 bg-brand-gold/30 absolute right-0 top-[-96px]"
+          variants={lineReveal}
+          initial="hidden"
+          animate="visible"
+          custom={2.0}
+        />
       </div>
 
-      {/* ─── Scroll Indicator ─── */}
-      <ScrollReveal
-        direction="none"
-        delay={1.2}
-        duration={0.8}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+      {/* ====== Floating "Est. 2023" Badge ====== */}
+      <motion.div
+        className="absolute top-28 right-8 z-[4] hidden lg:flex flex-col items-center gap-2"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div className="scroll-indicator flex flex-col items-center gap-2 cursor-pointer group">
-          <span className="font-body text-[10px] uppercase tracking-[0.25em] text-white/30 group-hover:text-white/50 transition-colors duration-300">
-            Scroll
-          </span>
-          <div>
-            <ChevronDown className="w-5 h-5 text-brand-gold/60 group-hover:text-brand-gold transition-colors duration-300" />
+        <div className="relative">
+          {/* Pulsing gold ring */}
+          <motion.div
+            className="absolute inset-[-6px] rounded-full border border-brand-gold/40"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.1, 0.4] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div className="w-20 h-20 rounded-full border border-brand-gold/60 bg-[#0D1B2A]/80 backdrop-blur-sm flex items-center justify-center">
+            <Shield className="w-7 h-7 text-brand-gold" strokeWidth={1.5} />
           </div>
         </div>
-      </ScrollReveal>
+        <span className="text-[10px] uppercase tracking-[0.25em] text-brand-gold/70 font-body">
+          Est. 2023
+        </span>
+      </motion.div>
 
-      {/* ─── Ambient Decorative Elements ─── */}
-      {/* Top-right corner gold accent line */}
-      <div className="hidden lg:block absolute top-0 right-[40%] z-10 w-px h-32 bg-gradient-to-b from-brand-gold/40 to-transparent" />
-      {/* Bottom-left subtle gold glow */}
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-gold/[0.03] rounded-full blur-3xl pointer-events-none" />
-      {/* Ambient gold orb — top left */}
-      <div className="ambient-orb absolute -top-20 -left-20 w-80 h-80 pointer-events-none" />
-      {/* Ambient warm orb — bottom right */}
-      <div className="ambient-orb absolute -bottom-32 right-0 w-96 h-96 pointer-events-none" style={{ animationDelay: "-5s" }} />
+      {/* ====== Main Content ====== */}
+      <div className="relative z-[5] w-full max-w-5xl mx-auto px-6 pt-28 pb-32 lg:pt-32 lg:pb-40 text-center">
+        {/* Gold micro-label */}
+        <motion.p
+          className="font-body text-[11px] sm:text-xs uppercase tracking-[0.3em] text-brand-gold/80 mb-5"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={0.2}
+        >
+          Est. 2023 &middot; Pretoria &middot; Boutique Law Firm
+        </motion.p>
+
+        {/* Animated gold separator */}
+        <motion.div
+          className="h-px bg-gradient-to-r from-transparent via-brand-gold to-transparent mx-auto mb-8 max-w-[140px]"
+          variants={lineReveal}
+          initial="hidden"
+          animate="visible"
+          custom={0.5}
+        />
+
+        {/* Main headline */}
+        <h1 className="font-display leading-[1.1] mb-6">
+          <motion.span
+            className="block text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={0.65}
+          >
+            Defending Your Rights,
+          </motion.span>
+          <motion.span
+            className="block text-gold-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-1"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={0.85}
+          >
+            Championing Your Future.
+          </motion.span>
+        </h1>
+
+        {/* Subtitle */}
+        <motion.p
+          className="font-body text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed mb-10"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={1.05}
+        >
+          When your freedom, family, or fortune is at stake — you need more than
+          a lawyer. You need{" "}
+          <span className="text-brand-gold font-medium">IM Attorneys</span>.
+        </motion.p>
+
+        {/* Trust credentials bar */}
+        <motion.div
+          className="hidden md:flex items-center justify-center gap-5 lg:gap-8 mb-10"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={1.25}
+        >
+          {trustItems.map((item, i) => (
+            <div key={item.label} className="flex items-center gap-3">
+              {i > 0 && (
+                <span className="text-brand-gold/40 text-[8px]">&#9670;</span>
+              )}
+              <div className="flex items-center gap-2">
+                <item.icon className="w-4 h-4 text-brand-gold/70" />
+                <span className="font-body text-sm text-white/70">
+                  {item.label}
+                </span>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Mobile trust items (2 only) */}
+        <motion.div
+          className="flex md:hidden items-center justify-center gap-4 mb-8"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={1.25}
+        >
+          {trustItems.slice(0, 2).map((item, i) => (
+            <div key={item.label} className="flex items-center gap-2">
+              {i > 0 && (
+                <span className="text-brand-gold/40 text-[8px]">&#9670;</span>
+              )}
+              <item.icon className="w-3.5 h-3.5 text-brand-gold/70" />
+              <span className="font-body text-xs text-white/70">
+                {item.label}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Dual CTAs */}
+        <motion.div
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={1.45}
+        >
+          <a
+            href="#contact"
+            className="btn-premium inline-flex items-center gap-2 px-7 py-3.5 font-body text-sm rounded-md"
+          >
+            Book Free Consultation
+            <ArrowRight className="w-4 h-4" />
+          </a>
+          <a
+            href="#practice-areas"
+            className="btn-premium-outline inline-flex items-center gap-2 px-7 py-3.5 font-body text-sm rounded-md"
+          >
+            <Scale className="w-4 h-4" />
+            Explore Practice Areas
+          </a>
+        </motion.div>
+      </div>
+
+      {/* ====== Scroll Indicator ====== */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[6]">
+        <ScrollReveal delay={2} direction="none" duration={1}>
+          <div className="scroll-indicator flex flex-col items-center gap-2">
+            <span className="font-body text-[10px] uppercase tracking-[0.2em] text-white/40">
+              Scroll
+            </span>
+            <motion.div
+              className="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.5 }}
+            >
+              <motion.div
+                className="w-1 h-1.5 rounded-full bg-brand-gold/70"
+                animate={{ y: [0, 10, 0] }}
+                transition={{
+                  duration: 1.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </motion.div>
+          </div>
+        </ScrollReveal>
+      </div>
     </section>
   );
 }

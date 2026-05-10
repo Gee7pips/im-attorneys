@@ -1441,3 +1441,80 @@ Stage Summary:
 - EmergencyCTA: Branded IM folder close-up with "Ingrid Mtsweni Attorneys Incorporated" text
 - LocationMap: Modern co-working lounge workspace photo added
 - TrackRecord: Shelf of branded IM binders showing meticulous organization
+
+---
+Task ID: 15
+Agent: Main Orchestrator
+Task: Hero Section Redesign + Dedicated Practice Area Detail Pages
+
+Work Log:
+- Reviewed full project state from 14+ previous task cycles
+- Launched 3 parallel subagents for concurrent development:
+  - Task 15-a: Complete Hero section redesign (cinematic, parallax, animations)
+  - Task 15-b: Practice Area data file + full-page detail component (6 areas)
+  - Task 15-c: CSS enhancements for new components (425+ lines)
+- Hero Section Redesign:
+  - Replaced old 60/40 split layout with full-viewport cinematic design
+  - Added parallax background image (useScroll + useTransform at 0.3x speed)
+  - 3 animated ambient gold orbs with floating motion
+  - Staggered text reveal: gold label → separator → 2-line headline → subtitle → trust bar → dual CTAs
+  - New headline: "Defending Your Rights, / Championing Your Future."
+  - Trust credentials bar: 24/7, 500+ Cases, 98% Success, BBBEE Level 1
+  - Floating Est. 2023 badge with shield icon and pulsing gold ring
+  - Custom scroll indicator with animated gold dot
+  - Decorative gold corner lines (desktop only)
+  - Responsive: all 4 trust items on desktop, 2 on mobile, stacked CTAs on mobile
+- Practice Area Detail Pages:
+  - Created practiceAreaData.ts (796 lines) with comprehensive SA legal content for all 6 areas
+  - Each area: 8 key services, 4 process steps, 3 case studies, 4 FAQs, related areas, 4 stats
+  - Created PracticeAreaPage.tsx (433 lines) — full-page premium detail view with 8 sections:
+    1. Hero banner (dark bg, breadcrumb, pulsing icon, gold stats, corner accents)
+    2. Overview (2-col layout with highlight cards)
+    3. Key Services Grid (4-col cards with stagger animations)
+    4. Our Process (4-step timeline with gold connector)
+    5. Case Studies (card-gradient-border on dark bg)
+    6. FAQ Section (custom accordion with animated chevron)
+    7. CTA Section (dark bg with radial glow, dual CTAs)
+    8. Related Practice Areas (clickable cards for inter-area navigation)
+  - Custom icon component to avoid React component-in-render lint error
+- SPA Routing Integration:
+  - Added useState for activePracticeArea in page.tsx
+  - Wrapped views in AnimatePresence mode="wait" with motion.div transitions
+  - Updated ServiceDetailModal: added slug field, onViewFullPage callback, "View Full Practice Area" button
+  - Updated ServicesGrid: passes onOpenPracticeArea to modal
+  - Updated PracticeAreaExplorer: passes onOpenPracticeArea to tab content, added "View Full Details" button
+  - Fixed TabContentPanel prop passing for onOpenPracticeArea
+- CSS Enhancements (~425 new lines):
+  - Hero cinematic: hero-cinematic-image, hero-gradient-overlay, trust-credential, gold-diamond-sep, text-reveal-line, hero-shield-badge
+  - Practice area: pa-hero-gradient, pa-service-card, pa-process-step, pa-case-card, pa-faq-item/trigger/content/icon, pa-cta-section, pa-related-card, pa-breadcrumb, pa-stat
+  - Dark mode variants for all new classes
+  - Page transition animations (page-enter/page-exit)
+- QA Testing:
+  - Verified lint: 0 errors
+  - Verified dev server: 200 OK, no runtime errors
+  - Tested service card click → modal opens
+  - Tested "View Full Practice Area" → practice area page loads
+  - Tested "Back to Home" → returns to hero section
+  - Verified 0 failed resources
+  - All interactive elements working correctly
+
+Stage Summary:
+- Hero section completely redesigned: cinematic full-screen with parallax, staggered animations, trust credentials
+- 6 dedicated practice area pages created with comprehensive SA legal content
+- SPA routing implemented within single-page constraint (AnimatePresence transitions)
+- ServiceDetailModal upgraded with "View Full Practice Area" navigation button
+- PracticeAreaExplorer upgraded with "View Full Details" navigation button
+- ~425 lines of new CSS added with full dark mode support
+- All 6 practice areas: Family Law, Wills & Estates, Claims Against State, Criminal Law, Commercial Law, General Litigation
+
+Unresolved Issues / Risks:
+- Embla Carousel container position warning (benign, known library behavior)
+- LCP image warning for hero-building.png (cosmetic)
+- StatsBar numbers displaying zero (pre-existing bug from Phase 14)
+- Testimonials are placeholder content — needs real client reviews
+
+Priority Recommendations for Next Phase:
+1. HIGH: Fix StatsBar numbers displaying zero
+2. MEDIUM: Add real client testimonials
+3. MEDIUM: Add blog article pages for Legal Insights section
+4. LOW: Optimize images with next/image blur placeholders

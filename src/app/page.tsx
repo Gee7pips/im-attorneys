@@ -1,6 +1,9 @@
 "use client";
 
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { BannerProvider } from "@/components/im/BannerContext";
+import { PracticeAreaPage } from "@/components/im/PracticeAreaPage";
 import { ScrollProgress } from "@/components/im/ScrollProgress";
 import { LoadingScreen } from "@/components/im/LoadingScreen";
 import { OnboardingBanner } from "@/components/im/OnboardingBanner";
@@ -48,6 +51,15 @@ import { ComplianceModals, useComplianceModals } from "@/components/im/Complianc
 
 export default function Home() {
   const { openModal, open, close } = useComplianceModals();
+  const [activePracticeArea, setActivePracticeArea] = useState<string | null>(null);
+
+  const handleBackToHome = useCallback(() => {
+    setActivePracticeArea(null);
+  }, []);
+
+  const handleNavigatePracticeArea = useCallback((slug: string) => {
+    setActivePracticeArea(slug);
+  }, []);
 
   return (
     <BannerProvider>
@@ -57,8 +69,24 @@ export default function Home() {
       <OnboardingBanner />
       <Navigation />
 
-      <PageTransition>
-      <main className="min-h-screen">
+      <AnimatePresence mode="wait">
+        {activePracticeArea ? (
+          <motion.div
+            key={activePracticeArea}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <PracticeAreaPage
+              slug={activePracticeArea}
+              onBack={handleBackToHome}
+              onNavigate={handleNavigatePracticeArea}
+            />
+          </motion.div>
+        ) : (
+          <PageTransition key="home">
+          <main className="min-h-screen">
         {/* Hero Section */}
         <section id="home">
           <Hero />
@@ -80,11 +108,11 @@ export default function Home() {
 
         {/* Services Section */}
         <section id="services">
-          <ServicesGrid />
+          <ServicesGrid onOpenPracticeArea={handleNavigatePracticeArea} />
         </section>
 
         {/* Practice Area Explorer */}
-        <PracticeAreaExplorer />
+        <PracticeAreaExplorer onOpenPracticeArea={handleNavigatePracticeArea} />
 
         {/* Our Process */}
         <OurProcess />
@@ -154,6 +182,8 @@ export default function Home() {
         <NewsletterSection />
       </main>
       </PageTransition>
+        )}
+      </AnimatePresence>
 
       {/* Footer — with compliance modal triggers */}
       <Footer onOpenModal={open} />
