@@ -48,7 +48,7 @@ export function EmergencyCTA() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
               </span>
-              <span className="font-body text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-brand-gold">
+              <span className="label-premium">
                 Criminal Matters
               </span>
             </motion.div>
@@ -57,7 +57,7 @@ export function EmergencyCTA() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-inverse mb-4 leading-tight heading-3 text-shadow-lifted"
+              className="heading-section mb-4"
             >
               Facing an Arrest?{" "}
               <span className="gold-glow-text">We Answer the Call.</span>
@@ -67,12 +67,9 @@ export function EmergencyCTA() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="font-body text-sm sm:text-base text-brand-inverse/60 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+              className="subheading-premium-dark max-w-xl mx-auto lg:mx-0"
             >
-              When every minute matters, the last thing you should worry about is finding
-              a lawyer who will actually pick up the phone. Our criminal defence attorneys are available
-              <strong className="text-brand-inverse/80">24 hours a day, 7 days a week</strong> for urgent bail applications,
-              police station call-outs, and emergency legal representation across Gauteng. You are not alone in this.
+              Arrested or facing charges? Every second counts. Our criminal defence team is available around the clock to protect your rights, secure your freedom, and fight for the best possible outcome.
             </motion.p>
           </div>
 

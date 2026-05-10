@@ -14,18 +14,15 @@ export function LocationMap() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         {/* Section Header */}
         <ScrollReveal className="text-center mb-12 md:mb-16">
-          <span className="inline-block font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-brand-gold mb-3">
-            Our Location
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">
+          <span className="label-premium mb-3 block">Our Location</span>
+          <h2 className="heading-section-light">
             Find Us in Menlyn Maine
           </h2>
           <div className="flex justify-center">
             <GoldLine width={60} />
           </div>
-          <p className="mt-5 font-body text-brand-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Visit us at our prestigious offices in the heart of Menlyn Maine,
-            Pretoria&apos;s premier business precinct.
+          <p className="subheading-premium mt-5 max-w-2xl mx-auto">
+            Visit us at our prestigious offices in Menlyn Maine, Pretoria&apos;s premier business precinct — where world-class legal counsel meets effortless accessibility.
           </p>
         </ScrollReveal>
 

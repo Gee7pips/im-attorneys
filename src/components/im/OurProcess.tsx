@@ -404,12 +404,10 @@ export function OurProcess() {
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
           <ScrollReveal>
-            <p className="font-body text-sm font-semibold tracking-[0.2em] uppercase text-brand-gold mb-3">
-              The IM Difference
-            </p>
+            <span className="label-premium mb-3 block">The IM Difference</span>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark text-elegant-shadow">
+            <h2 className="heading-section-light">
               Your Journey With Us
             </h2>
           </ScrollReveal>
@@ -419,9 +417,8 @@ export function OurProcess() {
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.3}>
-            <p className="font-body text-brand-body leading-relaxed mt-5 max-w-2xl mx-auto text-base md:text-lg">
-              From the moment you reach out to the day your matter is resolved, we walk
-              beside you with clarity, determination, and a genuine commitment to seeing things through.
+            <p className="subheading-premium mt-5 max-w-2xl mx-auto">
+              From your very first call to the final resolution, we provide unwavering support, crystal-clear communication, and relentless advocacy at every step.
             </p>
           </ScrollReveal>
         </div>

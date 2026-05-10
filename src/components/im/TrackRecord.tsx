@@ -558,15 +558,12 @@ export function TrackRecord() {
         {/* ── Section header ── */}
         <ScrollReveal className="text-center mb-16 sm:mb-24">
           <div className="flex flex-col items-center">
-            <GoldLine width={60} className="mb-6" />
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 heading-2">
-              <span className="text-gold-gradient">Results That Speak for Themselves</span>
+            <span className="label-premium mb-4 block">Our Impact</span>
+            <h2 className="heading-section-light">
+              Results That Speak for Themselves
             </h2>
-            <p
-              className="font-body text-base sm:text-lg max-w-2xl leading-relaxed"
-              style={{ color: "rgba(239,232,220,0.45)" }}
-            >
-              Behind every number is a real person whose life, livelihood, or legacy we protected. Here is a glimpse of the impact we deliver.
+            <p className="subheading-premium-dark mt-4">
+              Behind every statistic is a real person whose life, livelihood, or legacy we fought to protect. These numbers reflect our unwavering commitment to justice.
             </p>
           </div>
         </ScrollReveal>
@@ -600,8 +597,7 @@ export function TrackRecord() {
         <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-start">
           <ScrollReveal className="lg:col-span-3">
             <h3
-            className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-center mb-2"
-            style={{ color: "#EEE8DC" }}
+            className="heading-gold-glossy text-center mb-2"
           >
             Proven Success Across Every Practice Area
           </h3>

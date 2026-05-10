@@ -501,14 +501,12 @@ export function AwardsRecognition() {
         {/* ── Section heading ── */}
         <ScrollReveal className="text-center mb-14 sm:mb-20">
           <div className="flex flex-col items-center">
-            <GoldLine width={80} className="mb-6" />
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Hall of{" "}
-              <span className="text-gold-gradient">Excellence</span>
+            <span className="label-premium mb-4 block">Recognition</span>
+            <h2 className="heading-section">
+              Hall of Excellence
             </h2>
-            <p className="font-body text-base sm:text-lg text-white/40 max-w-2xl leading-relaxed">
-              Our commitment to legal excellence has been recognized across
-              South Africa&apos;s most prestigious institutions
+            <p className="subheading-premium-dark mt-4">
+              Our pursuit of legal excellence has been recognised by South Africa's most esteemed institutions — a testament to the calibre of advocacy we deliver every single day.
             </p>
           </div>
         </ScrollReveal>

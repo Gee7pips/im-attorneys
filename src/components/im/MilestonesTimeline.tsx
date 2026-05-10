@@ -209,12 +209,12 @@ export function MilestonesTimeline() {
         {/* ── Section header ── */}
         <ScrollReveal className="text-center mb-16 sm:mb-24">
           <div className="flex flex-col items-center">
-            <GoldLine width={60} className="mb-6" />
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark mb-4 text-elegant-shadow">
+            <span className="label-premium mb-4 block">Our Story</span>
+            <h2 className="heading-section-light">
               Our Journey
             </h2>
-            <p className="font-body text-base sm:text-lg text-brand-body max-w-2xl leading-relaxed">
-              From humble beginnings to Pretoria&apos;s premier boutique law firm
+            <p className="subheading-premium mt-4">
+              From a bold vision to one of Pretoria's most respected boutique law firms — every milestone marks a promise kept and a client served.
             </p>
           </div>
         </ScrollReveal>

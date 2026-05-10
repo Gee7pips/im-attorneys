@@ -10,7 +10,6 @@ import {
   Briefcase,
   Scale,
   Download,
-  Sparkles,
 } from "lucide-react";
 import {
   ScrollReveal,
@@ -459,22 +458,13 @@ export function LegalResources() {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
           <ScrollReveal direction="up" delay={0}>
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5" style={{ color: "#C6A84B" }} />
-              <span
-                className="font-body text-xs sm:text-sm font-semibold uppercase tracking-[0.2em]"
-                style={{ color: "rgba(198,168,75,0.7)" }}
-              >
-                Knowledge Centre
-              </span>
-              <Sparkles className="w-5 h-5" style={{ color: "#C6A84B" }} />
-            </div>
+            <span className="label-premium mb-4 block">Knowledge Centre</span>
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.1}>
             <h2
               id="legal-resources-heading"
-              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-shimmer"
+              className="heading-gold-glossy"
             >
               Legal Resources
             </h2>
@@ -485,12 +475,8 @@ export function LegalResources() {
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.2}>
-            <p
-              className="font-body text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
-              style={{ color: "rgba(240,237,232,0.6)" }}
-            >
-              Free guides and checklists to help you navigate common legal
-              matters with confidence
+            <p className="subheading-premium-dark">
+              Empower yourself with free downloadable guides, checklists, and templates — curated by our attorneys to help you navigate common legal situations with confidence.
             </p>
           </ScrollReveal>
         </div>

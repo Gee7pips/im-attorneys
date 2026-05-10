@@ -235,7 +235,164 @@ html, body {
   background-clip: text;
 }
 
-/* Glass effect */
+/* ========================================
+   PHASE 7 — PREMIUM TYPOGRAPHY SYSTEM
+   Bigger, Gradient, Shadow, Glossy Gold
+   ======================================== */
+
+/* ─────────────────────────────────────────
+   1. SECTION HEADING — PRIMARY (dark bg)
+   ───────────────────────────────────────── */
+.heading-section {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  background: linear-gradient(
+    180deg,
+    #FFFFFF 0%,
+    rgba(255,255,255,0.92) 40%,
+    rgba(198,168,75,0.95) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 8px rgba(198,168,75,0.35))
+          drop-shadow(0 0 2px rgba(198,168,75,0.15));
+}
+
+/* ─────────────────────────────────────────
+   2. SECTION HEADING — PRIMARY (light bg)
+   ───────────────────────────────────────── */
+.heading-section-light {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  background: linear-gradient(
+    180deg,
+    #0D1B2A 0%,
+    #0D1B2A 30%,
+    #C6A84B 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 6px rgba(198,168,75,0.2));
+}
+
+/* ─────────────────────────────────────────
+   3. SECTION HEADING — GOLD GLOSSY
+   ───────────────────────────────────────── */
+.heading-gold-glossy {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  background: linear-gradient(
+    135deg,
+    #8B6914 0%,
+    #C6A84B 20%,
+    #F5E6B8 45%,
+    #E4D49A 55%,
+    #C6A84B 75%,
+    #8B6914 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 8px rgba(198,168,75,0.4))
+          drop-shadow(0 0 20px rgba(198,168,75,0.15));
+  animation: goldGlossyShimmer 4s ease-in-out infinite;
+}
+
+@keyframes goldGlossyShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─────────────────────────────────────────
+   4. PRE-HEADING LABEL — ENHANCED
+   ───────────────────────────────────────── */
+.label-premium {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #C6A84B;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+}
+.label-premium::before,
+.label-premium::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C6A84B, transparent);
+}
+.label-premium::before {
+  background: linear-gradient(90deg, transparent, #C6A84B);
+}
+.label-premium::after {
+  background: linear-gradient(90deg, #C6A84B, transparent);
+}
+
+/* ─────────────────────────────────────────
+   5. SUBHEADING — PREMIUM BODY
+   ───────────────────────────────────────── */
+.subheading-premium {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.75;
+  color: #3A4A5C;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subheading-premium-dark {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.75;
+  color: rgba(255,255,255,0.55);
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─────────────────────────────────────────
+   6. HEADING TEXT SHADOWS
+   ───────────────────────────────────────── */
+.text-shadow-elegant {
+  text-shadow:
+    0 1px 2px rgba(0,0,0,0.1),
+    0 4px 12px rgba(198,168,75,0.12);
+}
+
+.text-shadow-lifted {
+  text-shadow:
+    0 2px 4px rgba(0,0,0,0.2),
+    0 8px 24px rgba(198,168,75,0.15),
+    0 0 40px rgba(198,168,75,0.06);
+}
+
+.text-shadow-gold-glow {
+  text-shadow:
+    0 0 10px rgba(198,168,75,0.5),
+    0 0 30px rgba(198,168,75,0.2),
+    0 0 60px rgba(198,168,75,0.08);
+}
+
+/* ─────────────────────────────────────────
+   7. GLASS MORPHISM ENHANCED
+   ───────────────────────────────────────── */
 .glass-dark {
   background: rgba(13, 27, 42, 0.85);
   backdrop-filter: blur(16px);
@@ -247,6 +404,219 @@ html, body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(198, 168, 75, 0.2);
+}
+
+.glass-premium {
+  background: linear-gradient(
+    135deg,
+    rgba(13,27,42,0.75) 0%,
+    rgba(26,50,80,0.6) 50%,
+    rgba(13,27,42,0.75) 100%
+  );
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(198,168,75,0.25);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(198,168,75,0.15),
+    inset 0 -1px 0 rgba(0,0,0,0.2);
+}
+
+.glass-glossy {
+  background: linear-gradient(
+    135deg,
+    rgba(198,168,75,0.15) 0%,
+    rgba(228,212,154,0.08) 50%,
+    rgba(198,168,75,0.15) 100%
+  );
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border: 1px solid rgba(198,168,75,0.3);
+  box-shadow:
+    0 8px 32px rgba(198,168,75,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    inset 0 -1px 0 rgba(0,0,0,0.1);
+}
+
+.glass-card-3d {
+  background: linear-gradient(
+    160deg,
+    rgba(255,255,255,0.12) 0%,
+    rgba(255,255,255,0.04) 100%
+  );
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(198,168,75,0.2);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.25),
+    0 8px 24px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    inset 0 0 0 1px rgba(198,168,75,0.05);
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg);
+  transition: transform 0.5s cubic-bezier(0.25,0.1,0.25,1),
+              box-shadow 0.5s cubic-bezier(0.25,0.1,0.25,1);
+}
+
+.glass-card-3d:hover {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.3),
+    0 10px 30px rgba(0,0,0,0.18),
+    0 0 40px rgba(198,168,75,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    inset 0 0 0 1px rgba(198,168,75,0.1);
+}
+
+/* ─────────────────────────────────────────
+   8. GOLD GLOSSY SURFACE
+   ───────────────────────────────────────── */
+.gold-glossy-surface {
+  background: linear-gradient(
+    135deg,
+    #8B6914 0%,
+    #C6A84B 15%,
+    #F5E6B8 35%,
+    #E4D49A 50%,
+    #F5E6B8 65%,
+    #C6A84B 85%,
+    #8B6914 100%
+  );
+  background-size: 200% 200%;
+  animation: goldGlossyShimmer 5s ease-in-out infinite;
+  box-shadow:
+    0 4px 16px rgba(198,168,75,0.4),
+    0 0 40px rgba(198,168,75,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -1px 0 rgba(0,0,0,0.15);
+}
+
+.gold-glossy-btn {
+  background: linear-gradient(
+    135deg,
+    #A07D2E 0%,
+    #C6A84B 20%,
+    #F5E6B8 45%,
+    #E4D49A 55%,
+    #C6A84B 80%,
+    #A07D2E 100%
+  );
+  background-size: 200% 200%;
+  animation: goldGlossyShimmer 4s ease-in-out infinite;
+  box-shadow:
+    0 4px 16px rgba(198,168,75,0.4),
+    0 0 30px rgba(198,168,75,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    inset 0 -2px 4px rgba(139,105,20,0.3);
+  transition: all 0.3s ease;
+}
+
+.gold-glossy-btn:hover {
+  box-shadow:
+    0 6px 24px rgba(198,168,75,0.55),
+    0 0 50px rgba(198,168,75,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    inset 0 -2px 4px rgba(139,105,20,0.3);
+  transform: translateY(-2px);
+}
+
+/* ─────────────────────────────────────────
+   9. 3D FLOATING ICON ANIMATIONS
+   ───────────────────────────────────────── */
+@keyframes float3d {
+  0%, 100% {
+    transform: translateY(0) translateZ(0) rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: translateY(-12px) translateZ(20px) rotateX(3deg) rotateY(-3deg);
+  }
+  50% {
+    transform: translateY(-6px) translateZ(10px) rotateX(-2deg) rotateY(2deg);
+  }
+  75% {
+    transform: translateY(-14px) translateZ(25px) rotateX(2deg) rotateY(-2deg);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(198,168,75,0.3),
+      0 0 40px rgba(198,168,75,0.1),
+      inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(198,168,75,0.5),
+      0 0 60px rgba(198,168,75,0.2),
+      0 0 80px rgba(198,168,75,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+}
+
+@keyframes ringExpand {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.animate-float-3d {
+  animation: float3d 8s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────
+   10. DARK MODE TYPOGRAPHY VARIANTS
+   ───────────────────────────────────────── */
+.dark .heading-section-light {
+  background: linear-gradient(
+    180deg,
+    #F0EDE8 0%,
+    #F0EDE8 30%,
+    #C6A84B 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .subheading-premium {
+  color: #8A9AB0;
+}
+
+.dark .glass-premium {
+  background: linear-gradient(
+    135deg,
+    rgba(10,22,40,0.85) 0%,
+    rgba(18,34,58,0.7) 50%,
+    rgba(10,22,40,0.85) 100%
+  );
+  border-color: rgba(198,168,75,0.2);
+}
+
+.dark .glass-glossy {
+  background: linear-gradient(
+    135deg,
+    rgba(198,168,75,0.1) 0%,
+    rgba(228,212,154,0.05) 50%,
+    rgba(198,168,75,0.1) 100%
+  );
+  border-color: rgba(198,168,75,0.25);
+}
+
+.dark .glass-card-3d {
+  background: linear-gradient(
+    160deg,
+    rgba(255,255,255,0.06) 0%,
+    rgba(255,255,255,0.02) 100%
+  );
 }
 
 /* Premium focus styles for accessibility */

@@ -317,9 +317,7 @@ export function TeamSection() {
         {/* Section header */}
         <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
           <ScrollReveal delay={0}>
-            <span className="font-body text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-brand-gold">
-              Our Team
-            </span>
+            <span className="label-premium">Our Team</span>
           </ScrollReveal>
 
           <div className="mt-4 flex justify-center">
@@ -327,16 +325,15 @@ export function TeamSection() {
           </div>
 
           <ScrollReveal delay={0.15}>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark leading-tight mt-6">
+            <h2 className="heading-section-light mt-6">
               The People Behind
               <br className="hidden sm:block" /> IM Attorneys
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={0.25}>
-            <p className="font-body text-sm sm:text-base text-brand-body leading-relaxed mt-5">
-              Led by founder Ingrid Mtsweni, our dedicated team brings expertise,
-              passion, and a commitment to Ubuntu in every matter.
+            <p className="subheading-premium mt-5">
+              A dedicated collective of legal minds united by one purpose — to deliver exceptional results with integrity, precision, and the spirit of Ubuntu.
             </p>
           </ScrollReveal>
         </div>

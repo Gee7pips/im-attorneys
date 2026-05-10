@@ -164,18 +164,15 @@ export function ContactForm() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <ScrollReveal className="text-center mb-12 md:mb-16">
-          <span className="inline-block font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-brand-gold mb-3">
-            Get in Touch
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">
+          <span className="label-premium mb-3 block">Get in Touch</span>
+          <h2 className="heading-section-light">
             Ready to Take the Next Step?
           </h2>
           <div className="flex justify-center">
             <GoldLine width={60} />
           </div>
-          <p className="mt-5 font-body text-brand-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Whether you're facing an urgent legal matter or simply need trusted advice, reach out today.
-            Your first consultation is on us — no obligation, no pressure, just honest legal guidance.
+          <p className="subheading-premium mt-5 max-w-2xl mx-auto">
+            Whether you&apos;re facing an urgent crisis or planning your next strategic move, our doors are open. Your first consultation is complimentary — no pressure, no obligation, just honest legal guidance you can trust.
           </p>
         </ScrollReveal>
 

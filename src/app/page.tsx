@@ -24,6 +24,7 @@ import { ContactForm } from "@/components/im/ContactForm";
 import { LocationMap } from "@/components/im/LocationMap";
 import { Footer } from "@/components/im/Footer";
 import { WhatsAppButton } from "@/components/im/WhatsAppButton";
+import { BailFloatingIcon } from "@/components/im/BailFloatingIcon";
 import { NewsletterSection } from "@/components/im/NewsletterSection";
 import { TrustBadges } from "@/components/im/TrustBadges";
 import { TrackRecord } from "@/components/im/TrackRecord";
@@ -184,7 +185,8 @@ export default function Home() {
       {/* Footer — with compliance modal triggers */}
       <Footer onOpenModal={open} />
 
-      {/* Floating Action Button — WhatsApp only */}
+      {/* Floating Action Buttons */}
+      <BailFloatingIcon />
       <WhatsAppButton />
 
       {/* Regulatory Compliance Modals (POPIA, ECTA, PAIA, FICA, LPC) */}

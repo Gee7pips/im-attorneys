@@ -297,19 +297,13 @@ export function ServicesGrid({ onOpenPracticeArea }: { onOpenPracticeArea?: (slu
         {/* ── Section header ── */}
         <div className="text-center mb-14 sm:mb-20">
           <ScrollReveal direction="up" delay={0}>
-            <span
-              className="inline-block font-body text-xs font-semibold tracking-[0.25em] uppercase mb-4"
-              style={{ color: "#C6A84B" }}
-            >
-              What We Do
-            </span>
+            <span className="label-premium mb-4 block">What We Do</span>
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.1}>
             <h2
               id="services-heading"
-              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-3xl mx-auto heading-2"
-              style={{ color: "#0D1B2A" }}
+              className="heading-section-light max-w-3xl mx-auto"
             >
               Six Areas of Law,{" "}
               <span className="text-gold-gradient">One Firm You Can Trust.</span>
@@ -317,6 +311,12 @@ export function ServicesGrid({ onOpenPracticeArea }: { onOpenPracticeArea?: (slu
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.2}>
+            <p className="subheading-premium mt-6 max-w-2xl mx-auto">
+              From family disputes to high-stakes commercial litigation, our team delivers decisive legal strategies tailored to protect what matters most to you.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal direction="up" delay={0.3}>
             <div className="mt-7 flex justify-center">
               <div className="ornament-divider">
                 <span className="ornament-diamond" />

@@ -113,18 +113,15 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <ScrollReveal className="text-center mb-12 md:mb-16">
-          <span className="inline-block font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-brand-gold mb-3">
-            Client Experiences
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">
+          <span className="label-premium mb-3 block">Client Experiences</span>
+          <h2 className="heading-section-light">
             What Our Clients Say
           </h2>
           <div className="flex justify-center">
             <GoldLine width={60} />
           </div>
-          <p className="mt-5 font-body text-brand-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Trusted by hundreds of clients across Gauteng. Here&apos;s what they have
-            to say about their experience with IM Attorneys.
+          <p className="subheading-premium mt-5 max-w-2xl mx-auto">
+            Don&apos;t just take our word for it. Hear directly from the clients who trusted us with their most important legal matters — and experienced the IM difference firsthand.
           </p>
         </ScrollReveal>
 

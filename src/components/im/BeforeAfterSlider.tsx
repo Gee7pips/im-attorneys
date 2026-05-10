@@ -593,15 +593,7 @@ export function BeforeAfterSlider() {
         {/* Section Header */}
         <ScrollReveal className="text-center mb-16 sm:mb-20 lg:mb-24">
           <div className="flex flex-col items-center">
-            {/* Small label */}
-            <motion.span
-              className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-brand-gold/60 mb-5"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              Case Transformation Theatre
-            </motion.span>
+            <span className="label-premium mb-4 block">Case Transformation Theatre</span>
 
             {/* Gold line */}
             <div className="mb-6">
@@ -609,17 +601,14 @@ export function BeforeAfterSlider() {
             </div>
 
             {/* Main heading */}
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.1] mb-5">
-              <span className="text-shimmer">Real Results,</span>
-              <br />
-              <span className="text-white/90">Real Impact</span>
+            <h2 className="heading-section">
+              Real Results, Real Impact
             </h2>
 
             <OrnamentalDivider className="mb-5" />
 
-            <p className="font-body text-base sm:text-lg text-white/40 max-w-2xl leading-relaxed">
-              See how we&apos;ve helped our clients transform challenging situations into
-              positive outcomes — from crisis to resolution.
+            <p className="subheading-premium-dark">
+              Witness the transformation. These side-by-side comparisons reveal how our strategic intervention turns daunting legal battles into powerful success stories.
             </p>
           </div>
         </ScrollReveal>

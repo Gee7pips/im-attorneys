@@ -385,13 +385,12 @@ export function CaseResults() {
         {/* ── Section Header ── */}
         <ScrollReveal className="text-center mb-16 sm:mb-24">
           <div className="flex flex-col items-center">
-            <GoldLine width={60} className="mb-6" />
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-              <span className="text-gold-gradient">Notable Case Results</span>
+            <span className="label-premium mb-4 block">Case Studies</span>
+            <h2 className="heading-section-light">
+              Notable Case Results
             </h2>
-            <p className="font-body text-base sm:text-lg max-w-2xl leading-relaxed" style={{ color: "rgba(239,232,220,0.5)" }}>
-              Real outcomes. Real justice. These represent a selection of matters we
-              have successfully resolved for our clients.
+            <p className="subheading-premium-dark mt-4">
+              Real cases. Real outcomes. Real justice. Explore a selection of matters where our strategic expertise turned the tide in our clients' favour.
             </p>
           </div>
         </ScrollReveal>

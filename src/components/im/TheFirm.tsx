@@ -22,6 +22,13 @@ export function TheFirm() {
       </div>
 
       <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Heading */}
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="label-premium mb-4 block">The Firm</span>
+          <h2 id="the-firm-heading" className="heading-section-light mb-6">A Law Firm Built on Principle, Driven by Results</h2>
+          <p className="subheading-premium mb-8">We are not just another law firm. We are a female-led, black-owned practice that blends decades of legal mastery with an unwavering commitment to our clients and our community.</p>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column — Pull Quote + Team Image */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center lg:justify-start lg:pt-8 gap-10">

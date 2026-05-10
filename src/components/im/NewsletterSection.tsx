@@ -111,10 +111,12 @@ export function NewsletterSection() {
             <Mail className="w-6 h-6 text-brand-gold" strokeWidth={1.8} />
           </div>
 
+          <span className="label-premium mb-4 block">Stay Connected</span>
+
           {/* Heading */}
           <h2
             id="newsletter-heading"
-            className="font-display text-3xl sm:text-4xl font-bold text-brand-dark mb-3"
+            className="heading-section-light"
           >
             Stay Informed
           </h2>
@@ -125,8 +127,8 @@ export function NewsletterSection() {
           </div>
 
           {/* Subtext */}
-          <p className="font-body text-brand-body text-base sm:text-lg leading-relaxed max-w-lg mx-auto mb-8">
-            Receive legal updates and insights from our team
+          <p className="subheading-premium mb-8">
+            Join our community of informed professionals. Receive curated legal updates, exclusive insights, and early access to events — delivered straight to your inbox.
           </p>
         </ScrollReveal>
 

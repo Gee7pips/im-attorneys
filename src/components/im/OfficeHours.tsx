@@ -14,7 +14,6 @@ import {
   AlertTriangle,
   Circle,
   ChevronRight,
-  Timer,
 } from "lucide-react";
 import {
   ScrollReveal,
@@ -582,25 +581,18 @@ export function OfficeHours() {
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <ScrollReveal className="text-center mb-12 sm:mb-16">
-          {/* Section Label */}
-          <div className="inline-flex items-center gap-2 mb-5">
-            <Timer className="w-4 h-4 text-brand-gold/70" />
-            <span className="text-[11px] font-body font-semibold uppercase tracking-[0.25em] text-brand-gold/70">
-              Office Hours
-            </span>
-          </div>
+          <span className="label-premium mb-4 block">Office Hours</span>
 
           {/* Main Heading */}
           <h2
             id="office-hours-heading"
-            className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4"
+            className="heading-gold-glossy"
           >
-            <span className="text-gold-gradient">When We&apos;re Available</span>
+            When We're Available
           </h2>
 
-          <p className="text-sm sm:text-base font-body text-brand-muted max-w-md mx-auto leading-relaxed">
-            Our doors are open to assist you with expert legal counsel during
-            the hours below.
+          <p className="subheading-premium-dark mt-4">
+            We understand that legal emergencies don't follow a schedule. Our team is available when you need us most — because justice shouldn't wait.
           </p>
         </ScrollReveal>
 

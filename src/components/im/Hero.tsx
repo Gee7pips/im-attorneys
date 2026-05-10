@@ -206,7 +206,7 @@ export function Hero() {
             Defending Your Rights,
           </motion.span>
           <motion.span
-            className="block text-gold-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-1"
+            className="block text-gold-gradient text-shadow-gold-glow text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-1"
             variants={fadeUp}
             initial="hidden"
             animate="visible"

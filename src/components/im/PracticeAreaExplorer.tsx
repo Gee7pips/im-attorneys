@@ -651,22 +651,25 @@ export function PracticeAreaExplorer({ onOpenPracticeArea }: { onOpenPracticeAre
         {/* ── Section Header ── */}
         <div className="text-center mb-12 sm:mb-16">
           <ScrollReveal direction="up" delay={0}>
+            <span className="label-premium mb-4 block">Practice Areas</span>
+          </ScrollReveal>
+
+          <ScrollReveal direction="up" delay={0.1}>
             <h2
               id="practice-areas-heading"
-              className="font-display text-3xl md:text-4xl font-bold text-brand-dark"
+              className="heading-section-light"
             >
               Explore Our Practice Areas
             </h2>
           </ScrollReveal>
 
-          <ScrollReveal direction="up" delay={0.1}>
+          <ScrollReveal direction="up" delay={0.15}>
             <div className="divider-gold-fancy mt-5" />
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.2}>
-            <p className="font-body text-brand-body leading-relaxed mt-6 max-w-2xl mx-auto text-base md:text-lg">
-              Click on a practice area to learn more about our expertise and how
-              we can help.
+            <p className="subheading-premium mt-6 max-w-2xl mx-auto">
+              Click on any practice area below to discover the depth of our expertise — and how we turn complex legal challenges into clear, successful outcomes.
             </p>
           </ScrollReveal>
         </div>

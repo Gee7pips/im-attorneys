@@ -606,22 +606,13 @@ export function FeesAndBilling() {
         {/* ── Heading Area ── */}
         <div className="text-center mb-12 sm:mb-16">
           <ScrollReveal direction="up" delay={0}>
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Star className="w-4 h-4" style={{ color: "#C6A84B" }} />
-              <span
-                className="font-body text-xs sm:text-sm font-semibold uppercase tracking-[0.2em]"
-                style={{ color: "rgba(198,168,75,0.7)" }}
-              >
-                Pricing
-              </span>
-              <Star className="w-4 h-4" style={{ color: "#C6A84B" }} />
-            </div>
+            <span className="label-premium mb-4 block">Pricing</span>
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.1}>
             <h2
               id="fees-heading"
-              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-shimmer"
+              className="heading-gold-glossy"
             >
               Transparent Pricing
             </h2>
@@ -632,12 +623,8 @@ export function FeesAndBilling() {
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.2}>
-            <p
-              className="font-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
-              style={{ color: "rgba(240,237,232,0.55)" }}
-            >
-              We believe in upfront, honest communication about legal fees. No
-              hidden costs, no surprises.
+            <p className="subheading-premium-dark">
+              Transparency isn't just our policy — it's our principle. Know exactly what to expect before you commit, with no hidden fees and no unpleasant surprises.
             </p>
           </ScrollReveal>
         </div>

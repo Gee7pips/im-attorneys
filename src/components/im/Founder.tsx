@@ -113,7 +113,7 @@ export function Founder() {
           <div className="w-full lg:w-[55%] flex flex-col justify-center">
             {/* Gold caps label */}
             <ScrollReveal delay={0.15}>
-              <span className="font-body text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-brand-gold label-uppercase">
+              <span className="label-premium">
                 Founder &amp; Director
               </span>
             </ScrollReveal>
@@ -125,9 +125,12 @@ export function Founder() {
 
             {/* Name */}
             <ScrollReveal delay={0.25}>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark leading-[1.15] text-noise heading-3 text-shadow-elegant">
+              <h2 className="heading-section-light">
                 Ingrid Mtsweni
               </h2>
+              <p className="subheading-premium mt-5">
+                A fearless advocate, visionary leader, and the driving force behind IM Attorneys&apos; commitment to excellence, justice, and the spirit of Ubuntu.
+              </p>
             </ScrollReveal>
 
             {/* Bio paragraph */}

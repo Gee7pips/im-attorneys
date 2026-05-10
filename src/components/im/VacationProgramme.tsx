@@ -38,19 +38,13 @@ export function VacationProgramme() {
           {/* Left Side - Content */}
           <ScrollReveal direction="left">
             <div>
-              <span className="inline-flex items-center gap-2 font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-brand-gold mb-4">
-                <GraduationCap className="w-4 h-4" />
-                Student Programme
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl md:text-[2.75rem] font-bold text-brand-dark leading-tight mb-5">
-                Shape the Next Generation of{" "}
-                <span className="text-gold-gradient">Legal Professionals</span>
+              <span className="label-premium mb-4 block">Student Programme</span>
+              <h2 className="heading-section-light mb-5">
+                Shape the Next Generation of Legal Professionals
               </h2>
               <GoldLine width={60} className="mb-6" />
-              <p className="font-body text-brand-body text-base md:text-lg leading-relaxed mb-4">
-                IM Attorneys Inc runs a formal Student Vacation Programme that draws 
-                applications from top-tier law graduates across South Africa. Our programme 
-                provides aspiring attorneys with real-world exposure to legal practice.
+              <p className="subheading-premium mb-4">
+                Invest in your future with hands-on mentorship from some of South Africa's sharpest legal minds. Our programme is designed to shape the advocates of tomorrow.
               </p>
               <p className="font-body text-brand-body text-base md:text-lg leading-relaxed mb-8">
                 If you are a law student looking for practical experience in a boutique 

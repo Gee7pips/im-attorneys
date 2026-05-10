@@ -71,18 +71,13 @@ export function LegalInsights() {
         {/* ── Section Header ──────────────────────────────────────── */}
         <div className="text-center mb-14 sm:mb-20">
           <ScrollReveal direction="up" delay={0}>
-            <span
-              className="inline-block font-body text-xs font-semibold tracking-[0.25em] uppercase mb-4"
-              style={{ color: "#C6A84B" }}
-            >
-              Knowledge Centre
-            </span>
+            <span className="label-premium mb-4 block">Knowledge Centre</span>
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.1}>
             <h2
               id="legal-insights-heading"
-              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-shimmer"
+              className="heading-gold-glossy"
             >
               Legal Insights
             </h2>
@@ -95,11 +90,8 @@ export function LegalInsights() {
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.2}>
-            <p
-              className="mt-5 font-body text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
-              style={{ color: "#3A4A5C" }}
-            >
-              Expert perspectives on South African law
+            <p className="subheading-premium mt-5">
+              Stay ahead of the curve with expert analysis, legal commentary, and practical guidance on the developments shaping South African law.
             </p>
           </ScrollReveal>
         </div>

@@ -94,26 +94,26 @@ export function FAQSection() {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
           <ScrollReveal direction="up" delay={0}>
-            <span
-              className="inline-block font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-4"
-              style={{ color: "#C6A84B" }}
-            >
-              Knowledge & Clarity
-            </span>
+            <span className="label-premium mb-4 block">Knowledge & Clarity</span>
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.1}>
             <h2
               id="faq-heading"
-              className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold leading-tight"
-              style={{ color: "#0D1B2A" }}
+              className="heading-section-light"
             >
               Answers to the Questions We Hear Most
             </h2>
           </ScrollReveal>
 
+          <ScrollReveal direction="up" delay={0.15}>
+            <p className="subheading-premium mt-6 max-w-2xl mx-auto">
+              We believe informed clients make the best decisions. Here are the answers to the questions our attorneys hear most often.
+            </p>
+          </ScrollReveal>
+
           <ScrollReveal direction="up" delay={0.2}>
-            <div className="mt-6 flex justify-center">
+            <div className="mt-5 flex justify-center">
               <GoldLine width={60} />
             </div>
           </ScrollReveal>
