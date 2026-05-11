@@ -23,6 +23,7 @@ import {
   ScrollReveal,
   StaggerContainer,
   staggerChildVariants,
+  CountUp,
 } from "@/components/im/ScrollReveal";
 import {
   getPracticeAreaBySlug,
@@ -48,6 +49,21 @@ interface PracticeAreaPageProps {
   slug: string;
   onBack: () => void;
   onNavigate?: (slug: string) => void;
+}
+
+/* ─── Animated Counter Component ─── */
+function AnimatedCounter({ value, label }: { value: string; label: string }) {
+  const numericValue = parseInt(value.replace(/[^0-9]/g, ""), 10);
+  const suffix = value.replace(/[0-9]/g, "");
+  
+  return (
+    <div className="text-center sm:text-left">
+      <div className="font-display text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-gold via-brand-gold-light to-brand-gold mb-2">
+        <CountUp end={numericValue} suffix={suffix} duration={2.5} />
+      </div>
+      <div className="font-body text-xs sm:text-sm text-brand-muted">{label}</div>
+    </div>
+  );
 }
 
 /* ─── FAQ Accordion Item ─── */
@@ -94,6 +110,7 @@ function FAQItem({ q, a, isOpen, toggle }: { q: string; a: string; isOpen: boole
 export function PracticeAreaPage({ slug, onBack, onNavigate }: PracticeAreaPageProps) {
   const data = getPracticeAreaBySlug(slug);
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [expandedCaseStudy, setExpandedCaseStudy] = useState<number | null>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -167,10 +184,7 @@ export function PracticeAreaPage({ slug, onBack, onNavigate }: PracticeAreaPageP
           <ScrollReveal delay={0.25}>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-10">
               {data.stats.map((stat, i) => (
-                <div key={i} className="text-center sm:text-left">
-                  <div className="font-display text-2xl sm:text-3xl font-bold text-gold-gradient">{stat.value}</div>
-                  <div className="font-body text-xs sm:text-sm text-brand-muted mt-1">{stat.label}</div>
-                </div>
+                <AnimatedCounter key={i} value={stat.value} label={stat.label} />
               ))}
             </div>
           </ScrollReveal>
@@ -245,12 +259,25 @@ export function PracticeAreaPage({ slug, onBack, onNavigate }: PracticeAreaPageP
 
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {data.keyServices.map((service, i) => (
-              <motion.div key={i} variants={staggerChildVariants} className="card-glass rounded-lg p-5 card-hover-lift">
-                <div className="w-10 h-10 rounded-md bg-brand-gold/10 flex items-center justify-center mb-4">
-                  <CheckCircle2 className="w-5 h-5 text-brand-gold" strokeWidth={1.75} />
+              <motion.div 
+                key={i} 
+                variants={staggerChildVariants} 
+                className="group"
+              >
+                <div className="card-glass rounded-lg p-5 h-full card-hover-lift relative overflow-hidden">
+                  {/* Premium background shimmer on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/5 via-transparent to-transparent" />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <div className="w-10 h-10 rounded-md bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center mb-4 group-hover:bg-brand-gold/20 group-hover:border-brand-gold/40 transition-all duration-300">
+                      <CheckCircle2 className="w-5 h-5 text-brand-gold group-hover:scale-110 transition-transform duration-300" strokeWidth={1.75} />
+                    </div>
+                    <h3 className="font-body font-semibold text-sm text-brand-dark dark:text-brand-inverse mb-2 group-hover:text-brand-gold transition-colors duration-300">{service.title}</h3>
+                    <p className="font-body text-xs text-brand-muted dark:text-brand-muted/90 leading-relaxed group-hover:text-brand-body dark:group-hover:text-brand-muted transition-colors duration-300">{service.description}</p>
+                  </div>
                 </div>
-                <h3 className="font-body font-semibold text-sm text-brand-dark dark:text-brand-inverse mb-2">{service.title}</h3>
-                <p className="font-body text-xs text-brand-muted leading-relaxed">{service.description}</p>
               </motion.div>
             ))}
           </StaggerContainer>
@@ -305,21 +332,48 @@ export function PracticeAreaPage({ slug, onBack, onNavigate }: PracticeAreaPageP
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {data.caseStudies.map((cs, i) => (
-              <motion.div key={i} variants={staggerChildVariants} className="card-gradient-border">
-                <div className="bg-brand-navy/60 dark:bg-brand-dark rounded-xl p-6 h-full flex flex-col">
-                  <span className="inline-block self-start px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 font-body text-xs font-medium text-brand-gold mb-4">
+              <motion.button
+                key={i}
+                variants={staggerChildVariants}
+                onClick={() => setExpandedCaseStudy(expandedCaseStudy === i ? null : i)}
+                className="card-gradient-border group text-left"
+              >
+                <motion.div 
+                  className="bg-brand-navy/60 dark:bg-brand-dark rounded-xl p-6 h-full flex flex-col cursor-pointer"
+                  layout
+                >
+                  <motion.span 
+                    className="inline-block self-start px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 font-body text-xs font-medium text-brand-gold mb-4 group-hover:bg-brand-gold/20 group-hover:border-brand-gold/40 transition-all duration-300"
+                    layoutId={`category-${i}`}
+                  >
                     {cs.category}
-                  </span>
-                  <h3 className="font-body font-semibold text-sm text-white mb-3">{cs.title}</h3>
-                  <p className="font-body text-xs text-brand-muted leading-relaxed mb-4 flex-1">{cs.outcome}</p>
-                  <div className="border-t border-brand-gold/15 pt-4">
+                  </motion.span>
+                  
+                  <h3 className="font-body font-semibold text-sm text-white mb-3 group-hover:text-brand-gold transition-colors duration-300">{cs.title}</h3>
+                  
+                  <motion.div
+                    layout
+                    initial={false}
+                    animate={{ height: expandedCaseStudy === i ? "auto" : "auto" }}
+                  >
+                    <p className="font-body text-xs text-brand-muted leading-relaxed mb-4 flex-1">{cs.outcome}</p>
+                  </motion.div>
+                  
+                  <div className="border-t border-brand-gold/15 pt-4 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Star className="w-4 h-4 text-brand-gold" strokeWidth={1.75} />
-                      <span className="font-body font-semibold text-sm text-brand-gold">{cs.result}</span>
+                      <span className="font-body font-semibold text-sm text-brand-gold group-hover:text-brand-gold-light transition-colors duration-300">{cs.result}</span>
                     </div>
+                    <motion.span
+                      animate={{ rotate: expandedCaseStudy === i ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-brand-gold/60 group-hover:text-brand-gold transition-colors"
+                    >
+                      <ChevronDown className="w-4 h-4" strokeWidth={2} />
+                    </motion.span>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </motion.button>
             ))}
           </StaggerContainer>
         </div>
@@ -357,6 +411,25 @@ export function PracticeAreaPage({ slug, onBack, onNavigate }: PracticeAreaPageP
       {/* ═══ CTA SECTION ═══ */}
       <section className="relative bg-brand-dark noise-overlay overflow-hidden">
         <div className="absolute inset-0 bg-radial-glow" />
+        
+        {/* Animated background elements */}
+        <motion.div 
+          className="absolute -top-40 -right-40 w-80 h-80 bg-brand-gold/5 rounded-full blur-3xl"
+          animate={{ 
+            y: [0, 40, 0],
+            x: [0, 20, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-brand-gold/3 rounded-full blur-3xl"
+          animate={{ 
+            y: [0, -40, 0],
+            x: [0, -20, 0]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
           <ScrollReveal>
             <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-white text-elegant-shadow mb-4">
@@ -365,26 +438,44 @@ export function PracticeAreaPage({ slug, onBack, onNavigate }: PracticeAreaPageP
             <p className="font-body text-brand-muted mb-10 max-w-xl mx-auto leading-relaxed">
               Our experienced team is here to provide the expert legal guidance you need. Book a consultation today — your first consultation is complimentary.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <button onClick={handleBookConsultation} className="btn-premium">
-                Book a Consultation <ArrowRight className="w-4 h-4" />
-              </button>
-              <a href="tel:+27110001234" className="btn-premium-outline">
-                <Phone className="w-4 h-4" /> Call Us Now
-              </a>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={0.1}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+              <motion.button 
+                onClick={handleBookConsultation} 
+                className="btn-premium group relative overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Book a Consultation <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                </span>
+              </motion.button>
+              <motion.a 
+                href="tel:+27110001234" 
+                className="btn-premium-outline group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Phone className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" /> Call Us Now
+              </motion.a>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-6 text-brand-muted">
-              <div className="flex items-center gap-2 font-body text-xs">
-                <Clock className="w-4 h-4 text-brand-gold" strokeWidth={1.5} />
-                Mon – Fri: 08:00 – 17:00
+          </ScrollReveal>
+          
+          <ScrollReveal delay={0.2}>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+              <div className="flex items-center justify-center sm:justify-start gap-2 font-body text-xs text-brand-muted p-3 rounded-lg bg-brand-navy/20 hover:bg-brand-navy/40 transition-colors duration-300">
+                <Clock className="w-4 h-4 text-brand-gold flex-shrink-0" strokeWidth={1.5} />
+                <span>Mon – Fri: 08:00 – 17:00</span>
               </div>
-              <div className="flex items-center gap-2 font-body text-xs">
-                <ShieldCheck className="w-4 h-4 text-brand-gold" strokeWidth={1.5} />
-                Confidential & Discreet
+              <div className="flex items-center justify-center gap-2 font-body text-xs text-brand-muted p-3 rounded-lg bg-brand-navy/20 hover:bg-brand-navy/40 transition-colors duration-300">
+                <ShieldCheck className="w-4 h-4 text-brand-gold flex-shrink-0" strokeWidth={1.5} />
+                <span>Confidential & Discreet</span>
               </div>
-              <div className="flex items-center gap-2 font-body text-xs">
-                <Star className="w-4 h-4 text-brand-gold" strokeWidth={1.5} />
-                500+ 5-Star Reviews
+              <div className="flex items-center justify-center sm:justify-end gap-2 font-body text-xs text-brand-muted p-3 rounded-lg bg-brand-navy/20 hover:bg-brand-navy/40 transition-colors duration-300">
+                <Star className="w-4 h-4 text-brand-gold flex-shrink-0" strokeWidth={1.5} />
+                <span>500+ 5-Star Reviews</span>
               </div>
             </div>
           </ScrollReveal>
@@ -411,16 +502,24 @@ export function PracticeAreaPage({ slug, onBack, onNavigate }: PracticeAreaPageP
                     key={related.slug}
                     variants={staggerChildVariants}
                     onClick={() => onNavigate?.(related.slug)}
-                    className="card-glass rounded-lg p-6 text-left card-hover-lift group"
+                    className="card-glass rounded-lg p-6 text-left card-hover-lift group h-full"
+                    whileHover={{ y: -8 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    <div className="w-12 h-12 rounded-lg bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center mb-4 group-hover:bg-brand-gold/20 transition-colors">
-                      <PracticeIcon name={related.icon} className="w-6 h-6 text-brand-gold" strokeWidth={1.5} />
+                    <div className="h-full flex flex-col">
+                      <div className="w-12 h-12 rounded-lg bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center mb-4 group-hover:bg-brand-gold/20 group-hover:border-brand-gold/40 transition-all duration-300 group-hover:scale-110">
+                        <PracticeIcon name={related.icon} className="w-6 h-6 text-brand-gold group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                      </div>
+                      <h3 className="font-display text-lg font-bold text-brand-dark dark:text-brand-inverse mb-2 group-hover:text-brand-gold transition-colors duration-300">{related.title}</h3>
+                      <p className="font-body text-xs text-brand-muted dark:text-brand-muted/90 leading-relaxed mb-4 flex-1 line-clamp-3">{related.tagline}</p>
+                      <motion.span 
+                        className="inline-flex items-center gap-1.5 font-body text-sm font-semibold text-brand-gold group-hover:text-brand-gold-light transition-all duration-300"
+                        animate={{ x: 0 }}
+                        whileHover={{ x: 4 }}
+                      >
+                        Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      </motion.span>
                     </div>
-                    <h3 className="font-display text-lg font-bold text-brand-dark dark:text-brand-inverse mb-2">{related.title}</h3>
-                    <p className="font-body text-xs text-brand-muted leading-relaxed mb-4 line-clamp-3">{related.tagline}</p>
-                    <span className="inline-flex items-center gap-1.5 font-body text-sm font-semibold text-brand-gold group-hover:gap-2.5 transition-all">
-                      Learn More <ArrowRight className="w-4 h-4" />
-                    </span>
                   </motion.button>
                 )
               )}
