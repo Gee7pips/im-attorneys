@@ -2624,7 +2624,7 @@ input:focus, textarea:focus, select:focus {
 
 /* ─────────────────────────────────────────
    6. SCROLL-SNAP-SECTION — Full-section scroll snap
-   ───────────────────────────────────────── */
+   ──────────��────────────────────────────── */
 
 .scroll-snap-section {
   scroll-snap-align: start;
@@ -6099,4 +6099,246 @@ input:focus, textarea:focus, select:focus {
 @keyframes pageExit {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PREMIUM SERVICE PAGE ENHANCEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 1. Enhanced button hover effects */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  background: linear-gradient(135deg, #C6A84B 0%, #E4D49A 50%, #C6A84B 100%);
+  background-size: 200% 100%;
+  color: #0D1B2A;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 0.625rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 16px rgba(198, 168, 75, 0.3), 0 0 20px rgba(198, 168, 75, 0.1);
+}
+
+.btn-premium:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(198, 168, 75, 0.4), 0 0 40px rgba(198, 168, 75, 0.15);
+}
+
+.btn-premium:active {
+  transform: translateY(0);
+}
+
+/* 2. Premium outline button */
+.btn-premium-outline {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  background: transparent;
+  color: #C6A84B;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border: 1.5px solid #C6A84B;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-premium-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(198, 168, 75, 0.1) 0%, rgba(198, 168, 75, 0.05) 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  z-index: 0;
+}
+
+.btn-premium-outline:hover::before {
+  transform: scaleX(1);
+}
+
+.btn-premium-outline:hover {
+  border-color: #E4D49A;
+  color: #E4D49A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(198, 168, 75, 0.2);
+}
+
+/* 3. Ghost button */
+.btn-premium-ghost {
+  background: transparent;
+  color: #C6A84B;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-premium-ghost:hover {
+  background: rgba(198, 168, 75, 0.1);
+  color: #E4D49A;
+}
+
+/* 4. Card gradient border effect */
+.card-gradient-border {
+  background: linear-gradient(135deg, #0D1B2A 0%, #1A3250 100%);
+  padding: 1px;
+  border-radius: 0.875rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card-gradient-border:hover {
+  background: linear-gradient(135deg, rgba(198, 168, 75, 0.3) 0%, rgba(228, 212, 154, 0.1) 50%, rgba(198, 168, 75, 0.2) 100%);
+  box-shadow: 0 20px 60px rgba(198, 168, 75, 0.15), 0 0 40px rgba(198, 168, 75, 0.08);
+}
+
+/* 5. Gold pulse ring animation */
+.gold-pulse-ring {
+  animation: goldPulseRing 2s ease-in-out infinite;
+}
+
+@keyframes goldPulseRing {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(198, 168, 75, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(198, 168, 75, 0);
+  }
+}
+
+/* 6. Step number watermark */
+.step-number-watermark {
+  font-size: 6rem;
+  font-weight: 900;
+  color: rgba(198, 168, 75, 0.06);
+  position: absolute;
+  top: -1.5rem;
+  right: 0;
+  line-height: 1;
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* 7. Wave divider animations */
+.wave-divider-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z' fill='%23F9F8F5'/%3E%3C/svg%3E") repeat-x;
+  animation: wave 15s linear infinite;
+}
+
+.dark .wave-divider-bottom {
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z' fill='%230D1B2A'/%3E%3C/svg%3E") repeat-x;
+}
+
+@keyframes wave {
+  0% { background-position: 0 0; }
+  100% { background-position: 1200px 0; }
+}
+
+/* 8. Corner gold accents */
+.corner-gold-tl {
+  --size: 120px;
+  width: var(--size);
+  height: var(--size);
+  background: 
+    linear-gradient(135deg, rgba(198, 168, 75, 0.15) 0%, transparent 50%);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.corner-gold-br {
+  --size: 120px;
+  width: var(--size);
+  height: var(--size);
+  background: 
+    linear-gradient(-45deg, rgba(198, 168, 75, 0.1) 0%, transparent 50%);
+  clip-path: polygon(100% 100%, 0 100%, 100% 0);
+  bottom: 0;
+  right: 0;
+}
+
+/* 9. Noise overlay effect */
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='2'/%3E%3C/filter%3E%3Crect width='400' height='400' fill='%23000' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.noise-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 10. Radial glow background */
+.bg-radial-glow {
+  background: radial-gradient(ellipse at center, rgba(198, 168, 75, 0.08) 0%, transparent 70%);
+}
+
+/* 11. Crosshatch pattern */
+.bg-crosshatch {
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(198, 168, 75, 0.02) 2px,
+      rgba(198, 168, 75, 0.02) 4px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 2px,
+      rgba(198, 168, 75, 0.02) 2px,
+      rgba(198, 168, 75, 0.02) 4px
+    );
+}
+
+/* 12. Dark mode service page enhancements */
+.dark .card-glass {
+  background: rgba(26, 50, 80, 0.5);
+}
+
+.dark .card-glass:hover {
+  background: rgba(26, 50, 80, 0.8);
+  border-color: rgba(198, 168, 75, 0.25);
+}
+
+.dark .btn-premium {
+  color: #0D1B2A;
+}
+
+/* 13. Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 14. Enhanced focus styles for keyboard navigation */
+.btn-premium:focus-visible,
+.btn-premium-outline:focus-visible {
+  outline: 2px solid #C6A84B;
+  outline-offset: 2px;
 }
