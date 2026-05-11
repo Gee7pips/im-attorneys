@@ -9,6 +9,7 @@ import { LoadingScreen } from "@/components/im/LoadingScreen";
 import { OnboardingBanner } from "@/components/im/OnboardingBanner";
 import { Navigation } from "@/components/im/Navigation";
 import { Hero } from "@/components/im/Hero";
+import { DirectorWelcome } from "@/components/im/DirectorWelcome";
 import { StatsBar } from "@/components/im/StatsBar";
 import { TheFirm } from "@/components/im/TheFirm";
 import { ServicesGrid } from "@/components/im/ServicesGrid";
@@ -45,7 +46,6 @@ import { OfficeHours } from "@/components/im/OfficeHours";
 
 import { BeforeAfterSlider } from "@/components/im/BeforeAfterSlider";
 import { TestimonialDetail } from "@/components/im/TestimonialDetail";
-
 
 import { ComplianceModals, useComplianceModals } from "@/components/im/ComplianceModals";
 
@@ -84,116 +84,87 @@ export default function Home() {
           </motion.div>
         ) : (
           <PageTransition key="home">
-          <main className="min-h-screen overflow-x-hidden">
-        {/* Hero Section */}
-        <section id="home">
-          <Hero />
-        </section>
+            <main className="min-h-screen overflow-x-hidden">
+              <section id="home">
+                <Hero />
+              </section>
 
-        {/* Stats Bar */}
-        <StatsBar />
+              <StatsBar />
 
-        {/* Trust & Certifications */}
-        <TrustBadges />
+              <DirectorWelcome />
 
-        {/* Client Marquee */}
-        <ClientMarquee />
+              <TrustBadges />
 
-        {/* About / The Firm Section */}
-        <section id="about">
-          <TheFirm />
-        </section>
+              <ClientMarquee />
 
-        {/* Services Section */}
-        <section id="services">
-          <ServicesGrid onOpenPracticeArea={handleNavigatePracticeArea} />
-        </section>
+              <section id="about">
+                <TheFirm />
+              </section>
 
-        {/* Practice Area Explorer */}
-        <PracticeAreaExplorer onOpenPracticeArea={handleNavigatePracticeArea} />
+              <section id="services">
+                <ServicesGrid onOpenPracticeArea={handleNavigatePracticeArea} />
+              </section>
 
-        {/* Our Process */}
-        <OurProcess />
+              <PracticeAreaExplorer onOpenPracticeArea={handleNavigatePracticeArea} />
 
-        {/* 24/7 Emergency CTA */}
-        <EmergencyCTA />
+              <OurProcess />
 
-        {/* Founder Spotlight */}
-        <Founder />
+              <EmergencyCTA />
 
-        {/* Team Section */}
-        <section id="team">
-          <TeamSection />
-        </section>
+              <Founder />
 
-        {/* Vacation Programme */}
-        <VacationProgramme />
+              <section id="team">
+                <TeamSection />
+              </section>
 
-        {/* Parallax Quote */}
-        <ParallaxQuote />
+              <VacationProgramme />
 
-        {/* Testimonials Section */}
-        <section id="testimonials">
-          <Testimonials />
-          <TestimonialDetail />
-        </section>
+              <ParallaxQuote />
 
-        {/* Before/After Results Slider */}
-        <BeforeAfterSlider />
+              <section id="testimonials">
+                <Testimonials />
+                <TestimonialDetail />
+              </section>
 
-        {/* Track Record */}
-        <TrackRecord />
+              <BeforeAfterSlider />
 
-        {/* Awards & Recognition */}
-        <AwardsRecognition />
+              <TrackRecord />
 
-        {/* Case Results */}
-        <CaseResults />
+              <AwardsRecognition />
 
-        {/* Milestones Timeline */}
-        <MilestonesTimeline />
+              <CaseResults />
 
-        {/* Legal Insights */}
-        <LegalInsights />
+              <MilestonesTimeline />
 
-        {/* Legal Resources */}
-        <LegalResources />
+              <LegalInsights />
 
-        {/* Fees & Billing */}
-        <FeesAndBilling />
+              <LegalResources />
 
-        {/* FAQ Section */}
-        <section id="faq">
-          <FAQSection />
-        </section>
+              <FeesAndBilling />
 
-        {/* Contact Section */}
-        <ContactForm />
+              <section id="faq">
+                <FAQSection />
+              </section>
 
-        {/* Office Hours */}
-        <OfficeHours />
+              <ContactForm />
 
-        {/* Location & Map */}
-        <LocationMap />
+              <OfficeHours />
 
-        {/* Newsletter */}
-        <NewsletterSection />
-      </main>
-      </PageTransition>
+              <LocationMap />
+
+              <NewsletterSection />
+            </main>
+          </PageTransition>
         )}
       </AnimatePresence>
 
-      {/* Footer — with compliance modal triggers */}
       <Footer onOpenModal={open} />
 
-      {/* Floating Action Buttons */}
       <BailFloatingIcon />
       <WhatsAppButton />
       <ClientIntakeOnboarding />
 
-      {/* Regulatory Compliance Modals (POPIA, ECTA, PAIA, FICA, LPC) */}
       <ComplianceModals openModal={openModal} onOpenModal={open} />
-
     </BannerProvider>
   );
 }
