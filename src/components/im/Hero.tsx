@@ -62,11 +62,12 @@ export function Hero() {
       {/* ====== Full-screen Background Image ====== */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         <Image
-          src="/images/team-panoramic.jpg"
-          alt="IM Attorneys — Boutique Law Firm, Pretoria"
+          src="/images/pegasus-building-exterior.jpg"
+          alt="IM Attorneys — Pegasus Menlyn Maine, Pretoria"
           fill
           className="object-cover object-center scale-110"
           priority
+          sizes="(max-width: 640px) 600px, (max-width: 1024px) 1200px, 1920px"
         />
       </motion.div>
 
