@@ -35,8 +35,8 @@ const teamMembers: TeamMember[] = [
     email: "attorneys@iminc.co.za",
     phone: "081 248 8048",
     image:
-      "/images/team-collaboration.jpg",
-    bio: "Ingrid acquired her LLB degree from the University of Johannesburg in 2018. After completing her articles and being admitted as an Attorney, she was appointed to join the legal department of one of South Africa\u2019s leading banking institutions. During that time, she gained a vast wealth of valuable experience and expanded her skills across different areas of law \u2014 which subsequently led her to found IM Attorneys Inc.",
+      "/images/ingrid-mtsweni-director.jpg",
+    bio: "Ingrid acquired her LLB degree from the University of Johannesburg in 2018. After completing her articles and being admitted as an Attorney, she was appointed to join the legal department of one of South Africa's leading banking institutions. During that time, she gained a vast wealth of valuable experience and expanded her skills across different areas of law — which subsequently led her to found IM Attorneys Inc.",
     badge: "Founder",
   },
   {
